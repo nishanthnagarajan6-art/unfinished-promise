@@ -1,0 +1,1543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Unfinished Promise — A Civic Virtue Game</title>
+<style>
+  /* ============================================================
+     THEME + LAYOUT (engine styling — safe to leave alone)
+     Parchment tones, serif headings, high contrast for projector.
+     ============================================================ */
+  :root{
+    --parchment:#f4ecd6;
+    --parchment-2:#efe3c4;
+    --card:#fbf6e7;
+    --ink:#2a2118;
+    --ink-soft:#5c4f3d;
+    --accent:#7c2b23;      /* colonial red — headings, primary buttons */
+    --accent-2:#5a3410;
+    --madison:#254a70;     /* federalist blue */
+    --madison-bg:#e7eef5;
+    --brutus:#6b4a12;      /* anti-federalist brown/gold */
+    --brutus-bg:#f3ead2;
+    --good:#2f6b3c;        /* lived up */
+    --good-bg:#e4f0e2;
+    --bad:#9c3324;         /* fell short */
+    --bad-bg:#f4e2dc;
+    --neutral:#4a4636;
+    --neutral-bg:#ece5cf;
+    --border:#c9b487;
+    --border-dark:#a8905f;
+    --shadow:0 2px 0 rgba(90,52,16,.12), 0 6px 18px rgba(70,45,10,.10);
+    --serif:Georgia,"Iowan Old Style","Times New Roman",serif;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    --root-size:17px;
+    --maxw:880px;
+  }
+  *{box-sizing:border-box;}
+  html{font-size:var(--root-size);}
+  body{
+    margin:0;
+    background:var(--parchment);
+    background-image:radial-gradient(circle at 20% 10%, rgba(255,255,255,.35), transparent 40%),
+                     radial-gradient(circle at 85% 90%, rgba(120,80,20,.06), transparent 45%);
+    color:var(--ink);
+    font-family:var(--sans);
+    line-height:1.55;
+    min-height:100vh;
+  }
+  h1,h2,h3,.serif{font-family:var(--serif);}
+  a{color:var(--madison);}
+
+  /* ---- top toolbar ---- */
+  .toolbar{
+    position:sticky;top:0;z-index:20;
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    padding:8px 16px;
+    background:rgba(244,236,214,.94);
+    border-bottom:1px solid var(--border);
+    backdrop-filter:blur(4px);
+  }
+  .toolbar .brand{font-family:var(--serif);font-weight:700;color:var(--accent);margin-right:auto;font-size:1rem;letter-spacing:.3px;}
+  .toolbar .brand small{display:block;font-family:var(--sans);font-weight:400;color:var(--ink-soft);font-size:.72rem;letter-spacing:0;}
+  .tbtn{
+    font-family:var(--sans);font-size:.82rem;
+    background:var(--card);color:var(--ink);
+    border:1px solid var(--border-dark);border-radius:8px;
+    padding:6px 11px;cursor:pointer;white-space:nowrap;
+  }
+  .tbtn:hover{border-color:var(--accent);}
+  .tbtn.on{background:var(--accent);color:#fdf6e6;border-color:var(--accent);font-weight:600;}
+
+  /* ---- main stage ---- */
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:26px 16px 80px;}
+  .screen{animation:fade .35s ease;}
+  @keyframes fade{from{opacity:0;transform:translateY(6px);}to{opacity:1;transform:none;}}
+  @media (prefers-reduced-motion:reduce){.screen{animation:none;}}
+
+  .eyebrow{font-family:var(--sans);text-transform:uppercase;letter-spacing:.14em;font-size:.72rem;color:var(--accent);font-weight:700;}
+  h1.title{font-size:clamp(2rem,6vw,3.2rem);line-height:1.05;margin:.2em 0 .1em;color:var(--accent);}
+  h2{font-size:clamp(1.4rem,3.6vw,2rem);color:var(--accent-2);margin:.1em 0 .4em;}
+  h3{font-size:1.15rem;margin:0 0 .3em;}
+  p{margin:.5em 0;}
+  .lede{font-size:1.12rem;color:var(--ink-soft);}
+  .muted{color:var(--ink-soft);}
+  .center{text-align:center;}
+
+  .card{
+    background:var(--card);border:1px solid var(--border);
+    border-radius:14px;padding:20px 22px;box-shadow:var(--shadow);margin:16px 0;
+  }
+  .panel{background:var(--parchment-2);border:1px solid var(--border);border-radius:12px;padding:14px 16px;margin:12px 0;}
+
+  /* progress */
+  .progress{display:flex;align-items:center;gap:8px;margin-bottom:10px;font-size:.8rem;color:var(--ink-soft);}
+  .pips{display:flex;gap:5px;}
+  .pip{width:26px;height:6px;border-radius:3px;background:var(--border);}
+  .pip.done{background:var(--accent);}
+  .pip.cur{background:var(--madison);}
+
+  /* buttons */
+  .btn{
+    font-family:var(--sans);font-size:1rem;font-weight:600;
+    background:var(--accent);color:#fdf6e6;border:none;border-radius:10px;
+    padding:12px 22px;cursor:pointer;box-shadow:var(--shadow);
+  }
+  .btn:hover{filter:brightness(1.06);}
+  .btn.secondary{background:var(--card);color:var(--ink);border:1px solid var(--border-dark);box-shadow:none;}
+  .btn.ghost{background:transparent;color:var(--madison);border:1px solid var(--border-dark);box-shadow:none;font-weight:500;}
+  .btn:disabled{opacity:.45;cursor:not-allowed;}
+  .btnrow{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:18px;}
+  .spacer{flex:1;}
+
+  /* advisor cards */
+  .advisors{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:16px 0;}
+  .advisor{border-radius:12px;padding:14px 16px;border:1px solid var(--border);}
+  .advisor.madison{background:var(--madison-bg);border-color:#b9cbdd;}
+  .advisor.brutus{background:var(--brutus-bg);border-color:#d8c391;}
+  .advisor .who{display:flex;align-items:baseline;gap:8px;margin-bottom:6px;}
+  .advisor .name{font-family:var(--serif);font-weight:700;font-size:1.05rem;}
+  .advisor.madison .name{color:var(--madison);}
+  .advisor.brutus .name{color:var(--brutus);}
+  .advisor .side{font-size:.72rem;text-transform:uppercase;letter-spacing:.08em;color:var(--ink-soft);}
+  .advisor blockquote{margin:0 0 8px;font-family:var(--serif);font-style:italic;font-size:1rem;line-height:1.5;border-left:3px solid currentColor;padding-left:10px;}
+  .advisor.madison blockquote{color:var(--madison);}
+  .advisor.brutus blockquote{color:var(--brutus);}
+  .advisor .gloss{font-size:.92rem;color:var(--ink);}
+  .advisor .src{font-size:.72rem;color:var(--ink-soft);margin-top:6px;}
+  .advisor.morris{background:var(--brutus-bg);border-color:#d8c391;}
+  .advisor.morris .name{color:var(--brutus);}
+  .advisor.morris blockquote{color:var(--brutus);}
+
+  /* choices */
+  .choices{display:flex;flex-direction:column;gap:10px;margin-top:6px;}
+  .choice{
+    text-align:left;width:100%;background:var(--card);border:1px solid var(--border-dark);
+    border-radius:10px;padding:13px 15px;cursor:pointer;font-family:var(--sans);font-size:1rem;color:var(--ink);
+    display:flex;gap:12px;align-items:flex-start;
+  }
+  .choice:hover{border-color:var(--accent);background:#fffdf4;}
+  .choice .num{flex:none;width:26px;height:26px;border-radius:50%;background:var(--accent);color:#fdf6e6;display:grid;place-items:center;font-weight:700;font-size:.85rem;}
+  .choice .ctext{flex:1;}
+  .choice .cost{display:block;font-size:.85rem;color:var(--bad);margin-top:3px;}
+  .choice.picked{border-color:var(--madison);background:#eef3f8;box-shadow:inset 0 0 0 1px var(--madison);}
+
+  /* vote counters (presenter) */
+  .voterow{display:flex;align-items:center;gap:10px;background:var(--card);border:1px solid var(--border-dark);border-radius:10px;padding:10px 12px;}
+  .voterow .ctext{flex:1;}
+  .stepper{display:flex;align-items:center;gap:8px;}
+  .stepper button{width:34px;height:34px;border-radius:8px;border:1px solid var(--border-dark);background:var(--parchment-2);font-size:1.2rem;font-weight:700;cursor:pointer;color:var(--ink);}
+  .stepper button:hover{border-color:var(--accent);}
+  .stepper .count{min-width:2ch;text-align:center;font-weight:700;font-size:1.15rem;font-family:var(--serif);}
+
+  /* verdict badges */
+  .badge{display:inline-block;font-weight:700;font-size:.8rem;padding:3px 10px;border-radius:999px;letter-spacing:.03em;}
+  .badge.up{background:var(--good-bg);color:var(--good);border:1px solid var(--good);}
+  .badge.short{background:var(--bad-bg);color:var(--bad);border:1px solid var(--bad);}
+  .badge.neutral{background:var(--neutral-bg);color:var(--neutral);border:1px solid var(--border-dark);}
+
+  .outcome{border-left:5px solid var(--border-dark);}
+  .outcome.up{border-left-color:var(--good);}
+  .outcome.short{border-left-color:var(--bad);}
+  .outcome .why{font-style:italic;color:var(--ink-soft);margin-top:8px;}
+
+  /* quiz */
+  .q{margin:14px 0;}
+  .q .qtext{font-weight:600;margin-bottom:8px;}
+  .opt{display:flex;gap:10px;align-items:center;padding:9px 12px;border:1px solid var(--border-dark);border-radius:9px;margin:6px 0;cursor:pointer;background:var(--card);}
+  .opt:hover{border-color:var(--accent);}
+  .opt.picked{border-color:var(--madison);background:#eef3f8;box-shadow:inset 0 0 0 1px var(--madison);}
+  .opt .letter{flex:none;width:24px;height:24px;border-radius:6px;background:var(--parchment-2);display:grid;place-items:center;font-weight:700;font-size:.8rem;}
+  .opt.correct{border-color:var(--good);background:var(--good-bg);}
+  .opt.wrong{border-color:var(--bad);background:var(--bad-bg);}
+
+  /* report card table */
+  .rc{width:100%;border-collapse:collapse;margin-top:10px;}
+  .rc th,.rc td{text-align:left;padding:10px 12px;border-bottom:1px solid var(--border);vertical-align:top;}
+  .rc th{font-family:var(--serif);color:var(--accent-2);font-size:.95rem;}
+  .rc td .yr{font-family:var(--serif);font-weight:700;color:var(--accent);}
+  .rc td ul{margin:4px 0 0;padding-left:18px;}
+  .rc td li{font-size:.92rem;}
+
+  .scorebig{font-family:var(--serif);font-size:2.4rem;color:var(--accent);font-weight:700;}
+  .scorewrap{display:flex;gap:26px;flex-wrap:wrap;align-items:center;justify-content:center;margin:10px 0;}
+  .scorewrap .arrow{font-size:2rem;color:var(--ink-soft);}
+  .delta{font-weight:700;}
+  .delta.pos{color:var(--good);}
+  .delta.neg{color:var(--bad);}
+
+  /* action + sources */
+  .action{display:flex;gap:14px;align-items:flex-start;padding:14px 0;border-bottom:1px dashed var(--border);}
+  .action .n{flex:none;width:34px;height:34px;border-radius:50%;background:var(--madison);color:#fff;display:grid;place-items:center;font-family:var(--serif);font-weight:700;}
+  .action .abody{flex:1;}
+  .action a{font-weight:600;}
+  .srcgroup{margin:14px 0;}
+  .srcgroup li{margin:8px 0;font-size:.95rem;}
+
+  .kbd{font-family:var(--sans);font-size:.72rem;background:var(--parchment-2);border:1px solid var(--border-dark);border-radius:5px;padding:1px 6px;}
+  .hint{font-size:.82rem;color:var(--ink-soft);margin-top:8px;}
+  .flag{background:#fff6d6;border:1px dashed var(--border-dark);border-radius:8px;padding:8px 10px;font-size:.82rem;color:var(--accent-2);margin:10px 0;}
+
+  /* mobile */
+  @media (max-width:640px){
+    .advisors{grid-template-columns:1fr;}
+    .wrap{padding:20px 14px 70px;}
+    .toolbar .brand small{display:none;}
+  }
+
+  /* ---- PRESENTER MODE: big type, roomy, projector-friendly ---- */
+  body.presenter{--root-size:22px;--maxw:1080px;}
+  body.presenter .lede{font-size:1.25rem;}
+  body.presenter .advisor blockquote{font-size:1.15rem;}
+  body.presenter .btn{padding:14px 28px;font-size:1.1rem;}
+  body.presenter .hint.solo-only{display:none;}
+  body.presenter .presenter-only{display:block;}
+  .presenter-only{display:none;}
+  body:not(.presenter) .presenter-only{display:none;}
+
+  /* ================================================================
+     PER-ERA VISUAL THEMING  —  RADICAL / IMMERSIVE  (driven by
+     the <body data-era="…"> attribute set in render()).
+     Each era RE-STAGES the whole page: the body is the "surround"
+     (desk / poster wall / newsprint / app background) and .wrap is
+     the "artifact" (parchment sheet / poster / newspaper page / app
+     panel), with its own toolbar skin, headings, buttons and cards.
+     STILL CONSTANT so nothing breaks: layout skeleton, spacing,
+     --root-size, --maxw, body.presenter (big-type), the mobile
+     stacking, and character/verdict identity tokens
+     (--madison,--brutus,--good,--bad and their -bg).
+     All offline: web-safe fonts + pure-CSS textures only.
+     ================================================================ */
+
+  body{transition:background-color .5s ease, color .5s ease;}
+  .wrap{transition:background-color .5s ease, border-color .5s ease, box-shadow .5s ease;}
+
+  /* ============ 1787 · FOUNDING — aged manuscript on a desk ============ */
+  body[data-era="founding"]{
+    --parchment:#ECE3CE; --parchment-2:#E7D9B8; --card:#F6EFDC;
+    --ink:#2B2016; --ink-soft:#5c4a32;
+    --accent:#7A2E24; --accent-2:#1F3A5F;
+    --border:#C2AC7E; --border-dark:#9c8659;
+    --serif:"Palatino Linotype",Palatino,"Book Antiqua",Georgia,serif;
+    --sans:Georgia,"Times New Roman",serif;
+    background:#2c1f12;
+    background-image:
+      radial-gradient(120% 90% at 50% 0%, #4a3620 0%, #2c1f12 60%, #1f1509 100%),
+      repeating-linear-gradient(90deg, rgba(0,0,0,.10) 0 3px, transparent 3px 9px);
+  }
+  body[data-era="founding"] .wrap{
+    position:relative;
+    background:#f3e8cf;
+    background-image:
+      radial-gradient(circle at 50% 0%, rgba(255,250,235,.75), transparent 60%),
+      repeating-linear-gradient(0deg, rgba(60,45,25,.045) 0 1px, transparent 1px 5px);
+    border:1px solid #b89b6a;
+    box-shadow:0 22px 55px rgba(0,0,0,.55), inset 0 0 70px rgba(120,90,50,.14);
+    padding:36px 30px 66px; margin:22px auto 44px; border-radius:2px;
+  }
+  body[data-era="founding"] .wrap::before{
+    content:""; position:absolute; inset:14px;
+    border:2px double #8a6a3a; pointer-events:none;
+  }
+  body[data-era="founding"] .toolbar{background:rgba(38,26,15,.94);border-bottom:1px solid #6b4f2c;}
+  body[data-era="founding"] .toolbar .brand{color:#ecd6a8;}
+  body[data-era="founding"] .toolbar .brand small{color:#c3a878;}
+  body[data-era="founding"] .tbtn{background:#48351f;color:#f0e2c6;border-color:#6b4f2c;}
+  body[data-era="founding"] .tbtn.on{background:var(--accent);border-color:var(--accent);}
+  body[data-era="founding"] h1.title,
+  body[data-era="founding"] h2,
+  body[data-era="founding"] h3{
+    font-variant:small-caps; letter-spacing:.02em;
+    text-shadow:0 1px 0 rgba(255,251,240,.75), 0 -1px 0 rgba(43,32,22,.2);
+  }
+  body[data-era="founding"] h2{border-bottom:3px double var(--accent);padding-bottom:.12em;}
+  body[data-era="founding"] .eyebrow{display:block;text-align:center;letter-spacing:.26em;color:var(--accent);}
+  body[data-era="founding"] .eyebrow::before{content:"\275E   ";}
+  body[data-era="founding"] .eyebrow::after{content:"   \275E";}
+  body[data-era="founding"] .card .lede::first-letter{
+    font-size:3.1em; float:left; line-height:.72; padding:.06em .12em 0 0;
+    color:var(--accent); font-family:var(--serif); font-weight:700;
+  }
+  body[data-era="founding"] .card,
+  body[data-era="founding"] .choice{border-radius:0;}
+  body[data-era="founding"] .btn{border-radius:0;font-variant:small-caps;letter-spacing:.05em;}
+  body[data-era="founding"] .btn:not(.secondary):not(.ghost){
+    border:1px solid #45170f; box-shadow:0 2px 0 #45170f;
+  }
+
+  /* ============ 1942 · HOME FRONT — WWII propaganda poster ============ */
+  body[data-era="homefront"]{
+    --parchment:#E4DCC8; --parchment-2:#D8CDB0; --card:#F4EEDF;
+    --ink:#161616; --ink-soft:#454545;
+    --accent:#C1272D; --accent-2:#1C3F71;
+    --border:#161616; --border-dark:#161616;
+    --serif:"Arial Narrow",Impact,"Haettenschweiler","Segoe UI Condensed","Segoe UI",sans-serif;
+    --sans:Georgia,"Times New Roman",serif;
+    background:#b3231f;
+    background-image:repeating-linear-gradient(45deg, rgba(0,0,0,.07) 0 20px, transparent 20px 40px);
+  }
+  body[data-era="homefront"] .wrap{
+    background:#f4eedf;
+    background-image:radial-gradient(rgba(20,20,20,.09) .7px, transparent 1.1px);
+    background-size:4px 4px;
+    border:7px solid #1C3F71; box-shadow:0 16px 44px rgba(0,0,0,.5);
+    padding:26px 26px 60px; margin:20px auto 44px; border-radius:0;
+  }
+  body[data-era="homefront"] .wrap::before{
+    content:""; display:block; height:12px; margin:-26px -26px 20px;
+    background:#C1272D;
+  }
+  body[data-era="homefront"] .toolbar{background:#1C3F71;border-bottom:5px solid #C1272D;}
+  body[data-era="homefront"] .toolbar .brand{color:#fff;}
+  body[data-era="homefront"] .toolbar .brand small{color:#cfdaea;}
+  body[data-era="homefront"] .tbtn{background:#14305a;color:#fff;border-color:#0e2340;}
+  body[data-era="homefront"] .tbtn.on{background:#C1272D;border-color:#C1272D;}
+  body[data-era="homefront"] h1.title{font-size:clamp(2.6rem,9vw,4.6rem);line-height:.9;color:#161616;}
+  body[data-era="homefront"] h1.title,
+  body[data-era="homefront"] h2,
+  body[data-era="homefront"] h3{text-transform:uppercase;letter-spacing:.02em;font-weight:700;}
+  body[data-era="homefront"] h2{
+    font-size:clamp(1.6rem,5vw,2.5rem);line-height:1.02;color:#161616;
+    border-bottom:6px solid var(--accent);padding-bottom:.06em;display:inline-block;
+  }
+  body[data-era="homefront"] .eyebrow{
+    display:inline-block;background:var(--accent);color:#fff;
+    padding:5px 14px;letter-spacing:.16em;box-shadow:0 4px 0 #1C3F71;
+  }
+  body[data-era="homefront"] .card{border-radius:0;border:2px solid var(--border);}
+  body[data-era="homefront"] .advisor{border-radius:0;border:2px solid #161616;}
+  body[data-era="homefront"] .choice{border-radius:0;border:2px solid #161616;}
+  body[data-era="homefront"] .choice .num{border-radius:0;background:var(--accent-2);}
+  body[data-era="homefront"] .btn{border-radius:0;text-transform:uppercase;letter-spacing:.06em;}
+  body[data-era="homefront"] .btn:not(.secondary):not(.ghost){
+    background:var(--accent);color:#fff;border:3px solid #161616;box-shadow:5px 5px 0 #161616;
+  }
+
+  /* ============ 1974 · WATERGATE — newspaper front page ============ */
+  body[data-era="watergate"]{
+    --parchment:#DAD4C3; --parchment-2:#CFC7B0; --card:#EFE9DA;
+    --ink:#201C16; --ink-soft:#5a5140;
+    --accent:#B0400F; --accent-2:#8a6608;
+    --border:#7C6F52; --border-dark:#5f5540;
+    --serif:"Times New Roman",Georgia,serif;
+    --sans:Georgia,"Times New Roman",serif;
+    background:#8f886f;
+    background-image:radial-gradient(120% 80% at 50% 0%, #a49b80, #7d765f);
+  }
+  body[data-era="watergate"] .wrap{
+    background:#f4efe0;
+    background-image:
+      radial-gradient(circle at 85% 90%, rgba(60,50,30,.06), transparent 50%),
+      linear-gradient(rgba(90,80,55,.035), rgba(90,80,55,.035));
+    border:1px solid #201C16; box-shadow:0 14px 44px rgba(0,0,0,.45);
+    padding:0 26px 60px; margin:20px auto 44px; border-radius:0;
+  }
+  /* masthead nameplate (fictional paper) */
+  body[data-era="watergate"] .wrap::before{
+    content:"The Civic Record"; display:block; text-align:center;
+    font-family:"Times New Roman",Georgia,serif; font-weight:700;
+    font-size:clamp(2rem,7vw,3.4rem); letter-spacing:.01em;
+    padding:16px 8px 8px; margin:0 -26px 6px;
+    border-bottom:4px double #201C16;
+  }
+  body[data-era="watergate"] .toolbar{background:#201C16;border-bottom:1px solid #000;}
+  body[data-era="watergate"] .toolbar .brand{color:#e6d9bd;}
+  body[data-era="watergate"] .toolbar .brand small{color:#b7ab8d;}
+  body[data-era="watergate"] .tbtn{background:#342d22;color:#efe6d5;border-color:#5f5540;}
+  body[data-era="watergate"] .tbtn.on{background:var(--accent);border-color:var(--accent);}
+  body[data-era="watergate"] h2{
+    font-size:clamp(1.7rem,5vw,2.7rem); text-align:center; font-weight:700;
+    border-top:3px solid var(--ink); border-bottom:3px double var(--ink);
+    padding:.12em 0; text-transform:uppercase; letter-spacing:.01em;
+  }
+  body[data-era="watergate"] .eyebrow{
+    display:block;text-align:center;text-transform:uppercase;color:var(--accent);
+    font-weight:700;letter-spacing:.18em;
+  }
+  body[data-era="watergate"] .card p{text-align:justify;}
+  body[data-era="watergate"] .card{border-radius:2px;}
+  /* leaked-memo typewriter scenario */
+  body[data-era="watergate"] .card .lede{
+    font-family:"Courier New",Courier,monospace; text-align:left;
+    border-left:4px solid var(--accent); padding-left:.8em;
+  }
+  body[data-era="watergate"] .btn{border-radius:0;text-transform:uppercase;letter-spacing:.05em;}
+  body[data-era="watergate"] .btn:not(.secondary):not(.ghost){background:var(--ink);color:#f4efe0;}
+
+  /* ============ TODAY — sleek modern civic app ============ */
+  body[data-era="today"]{
+    --parchment:#EEF1F4; --parchment-2:#E4E9EF; --card:#FFFFFF;
+    --ink:#1B1B1B; --ink-soft:#54606d;
+    --accent:#005EA2; --accent-2:#D83933;
+    --border:#E3E7EC; --border-dark:#c7ced6;
+    --serif:"Segoe UI",system-ui,"Trebuchet MS",sans-serif;
+    --sans:system-ui,"Segoe UI",Arial,sans-serif;
+    background:#e9edf2;
+    background-image:
+      radial-gradient(circle at 100% 0%, rgba(0,94,162,.07), transparent 42%),
+      radial-gradient(circle at 0% 100%, rgba(216,57,51,.05), transparent 40%);
+  }
+  body[data-era="today"] .wrap{
+    background:#fff; border:1px solid #e3e7ec; border-top:6px solid var(--accent);
+    border-radius:16px; box-shadow:0 12px 44px rgba(20,40,80,.12);
+    padding:28px 26px 60px; margin:22px auto 44px;
+  }
+  body[data-era="today"] .toolbar{background:rgba(255,255,255,.95);border-bottom:1px solid #e3e7ec;}
+  body[data-era="today"] .toolbar .brand{color:var(--accent);}
+  body[data-era="today"] h1.title,
+  body[data-era="today"] h2,
+  body[data-era="today"] h3{letter-spacing:-.01em;font-weight:700;}
+  body[data-era="today"] .eyebrow{
+    display:inline-block;background:rgba(0,94,162,.1);color:var(--accent);
+    padding:4px 12px;border-radius:999px;letter-spacing:.08em;
+  }
+  body[data-era="today"] .card{
+    border-radius:12px; border:1px solid var(--border); border-top:4px solid var(--accent);
+    box-shadow:0 1px 2px rgba(27,27,27,.06), 0 6px 18px rgba(20,40,80,.06);
+  }
+  body[data-era="today"] .advisor{border-radius:12px;}
+  body[data-era="today"] .choice{border-radius:12px;}
+  body[data-era="today"] .btn{border-radius:999px;}
+  body[data-era="today"] .btn:not(.secondary):not(.ghost){box-shadow:0 3px 10px rgba(0,94,162,.32);}
+  body[data-era="today"] a:focus-visible,
+  body[data-era="today"] button:focus-visible{outline:3px solid #FFBE2E;outline-offset:2px;}
+
+  /* keep the dramatic frames comfortable on phones */
+  @media (max-width:640px){
+    body[data-era="founding"] .wrap{padding:24px 18px 54px;}
+    body[data-era="founding"] .wrap::before{inset:9px;}
+    body[data-era="homefront"] .wrap{border-width:4px;padding:20px 18px 54px;}
+    body[data-era="homefront"] .wrap::before{margin:-20px -18px 16px;}
+    body[data-era="watergate"] .wrap{padding:0 16px 54px;}
+    body[data-era="watergate"] .wrap::before{margin:0 -16px 6px;}
+    body[data-era="today"] .wrap{padding:22px 16px 54px;}
+  }
+
+  /* honor reduced-motion for the era transitions too */
+  @media (prefers-reduced-motion:reduce){body,.wrap{transition:none;}}
+
+  /* ---- branching feature: stability meter, real/counterfactual tags, endings ---- */
+  .stability{margin:2px 0 16px;}
+  .stability .top{display:flex;justify-content:space-between;align-items:baseline;font-size:.82rem;margin-bottom:5px;}
+  .stability .label{font-weight:700;letter-spacing:.02em;}
+  .stability .track{height:14px;border:1px solid var(--border-dark);border-radius:999px;background:var(--parchment-2);overflow:hidden;}
+  .stability .fill{height:100%;border-radius:999px;transition:width .5s ease, background-color .5s ease;}
+  .delta-note{font-size:.85rem;font-weight:700;margin:2px 0 6px;}
+  .delta-note.pos{color:var(--good);} .delta-note.neg{color:var(--bad);}
+  .tag{display:inline-block;font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;padding:2px 9px;border-radius:999px;vertical-align:middle;}
+  .tag.real{background:var(--good-bg);color:var(--good);border:1px solid var(--good);}
+  .tag.cf{background:#efe6d0;color:var(--accent-2);border:1px solid var(--border-dark);}
+  .ending{text-align:center;padding-top:2vh;}
+  .ending .big{font-family:var(--serif);font-size:clamp(1.9rem,6vw,3.1rem);line-height:1.05;margin:.15em 0 .3em;color:var(--accent);}
+  .ending.collapse .big{color:var(--bad);}
+  .ending .card,.ending .stability{text-align:left;}
+  .pathlist{list-style:none;padding:0;margin:6px 0 0;}
+  .pathlist li{padding:8px 0;border-bottom:1px solid var(--border);}
+  .pathlist li:last-child{border-bottom:none;}
+</style>
+</head>
+<body data-era="founding">
+  <div class="toolbar">
+    <div class="brand">Hold the Line
+      <small>Justice &amp; equality · Declaration + Constitution</small>
+    </div>
+    <button class="tbtn" id="presenterBtn" data-action="toggle-presenter">Presenter mode: Off</button>
+    <button class="tbtn" data-action="export-csv" title="Download vote &amp; quiz tallies as CSV">Export CSV</button>
+    <button class="tbtn" data-action="export-json" title="Download vote &amp; quiz tallies as JSON">Export JSON</button>
+    <button class="tbtn" data-action="restart" title="Restart from the title screen">Restart</button>
+  </div>
+  <div class="wrap"><div id="app"></div></div>
+
+<script>
+/* ================================================================
+   ===============   EDIT CONTENT HERE   ==========================
+   Everything a writer might change lives in CONTENT and QUOTES.
+   The game ENGINE is farther down and does not need to be touched.
+
+   Content rules honored here:
+   - Every Madison/Brutus quote below is the EXACT text of Federalist 51
+     or Brutus 1 (verified against the sources on the Sources page).
+     Do NOT paraphrase inside quotation marks.
+   - "What really happened" screens are 3–4 sentences.
+   ================================================================ */
+
+/* Verbatim quote bank. Advisors reference these by key so a quote is
+   written once and reused correctly. (source shown on cards + Sources page) */
+const QUOTES = {
+  morris: { // Gouverneur Morris — penned the Constitution; the Convention's leading anti-slavery voice
+    curse:   "He never would concur in upholding domestic slavery. It was a nefarious institution. It was the curse of Heaven on the States where it prevailed.",
+    justice: "We the People of the United States, in Order to form a more perfect Union, establish Justice… do ordain and establish this Constitution for the United States of America."
+  },
+  madison: { // James Madison — Federalist 10 & 51, author of the Bill of Rights
+    majority:   "Measures are too often decided, not according to the rules of justice and the rights of the minor party, but by the superior force of an interested and overbearing majority.",
+    endofgov:   "Justice is the end of government. It is the end of civil society.",
+    property:   "…wrong to admit in the Constitution the idea that there could be property in men.",
+    dueprocess: "No person shall… be deprived of life, liberty, or property, without due process of law."
+  }
+};
+
+const CONTENT = {
+  meta: {
+    title: "The Unfinished Promise",
+    hook: "You make the call at real turning points in America's fight over who counts as equal. What you choose changes what happens next, and how close the country gets to the promise it started with.",
+    virtue: "Justice",
+    sub: "A branching game about justice and equality, from “all men are created equal” to now. Built on the Declaration and the Constitution."
+  },
+
+  intro: {
+    what: "This game is about a habit, not just a word. <strong>Justice</strong> means insisting that laws and institutions treat people fairly, as <strong>equals</strong>. America's founding promise was that “all men are created equal.” The problem is that the country didn't actually live up to that from the start. Justice is the habit of holding the nation to the promise, and speaking up when it gets broken.",
+    setup: [
+      ["Gouverneur Morris — wrote the Constitution", "morris", "Call the injustice what it is and deal with it now. Slavery is “the curse of Heaven,” and a country that says it exists to “establish Justice” has no business protecting it."],
+      ["James Madison — Federalist 10 & 51, Bill of Rights", "madison", "Win equality through the system. Protect the minority from an “overbearing majority,” but keep the Union together and change it through law instead of blowing it up."]
+    ],
+    vdscv: [
+      ["V — Value", "Equality. Everyone deserves equal standing and equal protection under the law."],
+      ["D — Danger", "Injustice. The powerful, or a big majority, deciding that some people don't get equal rights. Slavery, segregation, being shut out."],
+      ["S — Solution", "Build the country on “all men are created equal,” then use the Constitution, the Bill of Rights, the courts, and later amendments to actually make it true for everyone."],
+      ["CV — Civic Virtue", "Justice. The habit of insisting the promise of equality really applies to everyone, and pushing when it doesn't."]
+    ]
+  },
+
+  /* 3 questions — same set is used for the pre-quiz and the post-quiz. */
+  quiz: [
+    {
+      id:"q1",
+      q:"What does the Declaration of Independence say about people?",
+      options:[
+        "That only landowners have rights.",
+        "That all men are created equal, with certain unalienable rights.",
+        "That the king decides who is equal.",
+        "That equality is granted by Congress."
+      ],
+      answer:1
+    },
+    {
+      id:"q2",
+      q:"What was the founding-era contradiction with “all men are created equal”?",
+      options:[
+        "The colonies had no written laws.",
+        "Only the Supreme Court could define equality.",
+        "The nation proclaimed equality while slavery continued and many people were excluded.",
+        "There were no elections at all."
+      ],
+      answer:2
+    },
+    {
+      id:"q3",
+      q:"Which 1954 Supreme Court case struck down “separate but equal” and advanced equal justice?",
+      options:[
+        "Plessy v. Ferguson.",
+        "Dred Scott v. Sandford.",
+        "Korematsu v. United States.",
+        "Brown v. Board of Education."
+      ],
+      answer:3
+    }
+  ],
+
+  /* ============================================================
+     BRANCHING STORY GRAPH (Chapters 1–3). Each choice has its own
+     outcome — tag:"real" = what actually happened; tag:"cf" = an
+     evidence-based estimate of a path not taken (see Sources).
+     `stability` is the delta to National Stability (start 70).
+     `next` = the id of the next node, "end_arc" (resolve an ending
+     tier by stability), or "end_collapse" (force the losing ending).
+     ============================================================ */
+  story: {
+    start: "n_decl",
+    startStability: 70,
+    collapseAt: 0,
+    tiers: [ {min:80, id:"end_endures"}, {min:45, id:"end_fragile"}, {min:1, id:"end_falters"} ],
+    nodes: {
+
+      /* ---------- CHAPTER 1 · 1776 — THE PROMISE ---------- */
+      "n_decl": {
+        era:"founding", year:"1776", chapter:"The Promise",
+        subtitle:"“All men are created equal” — but the promise comes with a price.",
+        scenario:"Congress is editing Jefferson's draft of the Declaration. It says “all men are created equal,” and it also includes a passage attacking the slave trade. Delegates from South Carolina and Georgia want that passage gone, or they won't sign. What do you push for?",
+        advisors:{
+          morris:{ key:"curse", gloss:"Say it plainly: slavery is “the curse of Heaven.” A country that claims to stand for justice can't be built on it." },
+          madison:{ key:"property", gloss:"It's wrong to found a nation on owning people. But if the southern colonies walk, there may be no nation left to fix it later." }
+        },
+        choices:[
+          { short:"Keep the anti-slavery passage", label:"Keep Jefferson's attack on slavery in the Declaration, even if the South walks away.", cost:"South Carolina and Georgia might refuse to sign. Independence itself could fall apart.", stability:12, flags:["idealism"], next:"n_const",
+            outcome:{ tag:"cf", text:"If the clause had stayed, the Declaration would have condemned slavery from day one. But South Carolina and Georgia threatened to walk, and other delegates who made money off the slave trade backed them up. Pushing it probably breaks the shaky alliance for independence. You'd get a cleaner promise, and maybe no country to keep it.", why:"A perfect promise doesn't help much if there's no nation left to stand behind it." } },
+          { short:"Cut the passage to keep the union", label:"Cut the attack on slavery so all thirteen colonies sign, but keep “all men are created equal.”", cost:"The country is founded on a promise it breaks for millions of people the same day.", stability:-8, flags:["contradiction"], next:"n_const",
+            outcome:{ tag:"real", text:"This is what actually happened. Jefferson's attack on slavery got cut, and he later said it was taken out “in compliance to South Carolina and Georgia.” The Declaration still said “all men are created equal” while slavery kept right on going. That gap between the words and the reality is the contradiction the country would fight over for the next two centuries.", why:"The big ideal and the ugly compromise ended up on the same piece of paper." } },
+          { short:"Water it down", label:"Keep a vague line about equality but drop any direct hit on slavery, so nobody's offended.", cost:"You weaken the promise before the ink is even dry.", stability:-6, flags:["vague"], next:"n_const",
+            outcome:{ tag:"cf", text:"A softened Declaration ducks the fight, but it also takes the punch out of the promise. That line, “all men are created equal,” is exactly what abolitionists, suffragists, and civil-rights leaders would quote for the next two hundred years. Make it mushy and you hand them a weaker tool.", why:"The promise is powerful because it's blunt. That's the part worth protecting." } }
+        ]
+      },
+
+      /* ---------- CHAPTER 2 · 1787 — THE CONSTITUTION ---------- */
+      "n_const": {
+        era:"founding", year:"1787", chapter:"The Compromise",
+        subtitle:"How much slavery goes into the Constitution?",
+        scenario:"The Convention has to decide how the Constitution deals with slavery: how enslaved people get counted for representation (the “three-fifths” fight) and whether to protect the slave trade. Gouverneur Morris stands up and calls slavery “the curse of Heaven.” What do you back?",
+        advisors:{
+          morris:{ key:"curse", gloss:"Don't write this into the country's rulebook. A Constitution meant to “establish Justice” shouldn't be shielding slavery." },
+          madison:{ key:"property", gloss:"I don't want the idea of property in men in this document. But I'm scared the Union falls apart if we force it now." }
+        },
+        choices:[
+          { short:"Push to end slavery now", label:"Use the Constitution to start ending slavery, no matter what it does to the deal.", cost:"The southern states may refuse to ratify. The Union might never come together.", stability:12, flags:["abolition"], next:"n_const_abolition",
+            outcome:{ tag:"cf", text:"A few delegates, Morris included, actually wanted this. But the southern states were clear that they wouldn't join a Union that came after slavery. Forcing abolition in 1787 most likely means no Constitution at all, which means the very tool that later ended slavery never gets built. It's the right instinct with a huge, uncertain price tag.", why:"The thing that finally killed slavery had to exist before anyone could use it." } },
+          { short:"Accept the compromises", label:"Take the three-fifths clause and the slave-trade protections so every state ratifies.", cost:"The Constitution ends up protecting slavery without ever saying the word, and locks it in for decades.", stability:-10, flags:["compromise"], next:"n_14th",
+            outcome:{ tag:"real", text:"This is what happened. The Convention agreed to the Three-Fifths Compromise and a 20-year protection for the slave trade. Madison kept the word “slavery” out of the text, but the document protected it anyway. One historian described it as a Constitution that strengthened slavery while refusing to name it. The real reckoning got pushed off to a civil war.", why:"The Union got bought, and millions of people paid the bill." } },
+          { short:"Ban the trade, keep the rest", label:"Ban the Atlantic slave trade right away, but leave existing slavery to the states.", cost:"You stop new kidnappings, but millions are still enslaved and inequality is still baked in.", stability:-4, flags:["tradeban"], next:"n_14th",
+            outcome:{ tag:"cf", text:"Banning the trade immediately, instead of the 20-year delay they actually agreed to, would have cut off new importation a lot sooner. But leaving slavery itself up to the states still builds the injustice into the foundation. It fixes the edges and leaves the center alone.", why:"Half-fixes on equality have a way of freezing the other half in place." } }
+        ]
+      },
+
+      "n_const_abolition": {
+        era:"founding", year:"1787", chapter:"The Union in the Balance",
+        subtitle:"You forced the question. Now the Union hangs in the balance.",
+        scenario:"You pushed to put slavery on the road to extinction. The Deep South delegations are packing up. Northern moderates are begging you to find some kind of compromise before the whole Convention falls apart. Now what?",
+        advisors:{
+          morris:{ key:"curse", gloss:"Better a smaller, free Union than a big one that protects “the curse of Heaven.”" },
+          madison:{ key:"majority", gloss:"You can win the argument by “the superior force of an overbearing majority” and still lose the Union that could actually enforce it someday." }
+        },
+        choices:[
+          { short:"Hold firm — no Union with slavery", label:"Refuse to budge. If the South leaves, they leave.", cost:"You could end up with two rival countries, one slave and one free, instead of one.", stability:-6, flags:["rupture"], next:"n_14th",
+            outcome:{ tag:"cf", text:"Most historians doubt the Deep South would have joined an antislavery Union in 1787. The likeliest result is two or more separate countries, with a southern one free to spread slavery and no federal check on it at all. The stand is real. So is the chance that it leaves enslaved people even worse off.", why:"The pure choice and the choice that actually helps people aren't always the same, and equality needs both." } },
+          { short:"Win a gradual-abolition clause", label:"Trade for a deal that at least commits the country to ending slavery over time.", cost:"“Gradual” can drag on for generations while real people stay enslaved.", stability:8, flags:["gradual"], next:"n_14th",
+            outcome:{ tag:"cf", text:"A written promise of gradual abolition would have been a big deal, and several northern states did exactly that in their own laws. But “gradual” usually meant decades of people still in bondage. A promise on paper still needs people who mean it to carry it out.", why:"A promise of equality is only worth as much as the will to keep it on time." } },
+          { short:"Cave entirely", label:"Give up and take whatever the South demands to save the Convention.", cost:"You end up worse off than the real compromise, with slavery even more protected.", stability:-16, flags:["cave"], next:"n_14th",
+            outcome:{ tag:"cf", text:"Folding all the way hands the pro-slavery delegates even more than they got in real life. The lesson of 1787 is that the actual compromise was a floor, and a costly one. Going below it gives the whole promise away.", why:"Dropping the principle just to calm the room only pushes the injustice down the road." } }
+        ]
+      },
+
+      /* ---------- CHAPTER 3 · 1868 — EQUAL PROTECTION ---------- */
+      "n_14th": {
+        era:"watergate", year:"1868", chapter:"Equal Protection",
+        subtitle:"The war is over. Will “equal” finally mean everyone?",
+        scenario:"The Civil War is over and slavery is gone. The Fourteenth Amendment would guarantee every citizen “the equal protection of the laws.” But actually enforcing it in the South is going to take federal troops and federal willpower. What do you commit to?",
+        advisors:{
+          morris:{ key:"justice", gloss:"The Constitution was written to “establish Justice.” So finish the job and make equal protection real." },
+          madison:{ key:"endofgov", gloss:"“Justice is the end of government.” A government that won't protect equal rights has walked away from its own reason to exist." }
+        },
+        choices:[
+          { short:"Ratify AND enforce it", label:"Ratify the 14th Amendment and back it up with federal enforcement of Black citizenship and voting.", cost:"A long, expensive federal presence in the South, and fierce, sometimes violent pushback.", stability:14, flags:["reconstruction"], next:"n_brown",
+            outcome:{ tag:"cf", text:"The 14th Amendment's promise was real, and where enforcement actually held, Black Americans voted and held office during Reconstruction. Keeping that enforcement up, which the country didn't fully do, could have headed off decades of Jim Crow. It would have been hard and bloody, but the promise would have had real teeth.", why:"A right nobody will enforce is just a right on paper." } },
+          { short:"Ratify, but leave it to the states", label:"Pass the Amendment, pull the federal troops out, and trust the states to honor it.", cost:"With no one enforcing it, the promise gets gutted wherever the majority pushes back.", stability:-6, flags:["jimcrow"], next:"n_reconstruction_fails",
+            outcome:{ tag:"real", text:"This is close to what actually happened. The 14th Amendment was ratified in 1868, but by 1877 federal enforcement fell apart. Southern states built Jim Crow and stripped Black citizens of the vote. Equal protection stayed in the Constitution while segregation ran everything on the ground.", why:"The promise made it into the Constitution, and then got abandoned in real life." } },
+          { short:"Restore the old order", label:"Give up on Reconstruction and let the pre-war leaders run the South again to end the fighting.", cost:"You trade equality for “peace,” and hand power back to the people who denied it.", stability:-20, flags:["redemption"], next:"end_collapse",
+            outcome:{ tag:"cf", text:"Walking away from Reconstruction, what people at the time called “Redemption,” is exactly how white-supremacist governments took back the South, drove Black voters away by force, and locked in Jim Crow. Choosing it on purpose doesn't just slow equality down. It breaks the promise so badly that “equal justice” turns into a lie the country tells itself.", why:"Trading justice for quiet just lets the injustice win." } }
+        ]
+      },
+
+      "n_reconstruction_fails": {
+        era:"watergate", year:"1896", chapter:"Separate but Equal",
+        subtitle:"Reconstruction has collapsed. Jim Crow is spreading.",
+        scenario:"Federal enforcement is gone, states are passing segregation laws, and Black citizens are losing the vote. A test case, Plessy v. Ferguson, asks the Supreme Court whether “separate but equal” is legal. What should the Court do?",
+        advisors:{
+          morris:{ key:"justice", gloss:"“Equal protection” can't mean “separate.” Read the words the country ratified and actually enforce them." },
+          madison:{ key:"dueprocess", gloss:"No person can be denied the equal protection of the laws. “Separate but equal” makes a joke of that." }
+        },
+        choices:[
+          { short:"Reject “separate but equal”", label:"Strike segregation down now as a violation of the 14th Amendment.", cost:"A head-on fight with entrenched state power and the public opinion of the time.", stability:12, flags:["earlybrown"], next:"n_brown",
+            outcome:{ tag:"cf", text:"One Justice, John Marshall Harlan, actually did dissent in Plessy and wrote that “our Constitution is color-blind.” If the Court had agreed back in 1896, it could have cut off Jim Crow before it hardened and spared three generations. The argument was right there. The will wasn't.", why:"The dissent that lost in 1896 basically became the law in 1954. The idea was always available." } },
+          { short:"Bless “separate but equal”", label:"Uphold segregation as long as the facilities are “equal.”", cost:"You hand Jim Crow the Constitution's blessing for the next 58 years.", stability:-14, flags:["plessy"], next:"n_brown",
+            outcome:{ tag:"real", text:"This is what happened. In Plessy v. Ferguson (1896), the Court upheld “separate but equal” 7 to 1. The ruling locked Jim Crow in across the South. “Separate” got enforced. “Equal” almost never did. The 14th Amendment's promise got hollowed out with the Court's own stamp on it.", why:"When the highest court blesses inequality, the injustice gets to hide behind the law." } },
+          { short:"Dodge the question", label:"Rule narrowly and duck the question of whether segregation itself is legal.", cost:"Segregation keeps spreading while the Court looks the other way.", stability:-6, flags:["dodge"], next:"n_brown",
+            outcome:{ tag:"cf", text:"A narrow dodge lets the state laws and lower rulings stand, so segregation just keeps spreading on its own. Refusing to decide is still a decision. It sides with things the way they already are.", why:"Staying quiet about an injustice is basically voting for it." } }
+        ]
+      },
+
+      /* ---------- CHAPTER 4 · 1954 — BROWN v. BOARD ---------- */
+      "n_brown": {
+        era:"watergate", year:"1954", chapter:"Brown v. Board",
+        subtitle:"“Separate but equal” is on trial at last.",
+        scenario:"Black children are being kept out of white public schools. The case reaches the Supreme Court, which has to decide whether segregated schools break the 14th Amendment's promise of equal protection. What should the Court rule?",
+        advisors:{
+          morris:{ key:"justice", gloss:"Finish what the founding started. Make “establish Justice” real in the one place every kid deals with the government: school." },
+          madison:{ key:"dueprocess", gloss:"Equal protection can't mean “separate.” Read the promise the way it was written, or just admit nobody meant it." }
+        },
+        choices:[
+          { short:"Strike down segregation", label:"Rule that “separate but equal” is unconstitutional in public schools.", cost:"Furious “massive resistance.” Some states will defy the Court for years.", stability:16, flags:["brown"], next:"end_arc",
+            outcome:{ tag:"real", text:"This is what happened. In Brown v. Board of Education (1954), a unanimous Court ruled that “separate educational facilities are inherently unequal” and overturned Plessy. Actually enforcing it took years and a lot of courage, but the promise of the Declaration and the 14th Amendment finally started reaching the classroom.", why:"Ninety years after the 14th Amendment, “equal” finally started to mean equal." } },
+          { short:"Uphold Plessy", label:"Leave “separate but equal” in place and let states and Congress deal with it.", cost:"Segregation keeps going with the Court's blessing.", stability:-18, flags:["upholdseg"], next:"end_arc",
+            outcome:{ tag:"cf", text:"If Brown had gone the other way, Jim Crow would have kept the Constitution's protection. The civil-rights movement would have faced an even steeper hill, and “equal justice under law,” the words carved over the Court's own doors, would have stayed a promise the Court itself refused to keep.", why:"A court that won't enforce equality is telling the powerful they never have to." } },
+          { short:"Order it “gradually”", label:"Say segregation is wrong but let it end whenever states get around to it.", cost:"“Someday” turns into “never” in the places that fight hardest.", stability:-4, flags:["deliberatespeed"], next:"end_arc",
+            outcome:{ tag:"cf", text:"The real Court did tell schools to desegregate “with all deliberate speed,” and plenty of districts used that vagueness to stall for more than a decade. A ruling that's right on paper but has no teeth just lets the injustice run out the clock.", why:"Justice delayed, like people say, is justice denied." } }
+        ]
+      },
+
+      /* ---------- ENDINGS ---------- */
+      "end_endures": { ending:true, kind:"tier", title:"A More Perfect Union",
+        text:"You held the country to its own promise. Over and over, somebody insisted that “all men are created equal” had to mean everyone, and made the law and the courts catch up to the words. Equality was never automatic. It moved forward because people refused to let the promise stay broken. The country is never really finished, but you left it better than you found it." },
+      "end_fragile": { ending:true, kind:"tier", title:"A Half-Kept Promise",
+        text:"Equality moved forward, but unevenly. Some doors opened and others stayed shut. Honestly, that's pretty close to America's real story: the promise grew in fits and starts, always fought over, never done. The takeaway is that “equal” isn't a finish line the founders crossed for us. It's a claim every generation has to make good on again." },
+      "end_falters": { ending:true, kind:"tier", title:"The Promise Deferred",
+        text:"The words “all men are created equal” are still there, but too often they stayed just words. Every time the country looked away, the inequality dug in deeper and the next fix got harder. A nation can carry a broken promise for a long time, but the gap between what it says and what it does keeps eating at it." },
+      "end_collapse": { ending:true, kind:"collapse", title:"The Promise Betrayed",
+        text:"One choice at a time, the country picked order, or money, or a quiet peace over equal justice, until “all men are created equal” turned into a line nobody really believed. A country that permanently denies some of its people equal rights isn't unfinished. It's broken faith with its own founding. This didn't happen all at once. It happened through a string of choices to leave the promise unkept." }
+    }
+  },
+
+  /* ============================================================
+     CHAPTER 4 · TODAY — non-branching (choice → reflection).
+     Does not affect National Stability or the ending.
+     ============================================================ */
+  today: {
+    year:"Today", title:"You're the Citizen",
+    subtitle:"No history book here. Just you — and whether the promise holds where you are.",
+    decisions:[
+      {
+        scenario:"A club or program at your school quietly limits who's allowed in, and it's shutting out students who'd totally qualify. Most people haven't noticed. You have. What do you do?",
+        advisors:{
+          morris:{ key:"justice", gloss:"“Establish Justice” isn't just an 1787 thing. A rule that shuts people out unequally is exactly what it's against." },
+          madison:{ key:"dueprocess", gloss:"Equal treatment means the same rules apply to everyone. Say that out loud." }
+        },
+        choices:[
+          { short:"Raise it with the school", label:"Bring it to the sponsor or an administrator and ask for the rule to change.", cost:"It takes nerve, and adults don't always listen the first time." },
+          { short:"Organize other students", label:"Rally classmates to push for a fair, open policy together.", cost:"Real effort to organize, and not everyone will care." },
+          { short:"Document and report it", label:"Write down what's happening and report it through the school's process.", cost:"Slower and less dramatic, but it creates a record that's hard to ignore." }
+        ],
+        reflection:{
+          text:"There's no “what really happened” here. It's up to you. Every option is a real way to stand up for equal treatment, and every one has a cost. The only choice that actually fails is pretending you didn't notice. This kind of thing usually starts with one person who won't let an unfair rule slide.",
+          why:"Equality is a habit. It shows up in whether you say something when a rule leaves someone out."
+        }
+      },
+      {
+        scenario:"A classmate is getting treated unfairly. They're singled out, or held to a standard nobody else has to meet. Speaking up could cost you socially. What do you do?",
+        advisors:{
+          morris:{ key:"justice", gloss:"The promise means nothing if it stops at the classroom door. Equal treatment is for the room you're actually in." },
+          madison:{ key:"majority", gloss:"An “overbearing majority” can be a crowd, a clique, or a comment section. Equal treatment means protecting the person it turns on." }
+        },
+        choices:[
+          { short:"Say something in the moment", label:"Speak up right then and name the double standard.", cost:"It's uncomfortable, and the crowd may turn on you too." },
+          { short:"Support them + report it", label:"Back your classmate privately and report it to someone who can act.", cost:"Quieter, and it relies on an adult actually following through." },
+          { short:"Stay out of it", label:"Decide it's not your problem and keep your head down.", cost:"The unfair treatment stands, and silence tells everyone it's allowed." }
+        ],
+        reflection:{
+          text:"Again, your call. “All men are created equal” isn't only about courts and amendments. It's about whether regular people insist on fair treatment in the rooms they're actually in. Staying quiet lets the double standard stand.",
+          why:"The promise of equality gets kept or broken in everyday moments, by people like you."
+        }
+      }
+    ]
+  },
+
+  reportThesis:"America has never fully lived up to “all men are created equal.” But it has gotten closer every time people insisted the promise apply to everyone: the abolitionists, the Fourteenth Amendment, Brown v. Board, and the movements that pushed for them. It falls short whenever the powerful, or a big majority, get to deny other people equal standing. The founders wrote the promise. Justice is the habit of holding the country to it.",
+
+  /* a specific, real, recent example so the report card's judgment is grounded in the present, not just history */
+  presentDay:{
+    title:"Equality today — a real, recent example",
+    text:"The promise is still growing. In 2015, in Obergefell v. Hodges, the Supreme Court held 5–4 that the Fourteenth Amendment's guarantees of equal protection and due process mean states have to recognize same-sex marriages, extending equal treatment under the law to a group that had long been denied it. However people feel about any one ruling, it's the same pattern as the founding: “all men are created equal” keeps getting tested, and the country keeps arguing out what “equal” actually means.",
+    link:{ label:"Obergefell v. Hodges (2015)", url:"https://supreme.justia.com/cases/federal/us/576/644/" }
+  },
+
+  actions:[
+    {
+      title:"Register to vote — equal say starts here",
+      text:"Voting is the most basic form of equal standing: one person, one vote. In Texas you can pre-register at 17 years and 10 months (you vote at 18). Register through the state, then confirm it with Collin County Elections in McKinney.",
+      links:[
+        {label:"VoteTexas.gov — eligibility", url:"https://www.votetexas.gov/register-to-vote/eligibility-for-registration.html"},
+        {label:"Collin County Elections", url:"https://www.collincountytx.gov/Elections"}
+      ]
+    },
+    {
+      title:"Show up where decisions get made",
+      text:"The McKinney City Council and your school board decide things that affect everyone, but that only works if everyone is actually represented. They meet regularly (City Hall, 401 E. Virginia St.) and let residents speak. Showing up is how you make sure your community counts equally.",
+      links:[
+        {label:"McKinney City Council meetings", url:"https://www.mckinneytexas.org/1168/Council-Meetings"}
+      ]
+    },
+    {
+      title:"Contact your representatives",
+      text:"Message your U.S. House member, your U.S. senators, and your Texas state legislators about fairness and equal treatment in your community. A specific, polite message from a constituent gets read.",
+      links:[
+        {label:"Find your U.S. House rep", url:"https://www.house.gov/representatives/find-your-representative"},
+        {label:"Contact U.S. senators", url:"https://www.senate.gov/senators/senators-contact.htm"},
+        {label:"Texas — Who Represents Me?", url:"https://wrm.capitol.texas.gov"}
+      ]
+    },
+    {
+      title:"Stand up for equal treatment",
+      text:"If you see someone treated unequally, at school or anywhere in your community, don't let it slide. Speak up, write down what happened, and report it to someone who can act. Equal justice mostly gets kept in small everyday moments, not just in courtrooms.",
+      links:[
+        {label:"Report a civil-rights concern (justice.gov)", url:"https://civilrights.justice.gov/"}
+      ]
+    },
+    {
+      title:"Learn whose story got left out",
+      text:"Look into the history of the people “all men are created equal” didn't include yet. And join a club (NHS, Student Council, debate) that keeps you showing up and speaking. Justice is a habit you build.",
+      links:[]
+    }
+  ],
+
+  sources:{
+    quotes:[
+      { text:"Declaration of Independence (1776) — “We hold these truths to be self-evident, that all men are created equal…”", where:"U.S. National Archives", url:"https://www.archives.gov/founding-docs/declaration-transcript" },
+      { text:"The Constitution of the United States (1787) — the Preamble (“…in Order to form a more perfect Union, establish Justice…”), penned by Gouverneur Morris, plus the Three-Fifths and slave-trade clauses.", where:"U.S. National Archives", url:"https://www.archives.gov/founding-docs/constitution-transcript" },
+      { text:"Federalist No. 10 & No. 51 — James Madison (1787–88). The Madison quotes in this game (the “overbearing majority”; “Justice is the end of government”).", where:"Avalon Project, Yale Law School", url:"https://avalon.law.yale.edu/18th_century/fed10.asp" },
+      { text:"The Bill of Rights (1791) — the Fifth Amendment's due-process guarantee, drafted by James Madison.", where:"U.S. National Archives", url:"https://www.archives.gov/founding-docs/bill-of-rights-transcript" },
+      { text:"Gouverneur Morris at the Constitutional Convention (Aug. 8, 1787): slavery was “a nefarious institution… the curse of Heaven.”", where:"National Constitution Center", url:"https://constitutioncenter.org/the-constitution/historic-document-library/detail/gouverneur-morris-constitutional-convention-speeches-july-5-and-11-and-august-8-1787" }
+    ],
+    facts:[
+      { text:"Jefferson's draft of the Declaration condemned the slave trade; Congress struck the passage out, Jefferson said, “in compliance to South Carolina and Georgia.” (Grounds the 1776 branch.)", where:"HISTORY", url:"https://www.history.com/articles/declaration-of-independence-deleted-anti-slavery-clause-jefferson" },
+      { text:"The Constitution (1787) built in the Three-Fifths Compromise and a 20-year protection for the Atlantic slave trade; Madison kept the word “slavery” out but the document protected it. (Grounds the 1787 branch.)", where:"National Constitution Center", url:"https://constitutioncenter.org/the-constitution/historic-document-library/detail/three-fifths-clause" },
+      { text:"Federalist No. 10 (Madison): a majority faction can decide questions “by the superior force of an interested and overbearing majority” rather than the rights of the minority — the founding case for protecting minorities.", where:"Avalon Project, Yale Law School", url:"https://avalon.law.yale.edu/18th_century/fed10.asp" },
+      { text:"The Fourteenth Amendment (ratified 1868) guarantees all citizens “the equal protection of the laws.” Federal enforcement collapsed after 1877, and Jim Crow followed.", where:"U.S. National Archives", url:"https://www.archives.gov/milestone-documents/14th-amendment" },
+      { text:"Plessy v. Ferguson, 163 U.S. 537 (1896) — the Court upheld “separate but equal” 7–1; Justice Harlan dissented that “our Constitution is color-blind.”", where:"Justia — U.S. Supreme Court", url:"https://supreme.justia.com/cases/federal/us/163/537/" },
+      { text:"Brown v. Board of Education, 347 U.S. 483 (1954) — a unanimous Court held that “separate educational facilities are inherently unequal,” overturning Plessy under the Equal Protection Clause.", where:"Justia — U.S. Supreme Court", url:"https://supreme.justia.com/cases/federal/us/347/483/" },
+      { text:"Obergefell v. Hodges, 576 U.S. 644 (2015) — the Court held 5–4 that the Fourteenth Amendment requires states to license and recognize same-sex marriages. (The report card's present-day example.)", where:"Justia — U.S. Supreme Court", url:"https://supreme.justia.com/cases/federal/us/576/644/" }
+    ],
+    note:"This game branches. Some paths show what actually happened (labeled “Real history”); others are evidence-based estimates of a path not taken (labeled “Counterfactual”). Each counterfactual is reasoned from the sources above — for example, keeping Jefferson's anti-slavery clause, pushing abolition at the 1787 Convention, fully enforcing Reconstruction, or striking down segregation in 1896 (Justice Harlan's real dissent). The real historical path is always labeled as such."
+  }
+};
+
+/* ================================================================
+   =====================  GAME ENGINE  ============================
+   (You shouldn't need to edit below this line.)
+   ================================================================ */
+
+const LS_KEY = "holdtheline_v2";   // schema changed for branching
+const app = document.getElementById('app');
+const presenterBtn = document.getElementById('presenterBtn');
+const STORY = CONTENT.story;
+
+const state = {
+  i: 0,                 // index into STEPS (framing screens)
+  presenter: false,
+  arcHist: [],          // branching arc history: [{node, phase:'decide'|'reveal'}]
+  arcPos: 0,            // pointer into arcHist
+  ended: null,          // ending node id, once reached
+  choices: {},          // choices[nodeId] = optionIndex  (arc nodes + today keys 't0','t1')
+  votes: {},            // votes[nodeId] = [count per option] (presenter)
+  preSolo: {}, postSolo: {}, preHands: {}, postHands: {}
+};
+
+/* ---- ordered framing steps; the whole branching arc lives in one 'arc' step ---- */
+const STEPS = [
+  {type:'title'}, {type:'prequiz'}, {type:'intro'},
+  {type:'arc'},
+  {type:'ending'},
+  {type:'today', dec:0, phase:'decide'}, {type:'today', dec:0, phase:'reveal'},
+  {type:'today', dec:1, phase:'decide'}, {type:'today', dec:1, phase:'reveal'},
+  {type:'reportcard'}, {type:'action'}, {type:'postquiz'}, {type:'sources'}
+];
+function stepIndex(type){ return STEPS.findIndex(s=>s.type===type); }
+
+/* ---- persistence (best-effort; game works without it) ---- */
+function save(){
+  try{
+    localStorage.setItem(LS_KEY, JSON.stringify({
+      presenter:state.presenter, choices:state.choices, votes:state.votes,
+      preSolo:state.preSolo, postSolo:state.postSolo, preHands:state.preHands, postHands:state.postHands
+    }));
+  }catch(e){/* private mode / disabled storage — fine */}
+}
+function load(){
+  try{
+    const raw = localStorage.getItem(LS_KEY);
+    if(!raw) return;
+    const d = JSON.parse(raw);
+    Object.assign(state, {
+      presenter:!!d.presenter, choices:d.choices||{}, votes:d.votes||{},
+      preSolo:d.preSolo||{}, postSolo:d.postSolo||{}, preHands:d.preHands||{}, postHands:d.postHands||{}
+    });
+  }catch(e){/* ignore */}
+}
+
+/* ---- small helpers ---- */
+function esc(str){ return String(str).replace(/[&<>"]/g, c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
+const SRC = {
+  morris:{ curse:"G. Morris · Convention, 1787", justice:"the Constitution's Preamble" },
+  madison:{ majority:"Federalist 10", endofgov:"Federalist 51", property:"Madison · Convention, 1787", dueprocess:"Bill of Rights · 5th Amendment" }
+};
+function advisorCard(who, side, key, gloss){
+  const q = QUOTES[who][key];
+  const src = (SRC[who] && SRC[who][key]) || '';
+  return `<div class="advisor ${who}">
+    <div class="who"><span class="name">${side}</span></div>
+    <blockquote>&ldquo;${esc(q)}&rdquo;</blockquote>
+    <div class="gloss">${esc(gloss)}</div>
+    ${src?`<div class="src">— ${esc(src)}</div>`:''}
+  </div>`;
+}
+/* ---- branching helpers: nodes, votes, and the stability meter ---- */
+function nodeById(id){ return STORY.nodes[id]; }
+function chosenOpt(nodeId){
+  if(state.presenter){ const t=topVoteNode(nodeId); return t? t.idx : undefined; }
+  return state.choices[nodeId];
+}
+function getVotesNode(nodeId,n){ if(!state.votes[nodeId]) state.votes[nodeId]=Array(n).fill(0); return state.votes[nodeId]; }
+function topVoteNode(nodeId){
+  const v=state.votes[nodeId]; if(!v) return null;
+  const total=v.reduce((a,b)=>a+b,0); if(total===0) return null;
+  let mi=0; v.forEach((n,i)=>{ if(n>v[mi]) mi=i; });
+  return {idx:mi, count:v[mi], total};
+}
+function committedRevealFrames(){ return state.arcHist.filter(f=>f.phase==='reveal'); }
+function stabilityRaw(upto){
+  const end = upto===undefined ? state.arcPos : upto;
+  let s = STORY.startStability;
+  for(let k=0;k<=end && k<state.arcHist.length;k++){
+    const f=state.arcHist[k];
+    if(f.phase==='reveal'){ const oi=chosenOpt(f.node); if(oi!=null){ s += (nodeById(f.node).choices[oi].stability||0); } }
+  }
+  return s;
+}
+function stabilityClamped(upto){ return Math.max(0, Math.min(100, stabilityRaw(upto))); }
+function stabilityInfo(){
+  const v=stabilityClamped();
+  let label, color;
+  if(v>=80){ label='Living up to it'; color='var(--good)'; }
+  else if(v>=45){ label='Contested'; color='#b8860b'; }
+  else if(v>=25){ label='Fragile'; color='var(--accent)'; }
+  else if(v>=1){ label='Eroding'; color='var(--bad)'; }
+  else { label='Betrayed'; color='var(--bad)'; }
+  return {v,label,color};
+}
+function stabilityBar(){
+  const {v,label,color}=stabilityInfo();
+  return `<div class="stability"><div class="top"><span class="label">The Promise of Equality — ${label}</span><span>${v}/100</span></div>`
+    + `<div class="track"><div class="fill" style="width:${v}%;background:${color};"></div></div></div>`;
+}
+
+/* ---------------------- SCREEN RENDERERS ---------------------- */
+function scrTitle(){
+  return `<div class="screen center" style="padding-top:6vh;">
+    <div class="eyebrow">A Civic Virtue Game</div>
+    <h1 class="title">${esc(CONTENT.meta.title)}</h1>
+    <p class="lede" style="max-width:640px;margin:.4em auto;">${esc(CONTENT.meta.hook)}</p>
+    <div class="card" style="max-width:600px;margin:16px auto;text-align:left;">
+      <div class="eyebrow">The civic virtue this teaches</div>
+      <h2 style="margin:.1em 0;">${esc(CONTENT.meta.virtue)}</h2>
+      <p class="muted" style="margin:.2em 0 0;">A <strong>habit</strong>, not a value — insisting the promise of equality applies to everyone. Built on the <strong>Declaration</strong> and the <strong>Constitution</strong>.</p>
+    </div>
+    <p class="muted" style="max-width:620px;margin:.6em auto;">${esc(CONTENT.meta.sub)}</p>
+    <div class="btnrow" style="justify-content:center;">
+      <button class="btn" data-action="next">Start</button>
+    </div>
+    <p class="hint">Tip: press <span class="kbd">P</span> for presenter / class-vote mode. Use <span class="kbd">&larr;</span> <span class="kbd">&rarr;</span> to move between screens.</p>
+  </div>`;
+}
+
+function quizScreen(phase){
+  const isPost = phase==='post';
+  const heading = isPost ? "Post-Quiz" : "Pre-Quiz";
+  const sub = isPost ? "Same three questions. Let's see what changed." : "Three quick questions before we start. Just your best guess.";
+  let body = `<div class="screen"><div class="eyebrow">${heading}</div><h2>${sub}</h2>`;
+
+  CONTENT.quiz.forEach((q,qi)=>{
+    body += `<div class="card q"><div class="qtext">${qi+1}. ${esc(q.q)}</div>`;
+    if(state.presenter){
+      // presenter: enter count of correct hands (or hands per option)
+      const hands = (isPost?state.postHands:state.preHands)[q.id] || q.options.map(()=>0);
+      body += `<p class="muted" style="font-size:.85rem;">Enter a show of hands for each answer, then reveal.</p>`;
+      q.options.forEach((opt,oi)=>{
+        const correct = oi===q.answer;
+        body += `<div class="voterow">
+          <span class="letter" style="flex:none;">${String.fromCharCode(65+oi)}</span>
+          <span class="ctext">${esc(opt)} ${correct?'<span class="badge up" style="font-size:.65rem;">correct</span>':''}</span>
+          <span class="stepper">
+            <button data-action="quiz-dec" data-phase="${phase}" data-q="${q.id}" data-opt="${oi}">&minus;</button>
+            <span class="count">${hands[oi]||0}</span>
+            <button data-action="quiz-inc" data-phase="${phase}" data-q="${q.id}" data-opt="${oi}">+</button>
+          </span>
+        </div>`;
+      });
+    } else {
+      const picked = (isPost?state.postSolo:state.preSolo)[q.id];
+      q.options.forEach((opt,oi)=>{
+        const cls = picked===oi ? 'opt picked' : 'opt';
+        body += `<div class="${cls}" data-action="quiz-pick" data-phase="${phase}" data-q="${q.id}" data-opt="${oi}">
+          <span class="letter">${String.fromCharCode(65+oi)}</span><span>${esc(opt)}</span></div>`;
+      });
+    }
+    body += `</div>`;
+  });
+
+  // score preview on post-quiz
+  if(isPost){
+    body += scoreSummaryBlock();
+  }
+
+  const answered = quizAnswered(phase);
+  const nextLabel = isPost ? "See sources" : "Continue";
+  body += `<div class="btnrow">
+      <button class="btn secondary" data-action="back">Back</button>
+      <span class="spacer"></span>
+      <button class="btn" data-action="next" ${answered?'':'disabled'}>${nextLabel} &rarr;</button>
+    </div>`;
+  if(!answered){
+    body += `<p class="hint">${state.presenter?'Enter at least one hand count to continue.':'Answer all three to continue.'}</p>`;
+  }
+  body += `</div>`;
+  return body;
+}
+
+function quizAnswered(phase){
+  if(state.presenter){
+    const src = phase==='post'?state.postHands:state.preHands;
+    return CONTENT.quiz.some(q => (src[q.id]||[]).some(n=>n>0));
+  } else {
+    const src = phase==='post'?state.postSolo:state.preSolo;
+    return CONTENT.quiz.every(q => src[q.id]!==undefined);
+  }
+}
+
+function scrIntro(){
+  const setup = CONTENT.intro.setup.map(([name,who,txt])=>
+    `<div class="advisor ${who}"><div class="who"><span class="name">${esc(name)}</span></div><div class="gloss">${esc(txt)}</div></div>`
+  ).join('');
+  const vdscv = CONTENT.intro.vdscv.map(([k,v])=>
+    `<p style="margin:.35em 0;"><strong style="color:var(--accent-2);">${esc(k)}:</strong> ${esc(v)}</p>`
+  ).join('');
+  return `<div class="screen">
+    <div class="eyebrow">The Virtue</div>
+    <h2>Holding power accountable</h2>
+    <p class="lede">${CONTENT.intro.what}</p>
+    <p class="hint">This time <strong>your choices change the story</strong>. Where you match what really happened you'll see it marked <span class="tag real">Real history</span>; where you go a different way you'll see an evidence-based <span class="tag cf">Counterfactual</span>. Watch <strong>The Promise of Equality</strong> meter — enough choices against equal justice and the promise can be betrayed.</p>
+    <h3 style="margin-top:18px;">Two advisors will follow you the whole way:</h3>
+    <div class="advisors">${setup}</div>
+    <div class="panel">
+      <h3>How our class reads a founding document</h3>
+      ${vdscv}
+    </div>
+    <div class="btnrow">
+      <button class="btn secondary" data-action="back">Back</button>
+      <span class="spacer"></span>
+      <button class="btn" data-action="next">Begin: 1787 &rarr;</button>
+    </div>
+  </div>`;
+}
+
+function scrArc(){
+  if(!state.arcHist.length) enterArc();
+  const f = state.arcHist[state.arcPos];
+  return f.phase==='reveal' ? scrArcReveal(f.node) : scrArcDecide(f.node);
+}
+function scrArcDecide(nodeId){
+  const n = nodeById(nodeId);
+  let body = `<div class="screen">${stabilityBar()}
+    <div class="eyebrow">${esc(n.year)} · ${esc(n.chapter)}</div>
+    <h2>${esc(n.subtitle)}</h2>
+    <div class="card"><p class="lede" style="color:var(--ink);">${esc(n.scenario)}</p></div>
+    <div class="advisors">
+      ${advisorCard('morris','Gouverneur Morris', n.advisors.morris.key, n.advisors.morris.gloss)}
+      ${advisorCard('madison','James Madison', n.advisors.madison.key, n.advisors.madison.gloss)}
+    </div>
+    <h3>Your move:</h3>`;
+  if(state.presenter){
+    const v = getVotesNode(nodeId, n.choices.length);
+    body += `<p class="presenter-only muted" style="font-size:.9rem;">Take the class vote, tap the counts in, then continue.</p><div class="choices">`;
+    n.choices.forEach((c,oi)=>{
+      body += `<div class="voterow">
+        <span class="num" style="flex:none;">${oi+1}</span>
+        <span class="ctext"><strong>${esc(c.short)}</strong> — ${esc(c.label)}<span class="cost">Cost: ${esc(c.cost)}</span></span>
+        <span class="stepper">
+          <button data-action="vote-dec" data-node="${nodeId}" data-opt="${oi}">&minus;</button>
+          <span class="count">${v[oi]}</span>
+          <button data-action="vote-inc" data-node="${nodeId}" data-opt="${oi}">+</button>
+        </span></div>`;
+    });
+    body += `</div><div class="btnrow">
+      <button class="btn secondary" data-action="back">Back</button><span class="spacer"></span>
+      <button class="btn" data-action="next">See what happens &rarr;</button></div>
+      <p class="hint">Number keys <span class="kbd">1</span>&ndash;<span class="kbd">${n.choices.length}</span> add a vote.</p>`;
+  } else {
+    const picked = state.choices[nodeId];
+    body += `<div class="choices">`;
+    n.choices.forEach((c,oi)=>{
+      const cls = picked===oi ? 'choice picked' : 'choice';
+      body += `<button class="${cls}" data-action="choose" data-node="${nodeId}" data-opt="${oi}">
+        <span class="num">${oi+1}</span>
+        <span class="ctext">${esc(c.label)}<span class="cost">Cost: ${esc(c.cost)}</span></span>
+      </button>`;
+    });
+    body += `</div><div class="btnrow">
+      <button class="btn secondary" data-action="back">Back</button><span class="spacer"></span>
+      <button class="btn" data-action="next" ${picked===undefined?'disabled':''}>See what happens &rarr;</button></div>
+      <p class="hint solo-only">Pick an option (or press <span class="kbd">1</span>&ndash;<span class="kbd">${n.choices.length}</span>). Every choice has a real cost — and moves the nation's stability.</p>`;
+  }
+  return body + `</div>`;
+}
+function scrArcReveal(nodeId){
+  const n = nodeById(nodeId);
+  const oi = chosenOpt(nodeId);
+  const c = n.choices[oi];
+  const o = c.outcome;
+  const real = o.tag==='real';
+  const tag = real ? `<span class="tag real">Real history</span>` : `<span class="tag cf">Counterfactual · best estimate</span>`;
+  const heading = real ? "What actually happened" : "What likely would have happened";
+  const delta = c.stability||0;
+  const dnote = delta===0 ? '' : `<p class="delta-note ${delta>0?'pos':'neg'}">National stability ${delta>0?'+':''}${delta}</p>`;
+  let echo='';
+  if(state.presenter){ const t=topVoteNode(nodeId); if(t) echo=`<p class="muted">The class chose <strong>${esc(n.choices[t.idx].short)}</strong> (${t.count} of ${t.total} votes).</p>`; }
+  else echo=`<p class="muted">You chose: <strong>${esc(c.short)}</strong>.</p>`;
+  const collapsing = stabilityRaw() <= (STORY.collapseAt||0);
+  return `<div class="screen">${stabilityBar()}
+    <div class="eyebrow">${esc(n.year)} · ${esc(n.chapter)}</div>
+    <h2>${heading} ${tag}</h2>
+    ${echo}${dnote}
+    <div class="card outcome ${real?'up':''}">
+      <p>${esc(o.text)}</p>
+      ${o.why?`<p class="why">Why it matters: ${esc(o.why)}</p>`:''}
+    </div>
+    <div class="btnrow">
+      <button class="btn secondary" data-action="back">Back</button><span class="spacer"></span>
+      <button class="btn" data-action="next">${collapsing?'The nation falls &rarr;':'Continue &rarr;'}</button>
+    </div>
+  </div>`;
+}
+
+function scrToday(step){
+  const d = CONTENT.today.decisions[step.dec];
+  const key = 't'+step.dec;
+  if(step.phase==='decide'){
+    let body = `<div class="screen">
+      <div class="eyebrow">${esc(CONTENT.today.year)} · ${esc(CONTENT.today.title)}</div>
+      <h2>${esc(CONTENT.today.subtitle)}</h2>
+      <div class="card"><p class="lede" style="color:var(--ink);">${esc(d.scenario)}</p></div>
+      <div class="advisors">
+        ${advisorCard('morris','Gouverneur Morris', d.advisors.morris.key, d.advisors.morris.gloss)}
+        ${advisorCard('madison','James Madison', d.advisors.madison.key, d.advisors.madison.gloss)}
+      </div>
+      <h3>Your move:</h3>`;
+    if(state.presenter){
+      const v=getVotesNode(key,d.choices.length);
+      body += `<div class="choices">`;
+      d.choices.forEach((c,oi)=>{ body += `<div class="voterow">
+        <span class="num" style="flex:none;">${oi+1}</span>
+        <span class="ctext"><strong>${esc(c.short)}</strong> — ${esc(c.label)}<span class="cost">Cost: ${esc(c.cost)}</span></span>
+        <span class="stepper"><button data-action="vote-dec" data-node="${key}" data-opt="${oi}">&minus;</button>
+        <span class="count">${v[oi]}</span>
+        <button data-action="vote-inc" data-node="${key}" data-opt="${oi}">+</button></span></div>`; });
+      body += `</div><div class="btnrow"><button class="btn secondary" data-action="back">Back</button><span class="spacer"></span>
+        <button class="btn" data-action="next">Continue &rarr;</button></div>`;
+    } else {
+      const picked = state.choices[key];
+      body += `<div class="choices">`;
+      d.choices.forEach((c,oi)=>{ const cls=picked===oi?'choice picked':'choice';
+        body += `<button class="${cls}" data-action="choose" data-node="${key}" data-opt="${oi}">
+          <span class="num">${oi+1}</span><span class="ctext">${esc(c.label)}<span class="cost">Cost: ${esc(c.cost)}</span></span></button>`; });
+      body += `</div><div class="btnrow"><button class="btn secondary" data-action="back">Back</button><span class="spacer"></span>
+        <button class="btn" data-action="next" ${picked===undefined?'disabled':''}>Continue &rarr;</button></div>
+        <p class="hint solo-only">Pick an option (or press <span class="kbd">1</span>&ndash;<span class="kbd">${d.choices.length}</span>).</p>`;
+    }
+    return body + `</div>`;
+  }
+  const o=d.reflection;
+  let echo='';
+  if(state.presenter){ const t=topVoteNode(key); if(t) echo=`<p class="muted">The class chose <strong>${esc(d.choices[t.idx].short)}</strong> (${t.count} of ${t.total}).</p>`; }
+  else { const p=state.choices[key]; if(p!=null) echo=`<p class="muted">You chose: <strong>${esc(d.choices[p].short)}</strong>.</p>`; }
+  const last = step.dec===CONTENT.today.decisions.length-1;
+  return `<div class="screen">
+    <div class="eyebrow">${esc(CONTENT.today.year)} · ${esc(CONTENT.today.title)}</div>
+    <h2>Your move <span class="badge neutral">Up to you</span></h2>
+    ${echo}
+    <div class="card outcome"><p>${esc(o.text)}</p>${o.why?`<p class="why">${esc(o.why)}</p>`:''}</div>
+    <div class="btnrow"><button class="btn secondary" data-action="back">Back</button><span class="spacer"></span>
+      <button class="btn" data-action="next">${last?'See your report card &rarr;':'Next &rarr;'}</button></div>
+  </div>`;
+}
+function scrEnding(){
+  if(!state.ended) return `<div class="screen"><p class="muted">…</p></div>`;
+  const e = nodeById(state.ended);
+  const collapse = e.kind==='collapse';
+  let reflection='';
+  if(collapse){
+    const bad = committedRevealFrames().map(f=>{ const n=nodeById(f.node); const oi=chosenOpt(f.node); return oi!=null?{n,c:n.choices[oi]}:null; })
+      .filter(x=>x && (x.c.stability||0)<0);
+    if(bad.length){
+      reflection = `<div class="card"><h3>Where it went wrong</h3><ul class="pathlist">`
+        + bad.map(x=>`<li><strong>${esc(x.n.year)} — ${esc(x.c.short)}.</strong> ${esc(x.c.why||'The promise was left unkept.')}</li>`).join('')
+        + `</ul><p class="muted">Alone, any one of these might have been survivable. Together — a pattern of choosing something over equal justice — they were the betrayal.</p></div>`;
+    }
+  }
+  return `<div class="screen ending ${collapse?'collapse':''}">
+    <div class="eyebrow">${collapse?'Game Over':'Your Ending'}</div>
+    <div class="big">${esc(e.title)}</div>
+    ${stabilityBar()}
+    <div class="card"><p class="lede" style="color:var(--ink);">${esc(e.text)}</p></div>
+    ${reflection}
+    <div class="btnrow">
+      <button class="btn secondary" data-action="restart">Play again</button>
+      <span class="spacer"></span>
+      <button class="btn" data-action="next">${collapse?'Continue to the reflection &rarr;':'Continue &rarr;'}</button>
+    </div>
+  </div>`;
+}
+
+function scrReport(){
+  const frames = committedRevealFrames();
+  let rows='';
+  frames.forEach(f=>{
+    const n=nodeById(f.node); const oi=chosenOpt(f.node); if(oi==null) return;
+    const c=n.choices[oi]; const d=c.stability||0;
+    const tag = c.outcome.tag==='real' ? `<span class="tag real">Real</span>` : `<span class="tag cf">Alt</span>`;
+    rows += `<tr>
+      <td><span class="yr">${esc(n.year)}</span><br><span class="muted" style="font-size:.82rem;">${esc(n.chapter)}</span></td>
+      <td><strong>${esc(c.short)}</strong> ${tag}</td>
+      <td style="${d<0?'color:var(--bad);':'color:var(--good);'}white-space:nowrap;font-weight:700;">${d>0?'+':''}${d}</td></tr>`;
+  });
+  CONTENT.today.decisions.forEach((d,di)=>{
+    const key='t'+di; const p = state.presenter ? ((topVoteNode(key)||{}).idx) : state.choices[key];
+    if(p!=null) rows += `<tr><td><span class="yr">Today</span></td><td><strong>${esc(d.choices[p].short)}</strong> <span class="badge neutral" style="font-size:.6rem;">you</span></td><td class="muted">—</td></tr>`;
+  });
+  const e = state.ended ? nodeById(state.ended) : null;
+  const {v,label} = stabilityInfo();
+  const endLine = e ? `<p class="lede" style="color:var(--ink);">Your timeline ended at <strong>${esc(e.title)}</strong> — the Promise of Equality at ${v}/100 (${esc(label)}).</p>` : '';
+  return `<div class="screen">
+    <div class="eyebrow">Report Card</div>
+    <h2>To what extent has America lived up to this virtue?</h2>
+    ${endLine}
+    <div class="card" style="overflow-x:auto;">
+      <table class="rc">
+        <thead><tr><th>Moment</th><th>${state.presenter?'Class chose':'You chose'}</th><th>Stability</th></tr></thead>
+        <tbody>${rows}</tbody>
+      </table>
+      <p class="muted" style="font-size:.82rem;margin-top:8px;"><span class="tag real">Real</span> = the choice matches what actually happened. <span class="tag cf">Alt</span> = an evidence-based estimate of a path not taken (see Sources).</p>
+    </div>
+    <div class="card" style="background:var(--parchment-2);">
+      <h3>The thesis</h3>
+      <p class="lede" style="color:var(--ink);">${esc(CONTENT.reportThesis)}</p>
+    </div>
+    ${CONTENT.presentDay?`<div class="card">
+      <h3>${esc(CONTENT.presentDay.title)}</h3>
+      <p>${esc(CONTENT.presentDay.text)}</p>
+      ${CONTENT.presentDay.link?`<p><a href="${esc(CONTENT.presentDay.link.url)}" target="_blank" rel="noopener">${esc(CONTENT.presentDay.link.label)}</a></p>`:''}
+    </div>`:''}
+    <div class="btnrow">
+      <button class="btn secondary" data-action="back">Back</button>
+      <button class="btn ghost" data-action="export-csv">Export results (CSV)</button>
+      <span class="spacer"></span>
+      <button class="btn" data-action="next">What can I do? &rarr;</button>
+    </div>
+  </div>`;
+}
+
+function scrAction(){
+  const items = CONTENT.actions.map((a,i)=>{
+    const links = a.links.map(l=>`<a href="${esc(l.url)}" target="_blank" rel="noopener">${esc(l.label)}</a>`).join(' &nbsp;·&nbsp; ');
+    return `<div class="action">
+      <div class="n">${i+1}</div>
+      <div class="abody">
+        <h3>${esc(a.title)}</h3>
+        <p>${esc(a.text)}</p>
+        ${links?`<p>${links}</p>`:''}
+      </div>
+    </div>`;
+  }).join('');
+  return `<div class="screen">
+    <div class="eyebrow">Take Action</div>
+    <h2>What can citizens do now?</h2>
+    <p class="lede">Five things a high schooler in McKinney / Collin County can actually do to help make the promise of equality real.</p>
+    <div class="card">${items}</div>
+    <div class="btnrow">
+      <button class="btn secondary" data-action="back">Back</button>
+      <span class="spacer"></span>
+      <button class="btn" data-action="next">Post-quiz &rarr;</button>
+    </div>
+  </div>`;
+}
+
+function scrSources(){
+  const q = CONTENT.sources.quotes.map(s=>`<li>${esc(s.text)} — <a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.where)}</a></li>`).join('');
+  const f = CONTENT.sources.facts.map(s=>`<li>${esc(s.text)} — <a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.where)}</a></li>`).join('');
+  return `<div class="screen">
+    <div class="eyebrow">Sources</div>
+    <h2>Every quote and claim, cited</h2>
+    <div class="card srcgroup">
+      <h3>Quotes</h3>
+      <ul>${q}</ul>
+      <h3 style="margin-top:14px;">Historical facts</h3>
+      <ul>${f}</ul>
+    </div>
+    ${CONTENT.sources.note?`<div class="panel"><strong>How the branches work:</strong> ${esc(CONTENT.sources.note)}</div>`:''}
+    <p class="muted">All Madison and Brutus quotes are the exact wording of Federalist 51 and Brutus 1, verified against the linked primary sources.</p>
+    <div class="btnrow">
+      <button class="btn secondary" data-action="back">Back</button>
+      <button class="btn ghost" data-action="export-json">Export data (JSON)</button>
+      <span class="spacer"></span>
+      <button class="btn" data-action="restart">Play again</button>
+    </div>
+  </div>`;
+}
+
+/* ---- score summary (used on post-quiz) ---- */
+function scoreSummaryBlock(){
+  if(state.presenter){
+    const pre = handsPct('pre'), post = handsPct('post');
+    if(pre.total===0 && post.total===0) return '';
+    const d = post.pct - pre.pct;
+    return `<div class="card center" style="background:var(--parchment-2);">
+      <h3>Class results</h3>
+      <div class="scorewrap">
+        <div><div class="scorebig">${pre.pct}%</div><div class="muted">before</div></div>
+        <div class="arrow">&rarr;</div>
+        <div><div class="scorebig">${post.pct}%</div><div class="muted">after</div></div>
+      </div>
+      <p class="delta ${d>=0?'pos':'neg'}">${d>=0?'+':''}${d} points</p>
+      <p class="muted" style="font-size:.85rem;">% of hands that picked the correct answer, across all three questions.</p>
+    </div>`;
+  } else {
+    const pre = soloScore('pre'), post = soloScore('post');
+    const d = post - pre;
+    return `<div class="card center" style="background:var(--parchment-2);">
+      <h3>Your results</h3>
+      <div class="scorewrap">
+        <div><div class="scorebig">${pre}/3</div><div class="muted">before</div></div>
+        <div class="arrow">&rarr;</div>
+        <div><div class="scorebig">${post}/3</div><div class="muted">after</div></div>
+      </div>
+      <p class="delta ${d>=0?'pos':'neg'}">${d>=0?'+':''}${d}</p>
+    </div>`;
+  }
+}
+function soloScore(phase){
+  const src = phase==='post'?state.postSolo:state.preSolo;
+  return CONTENT.quiz.reduce((n,q)=> n + (src[q.id]===q.answer?1:0), 0);
+}
+function handsPct(phase){
+  const src = phase==='post'?state.postHands:state.preHands;
+  let correct=0,total=0;
+  CONTENT.quiz.forEach(q=>{
+    const h = src[q.id]||[];
+    h.forEach((n,oi)=>{ total+=n; if(oi===q.answer) correct+=n; });
+  });
+  return {correct,total,pct: total? Math.round(correct/total*100):0};
+}
+
+/* ---- branching arc navigation ---- */
+function enterArc(){
+  if(!state.arcHist.length){ state.arcHist=[{node:STORY.start, phase:'decide'}]; state.arcPos=0; state.ended=null; }
+}
+function resolveTier(){
+  const s = stabilityRaw();
+  if(s <= (STORY.collapseAt||0)) return 'end_collapse';
+  for(const t of STORY.tiers){ if(s>=t.min) return t.id; }
+  return STORY.tiers[STORY.tiers.length-1].id;
+}
+function arcAdvance(){
+  const f = state.arcHist[state.arcPos];
+  if(f.phase==='decide'){
+    if(chosenOpt(f.node)==null) return;                 // must choose first
+    state.arcHist = state.arcHist.slice(0, state.arcPos+1);
+    state.arcHist.push({node:f.node, phase:'reveal'});
+    state.arcPos++; save(); render(); return;
+  }
+  // reveal -> resolve where the story goes next
+  const n = nodeById(f.node);
+  const c = n.choices[chosenOpt(f.node)];
+  let nextId = c.next;
+  if(stabilityRaw() <= (STORY.collapseAt||0)) nextId = 'end_collapse';
+  else if(nextId==='end_arc') nextId = resolveTier();
+  const nx = nodeById(nextId);
+  if(nx && nx.ending){ state.ended = nextId; state.i = stepIndex('ending'); save(); render(); return; }
+  state.arcHist = state.arcHist.slice(0, state.arcPos+1);
+  state.arcHist.push({node:nextId, phase:'decide'});
+  state.arcPos++; save(); render();
+}
+function restart(){ state.i=0; state.arcHist=[]; state.arcPos=0; state.ended=null; save(); render(); }
+
+/* ---------------------- ERA THEMING ---------------------- */
+/* Maps the current step to a period-accurate visual era. Only re-points
+   the <body data-era> attribute; the CSS above does the rest. */
+function eraForStep(step){
+  if(step.type==='arc'){ const f=state.arcHist[state.arcPos]; return (f && nodeById(f.node).era) || 'founding'; }
+  if(step.type==='ending'){ return (state.ended && nodeById(state.ended).era) || 'today'; }
+  if(step.type==='today') return 'today';
+  switch(step.type){
+    case 'title': case 'prequiz': case 'intro': return 'founding';
+    default: return 'today';
+  }
+}
+
+/* ---------------------- ROUTER ---------------------- */
+function render(){
+  const step = STEPS[state.i];
+  document.body.setAttribute('data-era', eraForStep(step));
+  let html='';
+  switch(step.type){
+    case 'title': html=scrTitle(); break;
+    case 'prequiz': html=quizScreen('pre'); break;
+    case 'intro': html=scrIntro(); break;
+    case 'arc': html=scrArc(); break;
+    case 'ending': html=scrEnding(); break;
+    case 'today': html=scrToday(step); break;
+    case 'reportcard': html=scrReport(); break;
+    case 'action': html=scrAction(); break;
+    case 'postquiz': html=quizScreen('post'); break;
+    case 'sources': html=scrSources(); break;
+  }
+  app.innerHTML = html;
+  window.scrollTo({top:0,behavior:'auto'});
+}
+
+function next(){
+  const step = STEPS[state.i];
+  if(step.type==='intro'){ state.i++; enterArc(); save(); render(); return; }
+  if(step.type==='arc'){ arcAdvance(); return; }
+  if(step.type==='ending'){ state.i = stepIndex('today'); save(); render(); return; }
+  if(state.i < STEPS.length-1){ state.i++; save(); render(); }
+}
+function back(){
+  const step = STEPS[state.i];
+  if(step.type==='arc'){
+    if(state.arcPos>0){ state.arcPos--; } else { state.i = stepIndex('intro'); }
+    save(); render(); return;
+  }
+  if(step.type==='ending'){ state.i = stepIndex('arc'); save(); render(); return; }
+  if(state.i > 0){ state.i--; save(); render(); }
+}
+
+/* ---------------------- ACTIONS ---------------------- */
+function nodeCount(key){ return key[0]==='t' ? CONTENT.today.decisions[+key.slice(1)].choices.length : nodeById(key).choices.length; }
+document.addEventListener('click', e=>{
+  const el = e.target.closest('[data-action]');
+  if(!el) return;
+  const a = el.dataset.action;
+  const {node,opt,phase,q} = el.dataset;
+  switch(a){
+    case 'next': next(); break;
+    case 'back': back(); break;
+    case 'restart': restart(); break;
+    case 'toggle-presenter': setPresenter(!state.presenter); break;
+    case 'choose':
+      state.choices[node]=+opt;
+      if(STEPS[state.i].type==='arc'){ state.arcHist = state.arcHist.slice(0, state.arcPos+1); }
+      save(); render(); break;
+    case 'vote-inc': { const v=getVotesNode(node, nodeCount(node)); v[+opt]++; if(STEPS[state.i].type==='arc'){ state.arcHist=state.arcHist.slice(0,state.arcPos+1); } save(); render(); break; }
+    case 'vote-dec': { const v=getVotesNode(node, nodeCount(node)); v[+opt]=Math.max(0,v[+opt]-1); if(STEPS[state.i].type==='arc'){ state.arcHist=state.arcHist.slice(0,state.arcPos+1); } save(); render(); break; }
+    case 'quiz-pick': { (phase==='post'?state.postSolo:state.preSolo)[q]=+opt; save(); render(); break; }
+    case 'quiz-inc': { quizHand(phase,q,+opt,+1); save(); render(); break; }
+    case 'quiz-dec': { quizHand(phase,q,+opt,-1); save(); render(); break; }
+    case 'export-json': exportJSON(); break;
+    case 'export-csv': exportCSV(); break;
+  }
+});
+
+function quizHand(phase,qid,opt,delta){
+  const store = phase==='post'?state.postHands:state.preHands;
+  const q = CONTENT.quiz.find(x=>x.id===qid);
+  if(!store[qid]) store[qid]=Array(q.options.length).fill(0);
+  store[qid][opt]=Math.max(0, store[qid][opt]+delta);
+}
+
+/* ---------------------- KEYBOARD ---------------------- */
+function decideInfo(step){
+  if(step.type==='arc'){ const f=state.arcHist[state.arcPos]; if(!f || f.phase!=='decide') return null; return {key:f.node, count:nodeById(f.node).choices.length}; }
+  if(step.type==='today' && step.phase==='decide'){ return {key:'t'+step.dec, count:CONTENT.today.decisions[step.dec].choices.length}; }
+  return null;
+}
+document.addEventListener('keydown', e=>{
+  if(e.target.matches('input,textarea')) return;
+  const step = STEPS[state.i];
+  if(e.key==='p'||e.key==='P'){ setPresenter(!state.presenter); return; }
+  if(e.key==='ArrowRight'){ tryNext(); return; }
+  if(e.key==='ArrowLeft'){ back(); return; }
+  if(e.key==='Enter'||e.key===' '){
+    if(!decideInfo(step) || state.presenter){ tryNext(); e.preventDefault(); }
+    return;
+  }
+  const info = decideInfo(step);
+  if(info && /^[1-9]$/.test(e.key)){
+    const oi = +e.key-1; if(oi>=info.count) return;
+    if(state.presenter){ const v=getVotesNode(info.key,info.count); v[oi]++; }
+    else { state.choices[info.key]=oi; }
+    if(step.type==='arc'){ state.arcHist = state.arcHist.slice(0, state.arcPos+1); }
+    save(); render();
+  }
+});
+function tryNext(){
+  const step = STEPS[state.i];
+  const info = decideInfo(step);
+  if(info && !state.presenter && state.choices[info.key]==null) return;
+  if(step.type==='prequiz'||step.type==='postquiz'){ if(!quizAnswered(step.type==='postquiz'?'post':'pre')) return; }
+  next();
+}
+
+/* ---------------------- PRESENTER TOGGLE ---------------------- */
+function setPresenter(on){
+  state.presenter=on;
+  document.body.classList.toggle('presenter',on);
+  presenterBtn.textContent = 'Presenter mode: '+(on?'On':'Off');
+  presenterBtn.classList.toggle('on',on);
+  save(); render();
+}
+
+/* ---------------------- EXPORT ---------------------- */
+function buildSummary(){
+  const path = committedRevealFrames().map(f=>{
+    const n=nodeById(f.node); const oi=chosenOpt(f.node); const c=n.choices[oi];
+    return { node:f.node, year:n.year, chapter:n.chapter, chose:c.short, tag:c.outcome.tag, stability:c.stability||0 };
+  });
+  const today = CONTENT.today.decisions.map((d,di)=>{
+    const key='t'+di; const p = state.presenter ? ((topVoteNode(key)||{}).idx) : state.choices[key];
+    return { prompt:d.scenario.slice(0,70), chose: p!=null? d.choices[p].short : null };
+  });
+  const quiz = {
+    solo: { pre: soloScore('pre'), post: soloScore('post'), outOf: CONTENT.quiz.length },
+    presenter: { pre: handsPct('pre'), post: handsPct('post') }
+  };
+  return { title:CONTENT.meta.title, exportedAt:new Date().toISOString(), mode: state.presenter?'presenter':'solo',
+    finalStability: stabilityClamped(), ending: state.ended? nodeById(state.ended).title : null, path, today, quiz };
+}
+function download(filename, text, type){
+  const blob = new Blob([text], {type});
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href=url; a.download=filename; document.body.appendChild(a); a.click();
+  document.body.removeChild(a); URL.revokeObjectURL(url);
+}
+function stamp(){ return new Date().toISOString().slice(0,16).replace(/[:T]/g,'-'); }
+function exportJSON(){
+  download(`hold-the-line-results-${stamp()}.json`, JSON.stringify(buildSummary(),null,2), 'application/json');
+}
+function csvCell(s){ return '"'+String(s).replace(/"/g,'""')+'"'; }
+function exportCSV(){
+  const S = buildSummary(); const rows=[];
+  rows.push(['Section','Moment','Chose','Type','Stability'].map(csvCell).join(','));
+  S.path.forEach(p=> rows.push(['Arc', `${p.year} ${p.chapter}`, p.chose, p.tag==='real'?'real history':'counterfactual', p.stability].map(csvCell).join(',')));
+  S.today.forEach((t,i)=> rows.push(['Today', `Today ${i+1}`, t.chose||'', '', ''].map(csvCell).join(',')));
+  rows.push(['Summary','Final national stability', S.finalStability, 'ending', S.ending||''].map(csvCell).join(','));
+  rows.push('');
+  rows.push(['Section','Question','Phase','Answer','Correct?','Hands/Picked'].map(csvCell).join(','));
+  CONTENT.quiz.forEach(q=>{
+    ['pre','post'].forEach(phase=>{
+      q.options.forEach((opt,oi)=>{
+        let val='';
+        if(state.presenter){ val = ((phase==='post'?state.postHands:state.preHands)[q.id]||[])[oi]||0; }
+        else { val = ((phase==='post'?state.postSolo:state.preSolo)[q.id]===oi)?'picked':''; }
+        rows.push(['Quiz', q.q, phase, opt, (oi===q.answer?'YES':''), val].map(csvCell).join(','));
+      });
+    });
+  });
+  if(state.presenter){ const pre=handsPct('pre'),post=handsPct('post'); rows.push(''); rows.push(['Summary','Class % correct','pre',pre.pct+'%','post',post.pct+'%'].map(csvCell).join(',')); }
+  else { rows.push(''); rows.push(['Summary','Solo score','pre',soloScore('pre')+'/3','post',soloScore('post')+'/3'].map(csvCell).join(',')); }
+  download(`hold-the-line-results-${stamp()}.csv`, rows.join('\n'), 'text/csv');
+}
+
+/* ---------------------- BOOT ---------------------- */
+load();
+document.body.classList.toggle('presenter', state.presenter);
+presenterBtn.textContent = 'Presenter mode: '+(state.presenter?'On':'Off');
+presenterBtn.classList.toggle('on', state.presenter);
+render();
+</script>
+</body>
+</html>
