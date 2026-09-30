@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>The Unfinished Promise — A Civic Virtue Game</title>
+<title>The Unfinished Promise: A Civic Virtue Game</title>
 <style>
   /* ============================================================
      THEME + LAYOUT (engine styling — safe to leave alone)
@@ -459,8 +459,8 @@
 </head>
 <body data-era="founding">
   <div class="toolbar">
-    <div class="brand">Hold the Line
-      <small>Justice &amp; equality · Declaration + Constitution</small>
+    <div class="brand">The Unfinished Promise
+      <small>Justice and equality, from the Declaration to the Constitution</small>
     </div>
     <button class="tbtn" id="presenterBtn" data-action="toggle-presenter">Presenter mode: Off</button>
     <button class="tbtn" data-action="export-csv" title="Download vote &amp; quiz tallies as CSV">Export CSV</button>
@@ -476,20 +476,19 @@
    The game ENGINE is farther down and does not need to be touched.
 
    Content rules honored here:
-   - Every Madison/Brutus quote below is the EXACT text of Federalist 51
-     or Brutus 1 (verified against the sources on the Sources page).
-     Do NOT paraphrase inside quotation marks.
+   - Every Morris/Madison quote below is the EXACT text of its source
+     (see the Sources page). Do NOT paraphrase inside quotation marks.
    - "What really happened" screens are 3–4 sentences.
    ================================================================ */
 
 /* Verbatim quote bank. Advisors reference these by key so a quote is
    written once and reused correctly. (source shown on cards + Sources page) */
 const QUOTES = {
-  morris: { // Gouverneur Morris — penned the Constitution; the Convention's leading anti-slavery voice
+  morris: { // Gouverneur Morris: wrote the Constitution's final wording; the Convention's leading anti-slavery voice
     curse:   "He never would concur in upholding domestic slavery. It was a nefarious institution. It was the curse of Heaven on the States where it prevailed.",
     justice: "We the People of the United States, in Order to form a more perfect Union, establish Justice… do ordain and establish this Constitution for the United States of America."
   },
-  madison: { // James Madison — Federalist 10 & 51, author of the Bill of Rights
+  madison: { // James Madison: Federalist 10 & 51, drafted the Bill of Rights
     majority:   "Measures are too often decided, not according to the rules of justice and the rights of the minor party, but by the superior force of an interested and overbearing majority.",
     endofgov:   "Justice is the end of government. It is the end of civil society.",
     property:   "…wrong to admit in the Constitution the idea that there could be property in men.",
@@ -500,26 +499,26 @@ const QUOTES = {
 const CONTENT = {
   meta: {
     title: "The Unfinished Promise",
-    hook: "You make the call at real turning points in America's fight over who counts as equal. What you choose changes what happens next, and how close the country gets to the promise it started with.",
+    hook: "You make the decisions at the real turning points in America's long fight over who gets treated as an equal, and the choices you make change what happens next and how close the country gets to the promise it made when it started.",
     virtue: "Justice",
-    sub: "A branching game about justice and equality, from “all men are created equal” to now. Built on the Declaration and the Constitution."
+    sub: "This is a branching game about justice and equality that runs from \"all men are created equal\" in 1776 up to today, and it is built on the Declaration of Independence and the Constitution."
   },
 
   intro: {
-    what: "This game is about a habit, not just a word. <strong>Justice</strong> means insisting that laws and institutions treat people fairly, as <strong>equals</strong>. America's founding promise was that “all men are created equal.” The problem is that the country didn't actually live up to that from the start. Justice is the habit of holding the nation to the promise, and speaking up when it gets broken.",
+    what: "In this game, <strong>justice</strong> is a habit more than a word, and the habit is insisting that laws and institutions treat people fairly and as <strong>equals</strong>. The founding promise of America was that \"all men are created equal,\" but the country did not really live up to that from the start, because slavery kept going and a lot of people were left out. Justice is the habit of holding the country to that promise and speaking up when it gets broken, and that is what every decision in this game is testing.",
     setup: [
-      ["Gouverneur Morris — wrote the Constitution", "morris", "Call the injustice what it is and deal with it now. Slavery is “the curse of Heaven,” and a country that says it exists to “establish Justice” has no business protecting it."],
-      ["James Madison — Federalist 10 & 51, Bill of Rights", "madison", "Win equality through the system. Protect the minority from an “overbearing majority,” but keep the Union together and change it through law instead of blowing it up."]
+      ["Gouverneur Morris, who wrote the final wording of the Constitution", "morris", "Morris thinks you should call the injustice what it is and deal with it now, because slavery is \"the curse of Heaven\" and a country that says it exists to \"establish Justice\" should not be protecting it."],
+      ["James Madison, who wrote Federalist 10 and 51 and drafted the Bill of Rights", "madison", "Madison thinks you should win equality by working through the system, which means protecting the minority from an \"overbearing majority\" while keeping the Union together and changing things through the law instead of breaking the country apart."]
     ],
     vdscv: [
-      ["V — Value", "Equality. Everyone deserves equal standing and equal protection under the law."],
-      ["D — Danger", "Injustice. The powerful, or a big majority, deciding that some people don't get equal rights. Slavery, segregation, being shut out."],
-      ["S — Solution", "Build the country on “all men are created equal,” then use the Constitution, the Bill of Rights, the courts, and later amendments to actually make it true for everyone."],
-      ["CV — Civic Virtue", "Justice. The habit of insisting the promise of equality really applies to everyone, and pushing when it doesn't."]
+      ["V (Value)", "Equality, which means that everyone deserves the same standing and the same protection under the law."],
+      ["D (Danger)", "Injustice, which is what happens when the powerful or a large majority decide that some people do not get equal rights, through things like slavery, segregation, and shutting people out."],
+      ["S (Solution)", "Build the country on \"all men are created equal,\" and then use the Constitution, the Bill of Rights, the courts, and later amendments to make that true for everyone."],
+      ["CV (Civic Virtue)", "Justice, which is the habit of insisting that the promise of equality really does apply to everyone and pushing for it when it does not."]
     ]
   },
 
-  /* 3 questions — same set is used for the pre-quiz and the post-quiz. */
+  /* 3 questions. The same set is used for the pre-quiz and the post-quiz. */
   quiz: [
     {
       id:"q1",
@@ -534,7 +533,7 @@ const CONTENT = {
     },
     {
       id:"q2",
-      q:"What was the founding-era contradiction with “all men are created equal”?",
+      q:"What was the founding-era contradiction with \"all men are created equal\"?",
       options:[
         "The colonies had no written laws.",
         "Only the Supreme Court could define equality.",
@@ -545,7 +544,7 @@ const CONTENT = {
     },
     {
       id:"q3",
-      q:"Which 1954 Supreme Court case struck down “separate but equal” and advanced equal justice?",
+      q:"Which 1954 Supreme Court case struck down \"separate but equal\" and advanced equal justice?",
       options:[
         "Plessy v. Ferguson.",
         "Dred Scott v. Sandford.",
@@ -558,7 +557,7 @@ const CONTENT = {
 
   /* ============================================================
      BRANCHING STORY GRAPH (Chapters 1–3). Each choice has its own
-     outcome — tag:"real" = what actually happened; tag:"cf" = an
+     outcome. tag:"real" = what actually happened; tag:"cf" = an
      evidence-based estimate of a path not taken (see Sources).
      `stability` is the delta to National Stability (start 70).
      `next` = the id of the next node, "end_arc" (resolve an ending
@@ -571,239 +570,239 @@ const CONTENT = {
     tiers: [ {min:80, id:"end_endures"}, {min:45, id:"end_fragile"}, {min:1, id:"end_falters"} ],
     nodes: {
 
-      /* ---------- CHAPTER 1 · 1776 — THE PROMISE ---------- */
+      /* ---------- CHAPTER 1 · 1776 · THE PROMISE ---------- */
       "n_decl": {
         era:"founding", year:"1776", chapter:"The Promise",
-        subtitle:"“All men are created equal” — but the promise comes with a price.",
-        scenario:"Congress is editing Jefferson's draft of the Declaration. It says “all men are created equal,” and it also includes a passage attacking the slave trade. Delegates from South Carolina and Georgia want that passage gone, or they won't sign. What do you push for?",
+        subtitle:"The Declaration says \"all men are created equal,\" but keeping all thirteen colonies together comes with a price.",
+        scenario:"Congress is editing Jefferson's draft of the Declaration, which says \"all men are created equal\" and also includes a passage attacking the slave trade. The delegates from South Carolina and Georgia want that passage taken out, and they have made it clear that they will not sign if it stays in. What do you push for?",
         advisors:{
-          morris:{ key:"curse", gloss:"Say it plainly: slavery is “the curse of Heaven.” A country that claims to stand for justice can't be built on it." },
-          madison:{ key:"property", gloss:"It's wrong to found a nation on owning people. But if the southern colonies walk, there may be no nation left to fix it later." }
+          morris:{ key:"curse", gloss:"Say it plainly, that slavery is \"the curse of Heaven,\" because a country that claims to stand for justice cannot be built on top of it." },
+          madison:{ key:"property", gloss:"I think it is wrong to found a nation on owning people, but if the southern colonies walk away there may be no nation left to fix it later." }
         },
         choices:[
-          { short:"Keep the anti-slavery passage", label:"Keep Jefferson's attack on slavery in the Declaration, even if the South walks away.", cost:"South Carolina and Georgia might refuse to sign. Independence itself could fall apart.", stability:12, flags:["idealism"], next:"n_const",
-            outcome:{ tag:"cf", text:"If the clause had stayed, the Declaration would have condemned slavery from day one. But South Carolina and Georgia threatened to walk, and other delegates who made money off the slave trade backed them up. Pushing it probably breaks the shaky alliance for independence. You'd get a cleaner promise, and maybe no country to keep it.", why:"A perfect promise doesn't help much if there's no nation left to stand behind it." } },
-          { short:"Cut the passage to keep the union", label:"Cut the attack on slavery so all thirteen colonies sign, but keep “all men are created equal.”", cost:"The country is founded on a promise it breaks for millions of people the same day.", stability:-8, flags:["contradiction"], next:"n_const",
-            outcome:{ tag:"real", text:"This is what actually happened. Jefferson's attack on slavery got cut, and he later said it was taken out “in compliance to South Carolina and Georgia.” The Declaration still said “all men are created equal” while slavery kept right on going. That gap between the words and the reality is the contradiction the country would fight over for the next two centuries.", why:"The big ideal and the ugly compromise ended up on the same piece of paper." } },
-          { short:"Water it down", label:"Keep a vague line about equality but drop any direct hit on slavery, so nobody's offended.", cost:"You weaken the promise before the ink is even dry.", stability:-6, flags:["vague"], next:"n_const",
-            outcome:{ tag:"cf", text:"A softened Declaration ducks the fight, but it also takes the punch out of the promise. That line, “all men are created equal,” is exactly what abolitionists, suffragists, and civil-rights leaders would quote for the next two hundred years. Make it mushy and you hand them a weaker tool.", why:"The promise is powerful because it's blunt. That's the part worth protecting." } }
+          { short:"Keep the anti-slavery passage", label:"Keep Jefferson's attack on slavery in the Declaration, even if the South walks away.", cost:"South Carolina and Georgia might refuse to sign, and the whole push for independence could fall apart.", stability:12, flags:["idealism"], next:"n_const",
+            outcome:{ tag:"cf", text:"If the clause had stayed, the Declaration would have condemned slavery from the very first day. South Carolina and Georgia threatened to walk out, though, and other delegates who made money from the slave trade backed them up, so pushing the clause would probably have broken the shaky alliance for independence. You would most likely get a cleaner promise and no country to keep it.", why:"A perfect promise probably does not help very much if there is no nation left to stand behind it and carry it out." } },
+          { short:"Cut the passage to keep the union", label:"Cut the attack on slavery so all thirteen colonies sign, but keep \"all men are created equal.\"", cost:"The country gets founded on a promise that it breaks for millions of people on the same day.", stability:-8, flags:["contradiction"], next:"n_const",
+            outcome:{ tag:"real", text:"This is what actually happened, since Jefferson's attack on slavery was cut and he later wrote that it was taken out \"in compliance to South Carolina and Georgia.\" The Declaration still said \"all men are created equal\" while slavery kept going, and that gap between the words and the reality is the contradiction the country would keep fighting over for the next two centuries.", why:"The big ideal and the ugly compromise ended up written on the same piece of paper, and the country had to live with both of them." } },
+          { short:"Water it down", label:"Keep a vague line about equality but drop any direct attack on slavery, so that nobody is offended.", cost:"You weaken the promise before the ink on it is even dry.", stability:-6, flags:["vague"], next:"n_const",
+            outcome:{ tag:"cf", text:"A softened Declaration avoids the fight, but it also takes a lot of the force out of the promise. The line \"all men are created equal\" is exactly what abolitionists, suffragists, and civil rights leaders would quote for the next two hundred years, and making it vague would have handed them a weaker tool to work with.", why:"The promise has power because it is blunt, and that bluntness is probably the part of it most worth protecting." } }
         ]
       },
 
-      /* ---------- CHAPTER 2 · 1787 — THE CONSTITUTION ---------- */
+      /* ---------- CHAPTER 2 · 1787 · THE CONSTITUTION ---------- */
       "n_const": {
         era:"founding", year:"1787", chapter:"The Compromise",
-        subtitle:"How much slavery goes into the Constitution?",
-        scenario:"The Convention has to decide how the Constitution deals with slavery: how enslaved people get counted for representation (the “three-fifths” fight) and whether to protect the slave trade. Gouverneur Morris stands up and calls slavery “the curse of Heaven.” What do you back?",
+        subtitle:"How much protection for slavery goes into the Constitution?",
+        scenario:"The Convention has to decide how the Constitution will deal with slavery, which means deciding how enslaved people are counted for representation (the \"three-fifths\" fight) and whether the slave trade gets protected. Gouverneur Morris stands up and calls slavery \"the curse of Heaven.\" What do you support?",
         advisors:{
-          morris:{ key:"curse", gloss:"Don't write this into the country's rulebook. A Constitution meant to “establish Justice” shouldn't be shielding slavery." },
-          madison:{ key:"property", gloss:"I don't want the idea of property in men in this document. But I'm scared the Union falls apart if we force it now." }
+          morris:{ key:"curse", gloss:"Do not write slavery into the country's rulebook, because a Constitution that is meant to \"establish Justice\" should not be protecting it." },
+          madison:{ key:"property", gloss:"I do not want the idea of property in men in this document, but I am worried that the Union falls apart if we force the question now." }
         },
         choices:[
-          { short:"Push to end slavery now", label:"Use the Constitution to start ending slavery, no matter what it does to the deal.", cost:"The southern states may refuse to ratify. The Union might never come together.", stability:12, flags:["abolition"], next:"n_const_abolition",
-            outcome:{ tag:"cf", text:"A few delegates, Morris included, actually wanted this. But the southern states were clear that they wouldn't join a Union that came after slavery. Forcing abolition in 1787 most likely means no Constitution at all, which means the very tool that later ended slavery never gets built. It's the right instinct with a huge, uncertain price tag.", why:"The thing that finally killed slavery had to exist before anyone could use it." } },
-          { short:"Accept the compromises", label:"Take the three-fifths clause and the slave-trade protections so every state ratifies.", cost:"The Constitution ends up protecting slavery without ever saying the word, and locks it in for decades.", stability:-10, flags:["compromise"], next:"n_14th",
-            outcome:{ tag:"real", text:"This is what happened. The Convention agreed to the Three-Fifths Compromise and a 20-year protection for the slave trade. Madison kept the word “slavery” out of the text, but the document protected it anyway. One historian described it as a Constitution that strengthened slavery while refusing to name it. The real reckoning got pushed off to a civil war.", why:"The Union got bought, and millions of people paid the bill." } },
-          { short:"Ban the trade, keep the rest", label:"Ban the Atlantic slave trade right away, but leave existing slavery to the states.", cost:"You stop new kidnappings, but millions are still enslaved and inequality is still baked in.", stability:-4, flags:["tradeban"], next:"n_14th",
-            outcome:{ tag:"cf", text:"Banning the trade immediately, instead of the 20-year delay they actually agreed to, would have cut off new importation a lot sooner. But leaving slavery itself up to the states still builds the injustice into the foundation. It fixes the edges and leaves the center alone.", why:"Half-fixes on equality have a way of freezing the other half in place." } }
+          { short:"Push to end slavery now", label:"Use the Constitution to start ending slavery, no matter what it does to the deal.", cost:"The southern states may refuse to ratify, and the Union might never come together at all.", stability:12, flags:["abolition"], next:"n_const_abolition",
+            outcome:{ tag:"cf", text:"A few delegates, Morris included, really did want this, but the southern states made it clear that they would not join a Union that went after slavery. Forcing abolition in 1787 most likely means no Constitution at all, which means the document that was later used to end slavery never gets written. It is the right instinct, but it comes with a huge and uncertain price.", why:"The Constitution that was eventually used to end slavery had to exist before anyone could use it for that." } },
+          { short:"Accept the compromises", label:"Accept the three-fifths clause and the slave trade protections so that every state ratifies.", cost:"The Constitution ends up protecting slavery without ever using the word, and it locks that protection in for decades.", stability:-10, flags:["compromise"], next:"n_14th",
+            outcome:{ tag:"real", text:"This is what happened, as the Convention agreed to the Three-Fifths Compromise and to protecting the slave trade for 20 years. The delegates kept the word \"slavery\" out of the text, but the document protected it anyway, and the real reckoning got pushed off until the Civil War.", why:"The Union was held together by a deal, and the people who paid for that deal were the millions who stayed enslaved." } },
+          { short:"Ban the trade, keep the rest", label:"Ban the Atlantic slave trade right away, but leave slavery itself up to the states.", cost:"You stop new people from being kidnapped and brought over, but millions stay enslaved and the inequality is still built in.", stability:-4, flags:["tradeban"], next:"n_14th",
+            outcome:{ tag:"cf", text:"Banning the trade right away, instead of after the 20-year delay they actually agreed to, would have stopped new importation a lot sooner. Leaving slavery itself to the states still builds the injustice into the foundation, though, so this fixes the edges of the problem and leaves the center of it alone.", why:"When only half of an equality problem gets fixed, the other half tends to stay frozen in place for a long time." } }
         ]
       },
 
       "n_const_abolition": {
         era:"founding", year:"1787", chapter:"The Union in the Balance",
-        subtitle:"You forced the question. Now the Union hangs in the balance.",
-        scenario:"You pushed to put slavery on the road to extinction. The Deep South delegations are packing up. Northern moderates are begging you to find some kind of compromise before the whole Convention falls apart. Now what?",
+        subtitle:"You forced the question, and now the Union hangs in the balance.",
+        scenario:"You pushed to put slavery on the road to ending, and now the Deep South delegations are packing up to leave. Northern moderates are begging you to find some kind of compromise before the whole Convention falls apart. What do you do now?",
         advisors:{
-          morris:{ key:"curse", gloss:"Better a smaller, free Union than a big one that protects “the curse of Heaven.”" },
-          madison:{ key:"majority", gloss:"You can win the argument by “the superior force of an overbearing majority” and still lose the Union that could actually enforce it someday." }
+          morris:{ key:"curse", gloss:"A smaller Union that is free is better than a big one that protects \"the curse of Heaven.\"" },
+          madison:{ key:"majority", gloss:"You can win the argument by \"the superior force of an interested and overbearing majority\" and still lose the Union that could actually enforce it someday." }
         },
         choices:[
-          { short:"Hold firm — no Union with slavery", label:"Refuse to budge. If the South leaves, they leave.", cost:"You could end up with two rival countries, one slave and one free, instead of one.", stability:-6, flags:["rupture"], next:"n_14th",
-            outcome:{ tag:"cf", text:"Most historians doubt the Deep South would have joined an antislavery Union in 1787. The likeliest result is two or more separate countries, with a southern one free to spread slavery and no federal check on it at all. The stand is real. So is the chance that it leaves enslaved people even worse off.", why:"The pure choice and the choice that actually helps people aren't always the same, and equality needs both." } },
-          { short:"Win a gradual-abolition clause", label:"Trade for a deal that at least commits the country to ending slavery over time.", cost:"“Gradual” can drag on for generations while real people stay enslaved.", stability:8, flags:["gradual"], next:"n_14th",
-            outcome:{ tag:"cf", text:"A written promise of gradual abolition would have been a big deal, and several northern states did exactly that in their own laws. But “gradual” usually meant decades of people still in bondage. A promise on paper still needs people who mean it to carry it out.", why:"A promise of equality is only worth as much as the will to keep it on time." } },
-          { short:"Cave entirely", label:"Give up and take whatever the South demands to save the Convention.", cost:"You end up worse off than the real compromise, with slavery even more protected.", stability:-16, flags:["cave"], next:"n_14th",
-            outcome:{ tag:"cf", text:"Folding all the way hands the pro-slavery delegates even more than they got in real life. The lesson of 1787 is that the actual compromise was a floor, and a costly one. Going below it gives the whole promise away.", why:"Dropping the principle just to calm the room only pushes the injustice down the road." } }
+          { short:"Hold firm, no Union with slavery", label:"Refuse to give in, and if the South leaves, let them leave.", cost:"You could end up with two rival countries, one slave and one free, instead of one.", stability:-6, flags:["rupture"], next:"n_14th",
+            outcome:{ tag:"cf", text:"Most historians doubt that the Deep South would have joined an antislavery Union in 1787. The most likely result is two or more separate countries, with a southern one free to spread slavery and no federal government to check it. The stand you are taking is real, but so is the chance that it leaves enslaved people even worse off than before.", why:"The pure choice and the choice that actually helps people are not always the same one, and working toward equality usually needs both of them." } },
+          { short:"Win a gradual abolition clause", label:"Trade for a deal that at least commits the country to ending slavery over time.", cost:"\"Gradual\" can drag on for generations while real people stay enslaved.", stability:8, flags:["gradual"], next:"n_14th",
+            outcome:{ tag:"cf", text:"A written promise of gradual abolition would have been a big deal, and several northern states did exactly that in their own laws. In practice \"gradual\" usually meant decades of people still being held in bondage, and a promise on paper still needs people who mean it to carry it out.", why:"A promise of equality is only worth as much as the willingness to keep it on time." } },
+          { short:"Cave entirely", label:"Give up and accept whatever the South demands so that the Convention survives.", cost:"You end up worse off than the real compromise, with slavery protected even more.", stability:-16, flags:["cave"], next:"n_14th",
+            outcome:{ tag:"cf", text:"Giving in completely hands the pro-slavery delegates even more than they got in real life. The actual compromise of 1787 was already a floor, and a costly one, so going below it gives away most of the promise.", why:"Dropping a principle just to calm a room down usually pushes the injustice further down the road instead of solving it." } }
         ]
       },
 
-      /* ---------- CHAPTER 3 · 1868 — EQUAL PROTECTION ---------- */
+      /* ---------- CHAPTER 3 · 1868 · EQUAL PROTECTION ---------- */
       "n_14th": {
         era:"watergate", year:"1868", chapter:"Equal Protection",
-        subtitle:"The war is over. Will “equal” finally mean everyone?",
-        scenario:"The Civil War is over and slavery is gone. The Fourteenth Amendment would guarantee every citizen “the equal protection of the laws.” But actually enforcing it in the South is going to take federal troops and federal willpower. What do you commit to?",
+        subtitle:"The war is over, so will \"equal\" finally mean everyone?",
+        scenario:"The Civil War is over and slavery has been abolished. The Fourteenth Amendment would guarantee every citizen \"the equal protection of the laws,\" but enforcing it in the South is going to take federal troops and a lot of political will from Washington. What do you commit to?",
         advisors:{
-          morris:{ key:"justice", gloss:"The Constitution was written to “establish Justice.” So finish the job and make equal protection real." },
-          madison:{ key:"endofgov", gloss:"“Justice is the end of government.” A government that won't protect equal rights has walked away from its own reason to exist." }
+          morris:{ key:"justice", gloss:"The Constitution was written to \"establish Justice,\" so finish the job and make equal protection real." },
+          madison:{ key:"endofgov", gloss:"A government that will not protect equal rights has walked away from the reason it exists in the first place." }
         },
         choices:[
-          { short:"Ratify AND enforce it", label:"Ratify the 14th Amendment and back it up with federal enforcement of Black citizenship and voting.", cost:"A long, expensive federal presence in the South, and fierce, sometimes violent pushback.", stability:14, flags:["reconstruction"], next:"n_brown",
-            outcome:{ tag:"cf", text:"The 14th Amendment's promise was real, and where enforcement actually held, Black Americans voted and held office during Reconstruction. Keeping that enforcement up, which the country didn't fully do, could have headed off decades of Jim Crow. It would have been hard and bloody, but the promise would have had real teeth.", why:"A right nobody will enforce is just a right on paper." } },
-          { short:"Ratify, but leave it to the states", label:"Pass the Amendment, pull the federal troops out, and trust the states to honor it.", cost:"With no one enforcing it, the promise gets gutted wherever the majority pushes back.", stability:-6, flags:["jimcrow"], next:"n_reconstruction_fails",
-            outcome:{ tag:"real", text:"This is close to what actually happened. The 14th Amendment was ratified in 1868, but by 1877 federal enforcement fell apart. Southern states built Jim Crow and stripped Black citizens of the vote. Equal protection stayed in the Constitution while segregation ran everything on the ground.", why:"The promise made it into the Constitution, and then got abandoned in real life." } },
-          { short:"Restore the old order", label:"Give up on Reconstruction and let the pre-war leaders run the South again to end the fighting.", cost:"You trade equality for “peace,” and hand power back to the people who denied it.", stability:-20, flags:["redemption"], next:"end_collapse",
-            outcome:{ tag:"cf", text:"Walking away from Reconstruction, what people at the time called “Redemption,” is exactly how white-supremacist governments took back the South, drove Black voters away by force, and locked in Jim Crow. Choosing it on purpose doesn't just slow equality down. It breaks the promise so badly that “equal justice” turns into a lie the country tells itself.", why:"Trading justice for quiet just lets the injustice win." } }
+          { short:"Ratify and enforce it", label:"Ratify the 14th Amendment and back it up with federal enforcement of Black citizenship and voting rights.", cost:"It means a long and expensive federal presence in the South, along with fierce and sometimes violent pushback.", stability:14, flags:["reconstruction"], next:"n_brown",
+            outcome:{ tag:"cf", text:"The promise of the 14th Amendment was real, and in the places where enforcement held, Black Americans voted and held office during Reconstruction. Keeping that enforcement going, which the country did not fully do, could have prevented decades of Jim Crow. It would have been hard and bloody, but the promise would have had real force behind it.", why:"A right that nobody is willing to enforce ends up being a right that only exists on paper." } },
+          { short:"Ratify, but leave it to the states", label:"Pass the Amendment, pull the federal troops out, and trust the states to honor it.", cost:"With nobody enforcing it, the promise gets gutted anywhere the majority pushes back.", stability:-6, flags:["jimcrow"], next:"n_reconstruction_fails",
+            outcome:{ tag:"real", text:"This is close to what actually happened, since the 14th Amendment was ratified in 1868 but federal enforcement fell apart by 1877. Southern states then built Jim Crow and took the vote away from Black citizens, so equal protection stayed in the Constitution while segregation ran daily life.", why:"The promise made it into the Constitution and then got abandoned in the places where people actually lived." } },
+          { short:"Restore the old order", label:"Give up on Reconstruction and let the pre-war leaders run the South again so the fighting ends.", cost:"You trade equality for \"peace\" and hand power back to the people who denied it.", stability:-20, flags:["redemption"], next:"end_collapse",
+            outcome:{ tag:"cf", text:"Walking away from Reconstruction, which people at the time called \"Redemption,\" is how white supremacist governments took back the South, drove Black voters away by force, and locked in Jim Crow. Choosing that on purpose would do more than slow equality down, because it would break the promise so badly that \"equal justice\" turns into something the country says without meaning it.", why:"Trading justice for quiet mostly ends up letting the injustice win." } }
         ]
       },
 
       "n_reconstruction_fails": {
         era:"watergate", year:"1896", chapter:"Separate but Equal",
-        subtitle:"Reconstruction has collapsed. Jim Crow is spreading.",
-        scenario:"Federal enforcement is gone, states are passing segregation laws, and Black citizens are losing the vote. A test case, Plessy v. Ferguson, asks the Supreme Court whether “separate but equal” is legal. What should the Court do?",
+        subtitle:"Reconstruction has collapsed and Jim Crow is spreading.",
+        scenario:"Federal enforcement is gone, states are passing segregation laws, and Black citizens are losing the vote. A test case called Plessy v. Ferguson asks the Supreme Court whether \"separate but equal\" is legal. What should the Court do?",
         advisors:{
-          morris:{ key:"justice", gloss:"“Equal protection” can't mean “separate.” Read the words the country ratified and actually enforce them." },
-          madison:{ key:"dueprocess", gloss:"No person can be denied the equal protection of the laws. “Separate but equal” makes a joke of that." }
+          morris:{ key:"justice", gloss:"\"Equal protection\" cannot mean \"separate,\" so read the words the country ratified and actually enforce them." },
+          madison:{ key:"dueprocess", gloss:"The Constitution says no person can lose their liberty without due process of law, and \"separate but equal\" treats some people's liberty as if it were worth less than everyone else's." }
         },
         choices:[
-          { short:"Reject “separate but equal”", label:"Strike segregation down now as a violation of the 14th Amendment.", cost:"A head-on fight with entrenched state power and the public opinion of the time.", stability:12, flags:["earlybrown"], next:"n_brown",
-            outcome:{ tag:"cf", text:"One Justice, John Marshall Harlan, actually did dissent in Plessy and wrote that “our Constitution is color-blind.” If the Court had agreed back in 1896, it could have cut off Jim Crow before it hardened and spared three generations. The argument was right there. The will wasn't.", why:"The dissent that lost in 1896 basically became the law in 1954. The idea was always available." } },
-          { short:"Bless “separate but equal”", label:"Uphold segregation as long as the facilities are “equal.”", cost:"You hand Jim Crow the Constitution's blessing for the next 58 years.", stability:-14, flags:["plessy"], next:"n_brown",
-            outcome:{ tag:"real", text:"This is what happened. In Plessy v. Ferguson (1896), the Court upheld “separate but equal” 7 to 1. The ruling locked Jim Crow in across the South. “Separate” got enforced. “Equal” almost never did. The 14th Amendment's promise got hollowed out with the Court's own stamp on it.", why:"When the highest court blesses inequality, the injustice gets to hide behind the law." } },
-          { short:"Dodge the question", label:"Rule narrowly and duck the question of whether segregation itself is legal.", cost:"Segregation keeps spreading while the Court looks the other way.", stability:-6, flags:["dodge"], next:"n_brown",
-            outcome:{ tag:"cf", text:"A narrow dodge lets the state laws and lower rulings stand, so segregation just keeps spreading on its own. Refusing to decide is still a decision. It sides with things the way they already are.", why:"Staying quiet about an injustice is basically voting for it." } }
+          { short:"Reject \"separate but equal\"", label:"Strike segregation down now as a violation of the 14th Amendment.", cost:"It means a head-on fight with powerful state governments and with the public opinion of the time.", stability:12, flags:["earlybrown"], next:"n_brown",
+            outcome:{ tag:"cf", text:"One Justice, John Marshall Harlan, really did dissent in Plessy, and he wrote that \"our Constitution is color-blind.\" If the rest of the Court had agreed with him in 1896, it could have stopped Jim Crow before it hardened and spared three generations from living under it. The argument was already there, and what was missing was the will to use it.", why:"The dissent that lost in 1896 is close to what became the law in 1954, which shows that the idea was available the whole time." } },
+          { short:"Uphold \"separate but equal\"", label:"Uphold segregation as long as the facilities are \"equal.\"", cost:"You give Jim Crow the Constitution's approval for the next 58 years.", stability:-14, flags:["plessy"], next:"n_brown",
+            outcome:{ tag:"real", text:"This is what happened, as the Court upheld \"separate but equal\" by a vote of 7 to 1 in Plessy v. Ferguson (1896) and locked Jim Crow in across the South. The \"separate\" part got enforced and the \"equal\" part almost never did, so the promise of the 14th Amendment was hollowed out with the Court's own approval.", why:"When the highest court in the country approves of inequality, the injustice gets to hide behind the law." } },
+          { short:"Dodge the question", label:"Rule narrowly and avoid deciding whether segregation itself is legal.", cost:"Segregation keeps spreading while the Court looks the other way.", stability:-6, flags:["dodge"], next:"n_brown",
+            outcome:{ tag:"cf", text:"A narrow ruling lets the state laws and lower court decisions stand, so segregation just keeps spreading on its own. Refusing to decide still counts as a decision, because it sides with the way things already are.", why:"Staying quiet about an injustice ends up working a lot like supporting it." } }
         ]
       },
 
-      /* ---------- CHAPTER 4 · 1954 — BROWN v. BOARD ---------- */
+      /* ---------- CHAPTER 4 · 1954 · BROWN v. BOARD ---------- */
       "n_brown": {
         era:"watergate", year:"1954", chapter:"Brown v. Board",
-        subtitle:"“Separate but equal” is on trial at last.",
-        scenario:"Black children are being kept out of white public schools. The case reaches the Supreme Court, which has to decide whether segregated schools break the 14th Amendment's promise of equal protection. What should the Court rule?",
+        subtitle:"\"Separate but equal\" is finally on trial.",
+        scenario:"Black children are being kept out of white public schools, and the case has reached the Supreme Court. The Court has to decide whether segregated schools break the 14th Amendment's promise of equal protection. What should the Court rule?",
         advisors:{
-          morris:{ key:"justice", gloss:"Finish what the founding started. Make “establish Justice” real in the one place every kid deals with the government: school." },
-          madison:{ key:"dueprocess", gloss:"Equal protection can't mean “separate.” Read the promise the way it was written, or just admit nobody meant it." }
+          morris:{ key:"justice", gloss:"Finish what the founding started by making \"establish Justice\" real in the one place where every kid deals with the government, which is school." },
+          madison:{ key:"dueprocess", gloss:"Equal protection cannot mean \"separate,\" so either read the promise the way it was written or admit that nobody meant it." }
         },
         choices:[
-          { short:"Strike down segregation", label:"Rule that “separate but equal” is unconstitutional in public schools.", cost:"Furious “massive resistance.” Some states will defy the Court for years.", stability:16, flags:["brown"], next:"end_arc",
-            outcome:{ tag:"real", text:"This is what happened. In Brown v. Board of Education (1954), a unanimous Court ruled that “separate educational facilities are inherently unequal” and overturned Plessy. Actually enforcing it took years and a lot of courage, but the promise of the Declaration and the 14th Amendment finally started reaching the classroom.", why:"Ninety years after the 14th Amendment, “equal” finally started to mean equal." } },
-          { short:"Uphold Plessy", label:"Leave “separate but equal” in place and let states and Congress deal with it.", cost:"Segregation keeps going with the Court's blessing.", stability:-18, flags:["upholdseg"], next:"end_arc",
-            outcome:{ tag:"cf", text:"If Brown had gone the other way, Jim Crow would have kept the Constitution's protection. The civil-rights movement would have faced an even steeper hill, and “equal justice under law,” the words carved over the Court's own doors, would have stayed a promise the Court itself refused to keep.", why:"A court that won't enforce equality is telling the powerful they never have to." } },
-          { short:"Order it “gradually”", label:"Say segregation is wrong but let it end whenever states get around to it.", cost:"“Someday” turns into “never” in the places that fight hardest.", stability:-4, flags:["deliberatespeed"], next:"end_arc",
-            outcome:{ tag:"cf", text:"The real Court did tell schools to desegregate “with all deliberate speed,” and plenty of districts used that vagueness to stall for more than a decade. A ruling that's right on paper but has no teeth just lets the injustice run out the clock.", why:"Justice delayed, like people say, is justice denied." } }
+          { short:"Strike down segregation", label:"Rule that \"separate but equal\" is unconstitutional in public schools.", cost:"There will be furious \"massive resistance,\" and some states will defy the Court for years.", stability:16, flags:["brown"], next:"end_arc",
+            outcome:{ tag:"real", text:"This is what happened, as a unanimous Court ruled in Brown v. Board of Education (1954) that \"separate educational facilities are inherently unequal\" and overturned Plessy. Enforcing the ruling took years and a lot of courage, but the promise of the Declaration and the 14th Amendment finally started reaching the classroom.", why:"Almost ninety years after the 14th Amendment was ratified, \"equal\" finally started to mean equal in public schools." } },
+          { short:"Uphold Plessy", label:"Leave \"separate but equal\" in place and let the states and Congress deal with it.", cost:"Segregation keeps going with the Court's approval.", stability:-18, flags:["upholdseg"], next:"end_arc",
+            outcome:{ tag:"cf", text:"If Brown had gone the other way, Jim Crow would have kept the Constitution's protection and the civil rights movement would have faced an even harder fight. The words \"equal justice under law,\" which are carved over the Court's own doors, would have stayed a promise that the Court itself refused to keep.", why:"A court that will not enforce equality is telling the powerful that they never have to either." } },
+          { short:"Order it \"gradually\"", label:"Say segregation is wrong but let it end whenever the states get around to it.", cost:"\"Someday\" turns into \"never\" in the places that fight the hardest.", stability:-4, flags:["deliberatespeed"], next:"end_arc",
+            outcome:{ tag:"cf", text:"The real Court did later tell schools to desegregate \"with all deliberate speed,\" and a lot of districts used that vague wording to stall for more than ten years. A ruling that is right on paper but has nothing forcing it into practice lets the injustice run out the clock.", why:"People often say that justice delayed is justice denied, and this is a clear example of what that looks like." } }
         ]
       },
 
       /* ---------- ENDINGS ---------- */
       "end_endures": { ending:true, kind:"tier", title:"A More Perfect Union",
-        text:"You held the country to its own promise. Over and over, somebody insisted that “all men are created equal” had to mean everyone, and made the law and the courts catch up to the words. Equality was never automatic. It moved forward because people refused to let the promise stay broken. The country is never really finished, but you left it better than you found it." },
+        text:"You held the country to its own promise, and over and over someone insisted that \"all men are created equal\" had to mean everyone and made the laws and the courts catch up to those words. Equality did not happen on its own, and it moved forward because people refused to let the promise stay broken. There is still work left for the people after you, and you left the country better than you found it." },
       "end_fragile": { ending:true, kind:"tier", title:"A Half-Kept Promise",
-        text:"Equality moved forward, but unevenly. Some doors opened and others stayed shut. Honestly, that's pretty close to America's real story: the promise grew in fits and starts, always fought over, never done. The takeaway is that “equal” isn't a finish line the founders crossed for us. It's a claim every generation has to make good on again." },
+        text:"Equality moved forward, but unevenly, because some doors opened while others stayed shut. That is probably pretty close to America's real story, where the promise grew in fits and starts and was always being fought over. What this ending shows is that \"equal\" was not something the founders finished for us, and every generation has to make good on it again." },
       "end_falters": { ending:true, kind:"tier", title:"The Promise Deferred",
-        text:"The words “all men are created equal” are still there, but too often they stayed just words. Every time the country looked away, the inequality dug in deeper and the next fix got harder. A nation can carry a broken promise for a long time, but the gap between what it says and what it does keeps eating at it." },
+        text:"The words \"all men are created equal\" are still there, but too often they stayed only words. Every time the country looked away, the inequality dug in deeper and the next fix got harder to make. A country can carry a broken promise for a long time, but the gap between what it says and what it does keeps wearing away at it." },
       "end_collapse": { ending:true, kind:"collapse", title:"The Promise Betrayed",
-        text:"One choice at a time, the country picked order, or money, or a quiet peace over equal justice, until “all men are created equal” turned into a line nobody really believed. A country that permanently denies some of its people equal rights isn't unfinished. It's broken faith with its own founding. This didn't happen all at once. It happened through a string of choices to leave the promise unkept." }
+        text:"One choice at a time, the country picked order, or money, or a quiet peace over equal justice, until \"all men are created equal\" became a line that nobody really believed. A country that permanently denies some of its people equal rights has broken faith with its own founding, and that did not happen all at once, because it happened through a long string of choices to leave the promise unkept." }
     }
   },
 
   /* ============================================================
-     CHAPTER 4 · TODAY — non-branching (choice → reflection).
+     CHAPTER 4 · TODAY. Non-branching (choice, then reflection).
      Does not affect National Stability or the ending.
      ============================================================ */
   today: {
     year:"Today", title:"You're the Citizen",
-    subtitle:"No history book here. Just you — and whether the promise holds where you are.",
+    subtitle:"There is no history book for this part, just you and whether the promise holds where you are.",
     decisions:[
       {
-        scenario:"A club or program at your school quietly limits who's allowed in, and it's shutting out students who'd totally qualify. Most people haven't noticed. You have. What do you do?",
+        scenario:"A club or program at your school quietly limits who is allowed in, and it is shutting out students who would easily qualify. Most people have not noticed, but you have. What do you do?",
         advisors:{
-          morris:{ key:"justice", gloss:"“Establish Justice” isn't just an 1787 thing. A rule that shuts people out unequally is exactly what it's against." },
-          madison:{ key:"dueprocess", gloss:"Equal treatment means the same rules apply to everyone. Say that out loud." }
+          morris:{ key:"justice", gloss:"\"Establish Justice\" was not only meant for 1787, and a rule that shuts people out unequally is exactly the kind of thing it was written against." },
+          madison:{ key:"dueprocess", gloss:"Equal treatment means the same rules apply to everyone, so say that out loud." }
         },
         choices:[
-          { short:"Raise it with the school", label:"Bring it to the sponsor or an administrator and ask for the rule to change.", cost:"It takes nerve, and adults don't always listen the first time." },
-          { short:"Organize other students", label:"Rally classmates to push for a fair, open policy together.", cost:"Real effort to organize, and not everyone will care." },
-          { short:"Document and report it", label:"Write down what's happening and report it through the school's process.", cost:"Slower and less dramatic, but it creates a record that's hard to ignore." }
+          { short:"Raise it with the school", label:"Bring it to the sponsor or an administrator and ask for the rule to change.", cost:"It takes nerve, and adults do not always listen the first time." },
+          { short:"Organize other students", label:"Get your classmates together to push for a fair and open policy.", cost:"It takes real effort to organize, and not everyone will care." },
+          { short:"Document and report it", label:"Write down what is happening and report it through the school's process.", cost:"It is slower and less dramatic, but it creates a record that is hard to ignore." }
         ],
         reflection:{
-          text:"There's no “what really happened” here. It's up to you. Every option is a real way to stand up for equal treatment, and every one has a cost. The only choice that actually fails is pretending you didn't notice. This kind of thing usually starts with one person who won't let an unfair rule slide.",
-          why:"Equality is a habit. It shows up in whether you say something when a rule leaves someone out."
+          text:"There is no \"what really happened\" here, because this one is up to you. Every option is a real way to stand up for equal treatment and every one of them has a cost, and the only choice that really fails is pretending you did not notice. This kind of change usually starts with one person who will not let an unfair rule slide.",
+          why:"Equality is a habit, and it shows up in whether you say something when a rule leaves someone out."
         }
       },
       {
-        scenario:"A classmate is getting treated unfairly. They're singled out, or held to a standard nobody else has to meet. Speaking up could cost you socially. What do you do?",
+        scenario:"A classmate is being treated unfairly, either singled out or held to a standard nobody else has to meet, and speaking up could cost you socially. What do you do?",
         advisors:{
-          morris:{ key:"justice", gloss:"The promise means nothing if it stops at the classroom door. Equal treatment is for the room you're actually in." },
-          madison:{ key:"majority", gloss:"An “overbearing majority” can be a crowd, a clique, or a comment section. Equal treatment means protecting the person it turns on." }
+          morris:{ key:"justice", gloss:"The promise means nothing if it stops at the classroom door, because equal treatment is for the room you are actually in." },
+          madison:{ key:"majority", gloss:"An \"overbearing majority\" can be a crowd, a clique, or a comment section, and equal treatment means protecting the person it turns on." }
         },
         choices:[
-          { short:"Say something in the moment", label:"Speak up right then and name the double standard.", cost:"It's uncomfortable, and the crowd may turn on you too." },
-          { short:"Support them + report it", label:"Back your classmate privately and report it to someone who can act.", cost:"Quieter, and it relies on an adult actually following through." },
-          { short:"Stay out of it", label:"Decide it's not your problem and keep your head down.", cost:"The unfair treatment stands, and silence tells everyone it's allowed." }
+          { short:"Say something in the moment", label:"Speak up right then and name the double standard.", cost:"It is uncomfortable, and the crowd may turn on you too." },
+          { short:"Support them and report it", label:"Back your classmate privately and report it to someone who can act.", cost:"It is quieter, and it depends on an adult actually following through." },
+          { short:"Stay out of it", label:"Decide it is not your problem and keep your head down.", cost:"The unfair treatment stands, and your silence tells everyone that it is allowed." }
         ],
         reflection:{
-          text:"Again, your call. “All men are created equal” isn't only about courts and amendments. It's about whether regular people insist on fair treatment in the rooms they're actually in. Staying quiet lets the double standard stand.",
+          text:"This one is your call again. \"All men are created equal\" is about courts and amendments, and it is also about whether regular people insist on fair treatment in the rooms they are actually in, and staying quiet lets the double standard stand.",
           why:"The promise of equality gets kept or broken in everyday moments, by people like you."
         }
       }
     ]
   },
 
-  reportThesis:"America has never fully lived up to “all men are created equal.” But it has gotten closer every time people insisted the promise apply to everyone: the abolitionists, the Fourteenth Amendment, Brown v. Board, and the movements that pushed for them. It falls short whenever the powerful, or a big majority, get to deny other people equal standing. The founders wrote the promise. Justice is the habit of holding the country to it.",
+  reportThesis:"America has never fully lived up to \"all men are created equal,\" but it has gotten closer every time people insisted that the promise apply to everyone, through the abolitionists, the Fourteenth Amendment, Brown v. Board, and the movements that pushed for them. It falls short whenever the powerful, or a large majority, get to deny other people equal standing. The founders wrote the promise, and justice is the habit of holding the country to it.",
 
   /* a specific, real, recent example so the report card's judgment is grounded in the present, not just history */
   presentDay:{
-    title:"Equality today — a real, recent example",
-    text:"The promise is still growing. In 2015, in Obergefell v. Hodges, the Supreme Court held 5–4 that the Fourteenth Amendment's guarantees of equal protection and due process mean states have to recognize same-sex marriages, extending equal treatment under the law to a group that had long been denied it. However people feel about any one ruling, it's the same pattern as the founding: “all men are created equal” keeps getting tested, and the country keeps arguing out what “equal” actually means.",
+    title:"A real, recent example of equality today",
+    text:"The promise is still growing, and in 2015 the Supreme Court held 5 to 4 in Obergefell v. Hodges that the Fourteenth Amendment's guarantees of equal protection and due process mean states have to recognize same-sex marriages, which extended equal treatment under the law to a group that had been denied it for a long time. However people feel about any single ruling, it follows the same pattern as the founding, where \"all men are created equal\" keeps getting tested and the country keeps arguing about what \"equal\" really means.",
     link:{ label:"Obergefell v. Hodges (2015)", url:"https://supreme.justia.com/cases/federal/us/576/644/" }
   },
 
   actions:[
     {
-      title:"Register to vote — equal say starts here",
-      text:"Voting is the most basic form of equal standing: one person, one vote. In Texas you can pre-register at 17 years and 10 months (you vote at 18). Register through the state, then confirm it with Collin County Elections in McKinney.",
+      title:"Register to vote",
+      text:"Voting is the most basic kind of equal standing, since every person gets one vote. In Texas you can register once you are 17 years and 10 months old and vote once you turn 18, so register through the state and then confirm it with Collin County Elections in McKinney.",
       links:[
-        {label:"VoteTexas.gov — eligibility", url:"https://www.votetexas.gov/register-to-vote/eligibility-for-registration.html"},
+        {label:"VoteTexas.gov eligibility", url:"https://www.votetexas.gov/register-to-vote/eligibility-for-registration.html"},
         {label:"Collin County Elections", url:"https://www.collincountytx.gov/Elections"}
       ]
     },
     {
       title:"Show up where decisions get made",
-      text:"The McKinney City Council and your school board decide things that affect everyone, but that only works if everyone is actually represented. They meet regularly (City Hall, 401 E. Virginia St.) and let residents speak. Showing up is how you make sure your community counts equally.",
+      text:"The McKinney City Council and your school board make decisions that affect everyone, and that only works if everyone is actually represented. They meet regularly, with the City Council meeting at City Hall on 401 E. Virginia St., and residents are allowed to speak, so showing up is one of the most direct ways to make sure your community is counted equally.",
       links:[
         {label:"McKinney City Council meetings", url:"https://www.mckinneytexas.org/1168/Council-Meetings"}
       ]
     },
     {
       title:"Contact your representatives",
-      text:"Message your U.S. House member, your U.S. senators, and your Texas state legislators about fairness and equal treatment in your community. A specific, polite message from a constituent gets read.",
+      text:"Message your U.S. House member, your U.S. senators, and your Texas state legislators about fairness and equal treatment in your community. A specific and polite message from someone who lives in their district does get read.",
       links:[
         {label:"Find your U.S. House rep", url:"https://www.house.gov/representatives/find-your-representative"},
         {label:"Contact U.S. senators", url:"https://www.senate.gov/senators/senators-contact.htm"},
-        {label:"Texas — Who Represents Me?", url:"https://wrm.capitol.texas.gov"}
+        {label:"Texas: Who Represents Me?", url:"https://wrm.capitol.texas.gov"}
       ]
     },
     {
       title:"Stand up for equal treatment",
-      text:"If you see someone treated unequally, at school or anywhere in your community, don't let it slide. Speak up, write down what happened, and report it to someone who can act. Equal justice mostly gets kept in small everyday moments, not just in courtrooms.",
+      text:"If you see someone being treated unequally, at school or anywhere else in your community, speak up, write down what happened, and report it to someone who can act. Most of the work of keeping equal justice happens in small everyday moments, and courtrooms are only one part of it.",
       links:[
-        {label:"Report a civil-rights concern (justice.gov)", url:"https://civilrights.justice.gov/"}
+        {label:"Report a civil rights concern (justice.gov)", url:"https://civilrights.justice.gov/"}
       ]
     },
     {
       title:"Learn whose story got left out",
-      text:"Look into the history of the people “all men are created equal” didn't include yet. And join a club (NHS, Student Council, debate) that keeps you showing up and speaking. Justice is a habit you build.",
+      text:"Look into the history of the people that \"all men are created equal\" did not include yet, and join a club like NHS, Student Council, or debate that keeps you showing up and speaking. Justice is a habit, and habits get built by doing something over and over.",
       links:[]
     }
   ],
 
   sources:{
     quotes:[
-      { text:"Declaration of Independence (1776) — “We hold these truths to be self-evident, that all men are created equal…”", where:"U.S. National Archives", url:"https://www.archives.gov/founding-docs/declaration-transcript" },
-      { text:"The Constitution of the United States (1787) — the Preamble (“…in Order to form a more perfect Union, establish Justice…”), penned by Gouverneur Morris, plus the Three-Fifths and slave-trade clauses.", where:"U.S. National Archives", url:"https://www.archives.gov/founding-docs/constitution-transcript" },
-      { text:"Federalist No. 10 & No. 51 — James Madison (1787–88). The Madison quotes in this game (the “overbearing majority”; “Justice is the end of government”).", where:"Avalon Project, Yale Law School", url:"https://avalon.law.yale.edu/18th_century/fed10.asp" },
-      { text:"The Bill of Rights (1791) — the Fifth Amendment's due-process guarantee, drafted by James Madison.", where:"U.S. National Archives", url:"https://www.archives.gov/founding-docs/bill-of-rights-transcript" },
-      { text:"Gouverneur Morris at the Constitutional Convention (Aug. 8, 1787): slavery was “a nefarious institution… the curse of Heaven.”", where:"National Constitution Center", url:"https://constitutioncenter.org/the-constitution/historic-document-library/detail/gouverneur-morris-constitutional-convention-speeches-july-5-and-11-and-august-8-1787" }
+      { text:"Declaration of Independence (1776): \"We hold these truths to be self-evident, that all men are created equal…\"", where:"U.S. National Archives", url:"https://www.archives.gov/founding-docs/declaration-transcript" },
+      { text:"The Constitution of the United States (1787), including the Preamble (\"…in Order to form a more perfect Union, establish Justice…\"), which Gouverneur Morris wrote in its final form, and the Three-Fifths and slave trade clauses.", where:"U.S. National Archives", url:"https://www.archives.gov/founding-docs/constitution-transcript" },
+      { text:"Federalist No. 10 and No. 51, James Madison (1787 to 1788), which are the source of the Madison quotes in this game about the \"overbearing majority\" and \"Justice is the end of government.\"", where:"Avalon Project, Yale Law School", url:"https://avalon.law.yale.edu/18th_century/fed10.asp" },
+      { text:"The Bill of Rights (1791), specifically the Fifth Amendment's due process guarantee, which James Madison drafted.", where:"U.S. National Archives", url:"https://www.archives.gov/founding-docs/bill-of-rights-transcript" },
+      { text:"Gouverneur Morris at the Constitutional Convention (Aug. 8, 1787), where he called slavery \"a nefarious institution… the curse of Heaven.\"", where:"National Constitution Center", url:"https://constitutioncenter.org/the-constitution/historic-document-library/detail/gouverneur-morris-constitutional-convention-speeches-july-5-and-11-and-august-8-1787" }
     ],
     facts:[
-      { text:"Jefferson's draft of the Declaration condemned the slave trade; Congress struck the passage out, Jefferson said, “in compliance to South Carolina and Georgia.” (Grounds the 1776 branch.)", where:"HISTORY", url:"https://www.history.com/articles/declaration-of-independence-deleted-anti-slavery-clause-jefferson" },
-      { text:"The Constitution (1787) built in the Three-Fifths Compromise and a 20-year protection for the Atlantic slave trade; Madison kept the word “slavery” out but the document protected it. (Grounds the 1787 branch.)", where:"National Constitution Center", url:"https://constitutioncenter.org/the-constitution/historic-document-library/detail/three-fifths-clause" },
-      { text:"Federalist No. 10 (Madison): a majority faction can decide questions “by the superior force of an interested and overbearing majority” rather than the rights of the minority — the founding case for protecting minorities.", where:"Avalon Project, Yale Law School", url:"https://avalon.law.yale.edu/18th_century/fed10.asp" },
-      { text:"The Fourteenth Amendment (ratified 1868) guarantees all citizens “the equal protection of the laws.” Federal enforcement collapsed after 1877, and Jim Crow followed.", where:"U.S. National Archives", url:"https://www.archives.gov/milestone-documents/14th-amendment" },
-      { text:"Plessy v. Ferguson, 163 U.S. 537 (1896) — the Court upheld “separate but equal” 7–1; Justice Harlan dissented that “our Constitution is color-blind.”", where:"Justia — U.S. Supreme Court", url:"https://supreme.justia.com/cases/federal/us/163/537/" },
-      { text:"Brown v. Board of Education, 347 U.S. 483 (1954) — a unanimous Court held that “separate educational facilities are inherently unequal,” overturning Plessy under the Equal Protection Clause.", where:"Justia — U.S. Supreme Court", url:"https://supreme.justia.com/cases/federal/us/347/483/" },
-      { text:"Obergefell v. Hodges, 576 U.S. 644 (2015) — the Court held 5–4 that the Fourteenth Amendment requires states to license and recognize same-sex marriages. (The report card's present-day example.)", where:"Justia — U.S. Supreme Court", url:"https://supreme.justia.com/cases/federal/us/576/644/" }
+      { text:"Jefferson's draft of the Declaration condemned the slave trade, and Congress struck the passage out, which Jefferson said was done \"in compliance to South Carolina and Georgia.\" (This grounds the 1776 branch.)", where:"HISTORY", url:"https://www.history.com/articles/declaration-of-independence-deleted-anti-slavery-clause-jefferson" },
+      { text:"The Constitution (1787) built in the Three-Fifths Compromise and a 20-year protection for the Atlantic slave trade, and the delegates kept the word \"slavery\" out even though the document protected it. (This grounds the 1787 branch.)", where:"National Constitution Center", url:"https://constitutioncenter.org/the-constitution/historic-document-library/detail/three-fifths-clause" },
+      { text:"In Federalist No. 10, Madison warns that a majority faction can decide questions \"by the superior force of an interested and overbearing majority\" instead of by the rights of the minority, which is the founding-era argument for protecting minorities.", where:"Avalon Project, Yale Law School", url:"https://avalon.law.yale.edu/18th_century/fed10.asp" },
+      { text:"The Fourteenth Amendment (ratified 1868) guarantees all citizens \"the equal protection of the laws.\" Federal enforcement collapsed after 1877, and Jim Crow followed.", where:"U.S. National Archives", url:"https://www.archives.gov/milestone-documents/14th-amendment" },
+      { text:"Plessy v. Ferguson, 163 U.S. 537 (1896), in which the Court upheld \"separate but equal\" 7 to 1 and Justice Harlan wrote in dissent that \"our Constitution is color-blind.\"", where:"Justia, U.S. Supreme Court", url:"https://supreme.justia.com/cases/federal/us/163/537/" },
+      { text:"Brown v. Board of Education, 347 U.S. 483 (1954), in which a unanimous Court held that \"separate educational facilities are inherently unequal\" and overturned Plessy under the Equal Protection Clause.", where:"Justia, U.S. Supreme Court", url:"https://supreme.justia.com/cases/federal/us/347/483/" },
+      { text:"Obergefell v. Hodges, 576 U.S. 644 (2015), in which the Court held 5 to 4 that the Fourteenth Amendment requires states to license and recognize same-sex marriages. (This is the report card's present-day example.)", where:"Justia, U.S. Supreme Court", url:"https://supreme.justia.com/cases/federal/us/576/644/" }
     ],
-    note:"This game branches. Some paths show what actually happened (labeled “Real history”); others are evidence-based estimates of a path not taken (labeled “Counterfactual”). Each counterfactual is reasoned from the sources above — for example, keeping Jefferson's anti-slavery clause, pushing abolition at the 1787 Convention, fully enforcing Reconstruction, or striking down segregation in 1896 (Justice Harlan's real dissent). The real historical path is always labeled as such."
+    note:"This game branches, so some paths show what actually happened and are labeled \"Real history,\" while others are evidence-based estimates of a path that was not taken and are labeled \"Counterfactual.\" Each counterfactual is reasoned from the sources above, for example keeping Jefferson's anti-slavery clause, pushing for abolition at the 1787 Convention, fully enforcing Reconstruction, or striking down segregation in 1896 the way Justice Harlan argued in his real dissent. The path that matches real history is always labeled that way, so you can tell which parts happened and which parts are our best estimate."
   }
 };
 
@@ -871,9 +870,9 @@ function advisorCard(who, side, key, gloss){
   const src = (SRC[who] && SRC[who][key]) || '';
   return `<div class="advisor ${who}">
     <div class="who"><span class="name">${side}</span></div>
-    <blockquote>&ldquo;${esc(q)}&rdquo;</blockquote>
+    <blockquote>&quot;${esc(q)}&quot;</blockquote>
     <div class="gloss">${esc(gloss)}</div>
-    ${src?`<div class="src">— ${esc(src)}</div>`:''}
+    ${src?`<div class="src">Source: ${esc(src)}</div>`:''}
   </div>`;
 }
 /* ---- branching helpers: nodes, votes, and the stability meter ---- */
@@ -912,7 +911,7 @@ function stabilityInfo(){
 }
 function stabilityBar(){
   const {v,label,color}=stabilityInfo();
-  return `<div class="stability"><div class="top"><span class="label">The Promise of Equality — ${label}</span><span>${v}/100</span></div>`
+  return `<div class="stability"><div class="top"><span class="label">The Promise of Equality: ${label}</span><span>${v}/100</span></div>`
     + `<div class="track"><div class="fill" style="width:${v}%;background:${color};"></div></div></div>`;
 }
 
@@ -925,20 +924,20 @@ function scrTitle(){
     <div class="card" style="max-width:600px;margin:16px auto;text-align:left;">
       <div class="eyebrow">The civic virtue this teaches</div>
       <h2 style="margin:.1em 0;">${esc(CONTENT.meta.virtue)}</h2>
-      <p class="muted" style="margin:.2em 0 0;">A <strong>habit</strong>, not a value — insisting the promise of equality applies to everyone. Built on the <strong>Declaration</strong> and the <strong>Constitution</strong>.</p>
+      <p class="muted" style="margin:.2em 0 0;">Justice here is a <strong>habit</strong> more than a value, and it means insisting that the promise of equality applies to everyone, using the <strong>Declaration</strong> and the <strong>Constitution</strong> as the starting point.</p>
     </div>
     <p class="muted" style="max-width:620px;margin:.6em auto;">${esc(CONTENT.meta.sub)}</p>
     <div class="btnrow" style="justify-content:center;">
       <button class="btn" data-action="next">Start</button>
     </div>
-    <p class="hint">Tip: press <span class="kbd">P</span> for presenter / class-vote mode. Use <span class="kbd">&larr;</span> <span class="kbd">&rarr;</span> to move between screens.</p>
+    <p class="hint">Press <span class="kbd">P</span> to switch to presenter mode for a class vote, and use <span class="kbd">&larr;</span> <span class="kbd">&rarr;</span> to move between screens.</p>
   </div>`;
 }
 
 function quizScreen(phase){
   const isPost = phase==='post';
   const heading = isPost ? "Post-Quiz" : "Pre-Quiz";
-  const sub = isPost ? "Same three questions. Let's see what changed." : "Three quick questions before we start. Just your best guess.";
+  const sub = isPost ? "These are the same three questions as before, so you can see what changed." : "Answer three quick questions before we start, and just give your best guess.";
   let body = `<div class="screen"><div class="eyebrow">${heading}</div><h2>${sub}</h2>`;
 
   CONTENT.quiz.forEach((q,qi)=>{
@@ -1008,10 +1007,10 @@ function scrIntro(){
   ).join('');
   return `<div class="screen">
     <div class="eyebrow">The Virtue</div>
-    <h2>Holding power accountable</h2>
+    <h2>Justice as a habit</h2>
     <p class="lede">${CONTENT.intro.what}</p>
-    <p class="hint">This time <strong>your choices change the story</strong>. Where you match what really happened you'll see it marked <span class="tag real">Real history</span>; where you go a different way you'll see an evidence-based <span class="tag cf">Counterfactual</span>. Watch <strong>The Promise of Equality</strong> meter — enough choices against equal justice and the promise can be betrayed.</p>
-    <h3 style="margin-top:18px;">Two advisors will follow you the whole way:</h3>
+    <p class="hint"><strong>Your choices change the story.</strong> When your choice matches what really happened it is marked <span class="tag real">Real history</span>, and when you go a different way you will see an evidence-based <span class="tag cf">Counterfactual</span> instead. Keep an eye on <strong>The Promise of Equality</strong> meter, because if you make enough choices against equal justice the promise can be betrayed.</p>
+    <h3 style="margin-top:18px;">Two advisors will be with you for the whole game.</h3>
     <div class="advisors">${setup}</div>
     <div class="panel">
       <h3>How our class reads a founding document</h3>
@@ -1020,7 +1019,7 @@ function scrIntro(){
     <div class="btnrow">
       <button class="btn secondary" data-action="back">Back</button>
       <span class="spacer"></span>
-      <button class="btn" data-action="next">Begin: 1787 &rarr;</button>
+      <button class="btn" data-action="next">Begin: 1776 &rarr;</button>
     </div>
   </div>`;
 }
@@ -1043,11 +1042,11 @@ function scrArcDecide(nodeId){
     <h3>Your move:</h3>`;
   if(state.presenter){
     const v = getVotesNode(nodeId, n.choices.length);
-    body += `<p class="presenter-only muted" style="font-size:.9rem;">Take the class vote, tap the counts in, then continue.</p><div class="choices">`;
+    body += `<p class="presenter-only muted" style="font-size:.9rem;">Take the class vote, tap in the counts, and then continue.</p><div class="choices">`;
     n.choices.forEach((c,oi)=>{
       body += `<div class="voterow">
         <span class="num" style="flex:none;">${oi+1}</span>
-        <span class="ctext"><strong>${esc(c.short)}</strong> — ${esc(c.label)}<span class="cost">Cost: ${esc(c.cost)}</span></span>
+        <span class="ctext"><strong>${esc(c.short)}:</strong> ${esc(c.label)}<span class="cost">Cost: ${esc(c.cost)}</span></span>
         <span class="stepper">
           <button data-action="vote-dec" data-node="${nodeId}" data-opt="${oi}">&minus;</button>
           <span class="count">${v[oi]}</span>
@@ -1071,7 +1070,7 @@ function scrArcDecide(nodeId){
     body += `</div><div class="btnrow">
       <button class="btn secondary" data-action="back">Back</button><span class="spacer"></span>
       <button class="btn" data-action="next" ${picked===undefined?'disabled':''}>See what happens &rarr;</button></div>
-      <p class="hint solo-only">Pick an option (or press <span class="kbd">1</span>&ndash;<span class="kbd">${n.choices.length}</span>). Every choice has a real cost — and moves the nation's stability.</p>`;
+      <p class="hint solo-only">Pick an option or press <span class="kbd">1</span>&ndash;<span class="kbd">${n.choices.length}</span>. Every choice has a real cost, and each one moves the Promise of Equality meter.</p>`;
   }
   return body + `</div>`;
 }
@@ -1084,7 +1083,7 @@ function scrArcReveal(nodeId){
   const tag = real ? `<span class="tag real">Real history</span>` : `<span class="tag cf">Counterfactual · best estimate</span>`;
   const heading = real ? "What actually happened" : "What likely would have happened";
   const delta = c.stability||0;
-  const dnote = delta===0 ? '' : `<p class="delta-note ${delta>0?'pos':'neg'}">National stability ${delta>0?'+':''}${delta}</p>`;
+  const dnote = delta===0 ? '' : `<p class="delta-note ${delta>0?'pos':'neg'}">Promise of Equality ${delta>0?'+':''}${delta}</p>`;
   let echo='';
   if(state.presenter){ const t=topVoteNode(nodeId); if(t) echo=`<p class="muted">The class chose <strong>${esc(n.choices[t.idx].short)}</strong> (${t.count} of ${t.total} votes).</p>`; }
   else echo=`<p class="muted">You chose: <strong>${esc(c.short)}</strong>.</p>`;
@@ -1099,7 +1098,7 @@ function scrArcReveal(nodeId){
     </div>
     <div class="btnrow">
       <button class="btn secondary" data-action="back">Back</button><span class="spacer"></span>
-      <button class="btn" data-action="next">${collapsing?'The nation falls &rarr;':'Continue &rarr;'}</button>
+      <button class="btn" data-action="next">${collapsing?'See how it ends &rarr;':'Continue &rarr;'}</button>
     </div>
   </div>`;
 }
@@ -1122,7 +1121,7 @@ function scrToday(step){
       body += `<div class="choices">`;
       d.choices.forEach((c,oi)=>{ body += `<div class="voterow">
         <span class="num" style="flex:none;">${oi+1}</span>
-        <span class="ctext"><strong>${esc(c.short)}</strong> — ${esc(c.label)}<span class="cost">Cost: ${esc(c.cost)}</span></span>
+        <span class="ctext"><strong>${esc(c.short)}:</strong> ${esc(c.label)}<span class="cost">Cost: ${esc(c.cost)}</span></span>
         <span class="stepper"><button data-action="vote-dec" data-node="${key}" data-opt="${oi}">&minus;</button>
         <span class="count">${v[oi]}</span>
         <button data-action="vote-inc" data-node="${key}" data-opt="${oi}">+</button></span></div>`; });
@@ -1136,7 +1135,7 @@ function scrToday(step){
           <span class="num">${oi+1}</span><span class="ctext">${esc(c.label)}<span class="cost">Cost: ${esc(c.cost)}</span></span></button>`; });
       body += `</div><div class="btnrow"><button class="btn secondary" data-action="back">Back</button><span class="spacer"></span>
         <button class="btn" data-action="next" ${picked===undefined?'disabled':''}>Continue &rarr;</button></div>
-        <p class="hint solo-only">Pick an option (or press <span class="kbd">1</span>&ndash;<span class="kbd">${d.choices.length}</span>).</p>`;
+        <p class="hint solo-only">Pick an option or press <span class="kbd">1</span>&ndash;<span class="kbd">${d.choices.length}</span>.</p>`;
     }
     return body + `</div>`;
   }
@@ -1164,8 +1163,8 @@ function scrEnding(){
       .filter(x=>x && (x.c.stability||0)<0);
     if(bad.length){
       reflection = `<div class="card"><h3>Where it went wrong</h3><ul class="pathlist">`
-        + bad.map(x=>`<li><strong>${esc(x.n.year)} — ${esc(x.c.short)}.</strong> ${esc(x.c.why||'The promise was left unkept.')}</li>`).join('')
-        + `</ul><p class="muted">Alone, any one of these might have been survivable. Together — a pattern of choosing something over equal justice — they were the betrayal.</p></div>`;
+        + bad.map(x=>`<li><strong>${esc(x.n.year)}: ${esc(x.c.short)}.</strong> ${esc(x.c.why||'The promise was left unkept.')}</li>`).join('')
+        + `</ul><p class="muted">Any one of these choices might have been survivable on its own, but together they became a pattern of choosing something else over equal justice, and that pattern is what betrayed the promise.</p></div>`;
     }
   }
   return `<div class="screen ending ${collapse?'collapse':''}">
@@ -1196,21 +1195,21 @@ function scrReport(){
   });
   CONTENT.today.decisions.forEach((d,di)=>{
     const key='t'+di; const p = state.presenter ? ((topVoteNode(key)||{}).idx) : state.choices[key];
-    if(p!=null) rows += `<tr><td><span class="yr">Today</span></td><td><strong>${esc(d.choices[p].short)}</strong> <span class="badge neutral" style="font-size:.6rem;">you</span></td><td class="muted">—</td></tr>`;
+    if(p!=null) rows += `<tr><td><span class="yr">Today</span></td><td><strong>${esc(d.choices[p].short)}</strong> <span class="badge neutral" style="font-size:.6rem;">you</span></td><td class="muted">n/a</td></tr>`;
   });
   const e = state.ended ? nodeById(state.ended) : null;
   const {v,label} = stabilityInfo();
-  const endLine = e ? `<p class="lede" style="color:var(--ink);">Your timeline ended at <strong>${esc(e.title)}</strong> — the Promise of Equality at ${v}/100 (${esc(label)}).</p>` : '';
+  const endLine = e ? `<p class="lede" style="color:var(--ink);">Your timeline ended at <strong>${esc(e.title)}</strong>, with the Promise of Equality meter at ${v}/100 (${esc(label)}).</p>` : '';
   return `<div class="screen">
     <div class="eyebrow">Report Card</div>
     <h2>To what extent has America lived up to this virtue?</h2>
     ${endLine}
     <div class="card" style="overflow-x:auto;">
       <table class="rc">
-        <thead><tr><th>Moment</th><th>${state.presenter?'Class chose':'You chose'}</th><th>Stability</th></tr></thead>
+        <thead><tr><th>Moment</th><th>${state.presenter?'Class chose':'You chose'}</th><th>Meter</th></tr></thead>
         <tbody>${rows}</tbody>
       </table>
-      <p class="muted" style="font-size:.82rem;margin-top:8px;"><span class="tag real">Real</span> = the choice matches what actually happened. <span class="tag cf">Alt</span> = an evidence-based estimate of a path not taken (see Sources).</p>
+      <p class="muted" style="font-size:.82rem;margin-top:8px;"><span class="tag real">Real</span> means the choice matches what actually happened, and <span class="tag cf">Alt</span> means it is an evidence-based estimate of a path that was not taken (see Sources).</p>
     </div>
     <div class="card" style="background:var(--parchment-2);">
       <h3>The thesis</h3>
@@ -1245,7 +1244,7 @@ function scrAction(){
   return `<div class="screen">
     <div class="eyebrow">Take Action</div>
     <h2>What can citizens do now?</h2>
-    <p class="lede">Five things a high schooler in McKinney / Collin County can actually do to help make the promise of equality real.</p>
+    <p class="lede">Here are five things a high school student in McKinney or Collin County can actually do to help make the promise of equality real.</p>
     <div class="card">${items}</div>
     <div class="btnrow">
       <button class="btn secondary" data-action="back">Back</button>
@@ -1256,8 +1255,8 @@ function scrAction(){
 }
 
 function scrSources(){
-  const q = CONTENT.sources.quotes.map(s=>`<li>${esc(s.text)} — <a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.where)}</a></li>`).join('');
-  const f = CONTENT.sources.facts.map(s=>`<li>${esc(s.text)} — <a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.where)}</a></li>`).join('');
+  const q = CONTENT.sources.quotes.map(s=>`<li>${esc(s.text)} Source: <a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.where)}</a></li>`).join('');
+  const f = CONTENT.sources.facts.map(s=>`<li>${esc(s.text)} Source: <a href="${esc(s.url)}" target="_blank" rel="noopener">${esc(s.where)}</a></li>`).join('');
   return `<div class="screen">
     <div class="eyebrow">Sources</div>
     <h2>Every quote and claim, cited</h2>
@@ -1268,7 +1267,7 @@ function scrSources(){
       <ul>${f}</ul>
     </div>
     ${CONTENT.sources.note?`<div class="panel"><strong>How the branches work:</strong> ${esc(CONTENT.sources.note)}</div>`:''}
-    <p class="muted">All Madison and Brutus quotes are the exact wording of Federalist 51 and Brutus 1, verified against the linked primary sources.</p>
+    <p class="muted">The advisor quotes are copied word for word from the documents and records listed above, and the only changes are the ellipses where words were left out.</p>
     <div class="btnrow">
       <button class="btn secondary" data-action="back">Back</button>
       <button class="btn ghost" data-action="export-json">Export data (JSON)</button>
@@ -1292,7 +1291,7 @@ function scoreSummaryBlock(){
         <div><div class="scorebig">${post.pct}%</div><div class="muted">after</div></div>
       </div>
       <p class="delta ${d>=0?'pos':'neg'}">${d>=0?'+':''}${d} points</p>
-      <p class="muted" style="font-size:.85rem;">% of hands that picked the correct answer, across all three questions.</p>
+      <p class="muted" style="font-size:.85rem;">This is the percent of hands that picked the correct answer across all three questions.</p>
     </div>`;
   } else {
     const pre = soloScore('pre'), post = soloScore('post');
