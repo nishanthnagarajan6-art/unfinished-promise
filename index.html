@@ -455,6 +455,11 @@
   .pathlist{list-style:none;padding:0;margin:6px 0 0;}
   .pathlist li{padding:8px 0;border-bottom:1px solid var(--border);}
   .pathlist li:last-child{border-bottom:none;}
+  .ptimer{position:fixed;right:16px;bottom:16px;z-index:60;display:flex;align-items:center;gap:8px;background:var(--panel,#fff);border:2px solid var(--ink,#222);border-radius:12px;padding:8px 12px;box-shadow:0 6px 18px rgba(0,0,0,.22);}
+  .ptimer[hidden]{display:none;}
+  .ptimer #ptimerDisplay{font-size:1.7rem;font-weight:800;min-width:3.4ch;text-align:center;font-variant-numeric:tabular-nums;}
+  .ptimer.done #ptimerDisplay{color:var(--bad,#c0392b);}
+  .ptimer .btn{padding:4px 10px;font-size:.85rem;}
 </style>
 </head>
 <body data-era="founding">
@@ -505,16 +510,16 @@ const CONTENT = {
   },
 
   intro: {
-    what: "For our purposes, <strong>justice</strong> is a process that makes laws and institutions that pursue <strong>equality</strong> between people. The Declaration stated that \"all men are created equal\" in 1776, but it was on the eve of the revolution, and about one in five colonists were enslaved. This is why the very formulation in the Declaration is already a commitment to equality, and every step in this game will force you to return to that original formulation and relate to it.",
+    what: "In the context of the game, <strong>justice</strong> is making laws and institutions that pursue <strong>equality</strong> between people. The Declaration stated that \"all men are created equal\" in 1776, but about one in five colonists were enslaved. The game's scenarios will lead you to come back to this civic virtue.",
     setup: [
-      ["Gouverneur Morris, a Pennsylvania delegate who wrote the final wording of the Constitution", "morris", "He is known for having delivered the most vehement speech about slavery at the Convention. He opposed it to the point of saying he would rather pay a tax to free all the slaves in the country than to impose it on future generations. He will advise you to be uncompromising in your pursuit of justice, even though it may cause immediate problems."],
-      ["James Madison, a Virginia delegate who wrote Federalist 10 and 51 and drafted the Bill of Rights", "madison", "Madison has a more complex relationship with slavery: he owned more than a hundred slaves at Montpelier, who were to remain there as his personal servants until his death, but he also fought to exclude slavery from the Constitution because he felt it was incompatible with the principles of equality. He will advise you to fight for the rights of the few, minorities, and use the federal system to protect them."]
+      ["Gouverneur Morris, a Pennsylvania delegate who wrote the final wording of the Constitution", "morris", "He delivered the most radical speech about slavery at the Convention, saying he would rather pay a tax to free all the slaves in the country than for it to continue in future generations. Overall, he will advise you to achieve justice by any means necessary."],
+      ["James Madison, a Virginia delegate who wrote Federalist 10 and 51 and drafted the Bill of Rights", "madison", "Madison has a more complex relationship with slavery. For example, he owned more than a hundred slaves at Montpelier until his death, but he also fought to exclude slavery from the Constitution. He will advise you to fight for the rights of minorities, however it might not be by any means necessary."]
     ],
     vdscv: [
-      ["V (Value)", "Equality: recognition of the worth of all individuals and groups; universal respect for individual rights, and freedom of action."],
-      ["D (Danger)", "The tyranny of the majority, which can arise when a privileged minority or a victorious party imposes its will on the rest of society; suppressing or excluding anyone on the basis of their social affiliation."],
-      ["S (Solution)", "The founding document and the Constitution provided that all people are created equal, and subsequent laws, court decisions, and constitutional amendments have strengthened this principle and expanded it to include all groups and minorities."],
-      ["CV (Civic Virtue)", "Justice: the habit of mind that drives people to act so that their actions do not violate the foundations of equal consideration of interests."]
+      ["V (Value)", "Equality: the worth of all individuals and groups, and respect for individual rights."],
+      ["D (Danger)", "The tyranny of the majority."],
+      ["S (Solution)", "The founding document and the Constitution provided that all people are created equal, and later laws, court decisions, and amendments expanded that principle to include all groups."],
+      ["CV (Civic Virtue)", "Justice: the habit that drives people to act with equality."]
     ]
   },
 
@@ -573,19 +578,19 @@ const CONTENT = {
       /* ---------- CHAPTER 1 · 1776 · THE PROMISE ---------- */
       "n_decl": {
         era:"founding", year:"1776", chapter:"The Promise",
-        subtitle:"Jefferson's draft contains a paragraph that the South will oppose.",
-        scenario:"Jefferson's draft of the Declaration blames the King for causing the slave trade and calls it \"cruel war against human nature itself.\" South Carolina and Georgia demand the removal of this paragraph, and some northern delegates seem ready to agree since colonial ships have long been transporting slaves. What will you do?",
+        subtitle:"Jefferson's draft has a paragraph the South will oppose.",
+        scenario:"Jefferson's draft blames the King for the slave trade and calls it \"cruel war against human nature itself.\" South Carolina and Georgia demand its removal, and some northern delegates seem ready to agree, since colonial ships have long been transporting slaves. What will you do?",
         advisors:{
-          morris:{ key:"curse", gloss:"If the first official document of the newly created state calls slavery a \"war against human nature,\" all subsequent laws must reckon with this formulation." },
-          madison:{ key:"property", gloss:"While the British are landing on Staten Island this week, losing two colonies in the current conflict would undermine everything we are doing." }
+          morris:{ key:"curse", gloss:"If the first official document calls slavery a \"war against human nature,\" all laws which follow must also follow this policy." },
+          madison:{ key:"property", gloss:"The British are landing on Staten Island this week, and losing two colonies would undermine everything we are doing." }
         },
         choices:[
-          { short:"Keep the anti-slavery passage", label:"Keep Jefferson's wording about the slave trade in the Declaration despite the South's opposition.", cost:"South Carolina and Georgia may withhold their approval at the same time when the British army is already marching towards New York.", stability:12, flags:["idealism"], next:"n_const",
-            outcome:{ tag:"cf", text:"While it is difficult to say for sure, history shows that the risk was real. South Carolina voted against independence on July 1 and then changed its decision the next day, so it is quite possible that this colony would turn against the Declaration again. Thus, you would end up with a document that only eleven colonies signed, which would significantly undermine its subsequent recognition, including in France, which was to provide military support.", why:"The Declaration would have been stronger with Jefferson's wording, but it is necessary to ensure the adoption of the document." } },
-          { short:"Cut the passage to keep the union", label:"Remove Jefferson's paragraph on the slave trade to gain the support of all thirteen colonies, but keep the phrase that \"all men are created equal.\"", cost:"You will deliver a document that formally excludes half a million people from the protected \"all men.\"", stability:-8, flags:["contradiction"], next:"n_const",
-            outcome:{ tag:"real", text:"The Congress cut this paragraph from the Declaration, and Jefferson himself later admitted that it was deleted \"in complaisance to South Carolina and Georgia.\" He also pointed out that the northern delegates did not object to this since their ships had long been involved in the slave trade. Thus, the Declaration did not include any mention of slavery, despite the fact that it continued to exist in all colonies.", why:"This is where the phrase \"all men are created equal\" in the Declaration becomes problematic for the slaves, and it will take almost a century for this to change. In 1852, Frederick Douglass asked the residents of Rochester a rhetorical question: \"What, to the American slave, is your 4th of July?\" Perhaps this is why this phrase in the Declaration is so troublesome for the existence of slavery." } },
-          { short:"Water it down", label:"Keep a vague statement about equality but remove any mention of slavery to avoid offending anyone.", cost:"You will weaken the Declaration's wording before it is even adopted.", stability:-6, flags:["vague"], next:"n_const",
-            outcome:{ tag:"cf", text:"A more careful wording of the Declaration, devoid of any mention of slavery, will lead to its rapid adoption but also to prolonged suffering for the slaves. Later movements kept returning to the Declaration's promise and argued that equality should extend to everyone. In 1848, the Seneca Falls Convention's Declaration of Sentiments took up that language and declared that \"all men and women are created equal.\" Therefore, vague formulations of the Declaration will lead to more than a century of suffering for the slaves.", why:"It is the explicit wording that future abolitionists will refer to, so its absence will hinder their efforts." } }
+          { short:"Keep the anti-slavery passage", label:"Keep Jefferson's wording about the slave trade, despite the South's opposition.", cost:"South Carolina and Georgia may withhold their approval while the British army marches towards New York.", stability:12, flags:["idealism"], next:"n_const",
+            outcome:{ tag:"cf", text:"The risk was real. South Carolina voted against independence on July 1 and changed its decision the next day, so it could turn against the Declaration again. You would end up with a document only eleven colonies signed, decreasing the unity between the colonies in the nation.", why:"The Declaration would have been stronger with Jefferson's wording, but it is necessary to ensure the document's adoption." } },
+          { short:"Cut the passage to keep the union", label:"Remove Jefferson's paragraph on the slave trade to gain all thirteen colonies, but keep that \"all men are created equal.\"", cost:"You deliver a document that excludes half a million people from the protected \"all men.\"", stability:-8, flags:["contradiction"], next:"n_const",
+            outcome:{ tag:"real", text:"Congress cut this paragraph. Jefferson later admitted it was deleted \"in complaisance to South Carolina and Georgia,\" and that the northern delegates did not object, since they profited from the slave trade too. The Declaration made no mention of slavery, though it continued in all colonies.", why:"This is where \"all men are created equal\" becomes a problem for the slaves, and it will take almost a century to change. In 1852, Frederick Douglass asked the residents of Rochester, \"What, to the American slave, is your 4th of July?\"" } },
+          { short:"Water it down", label:"Keep a vague statement about equality but remove anything about slavery.", cost:"You weaken the Declaration's wording before it is even adopted.", stability:-6, flags:["vague"], next:"n_const",
+            outcome:{ tag:"cf", text:"A more careful wording that does not mention the slavery present makes it easier for it to be adopted, but it also makes the lives of minority groups harder. Movements kept returning to the Declaration's promise and argued that equality should be provided. In 1848, the Seneca Falls Convention's Declaration of Sentiments declared that \"all men and women are created equal.\"", why:"Without this wording present the abolitionists will have nothing to refer to in their protest for equal rights." } }
         ]
       },
 
@@ -593,36 +598,36 @@ const CONTENT = {
       "n_const": {
         era:"founding", year:"1787", chapter:"The Compromise",
         subtitle:"The Convention must decide what to do about slavery.",
-        scenario:"It is August 1787 in Philadelphia, and the delegates are debating whether to count slaves for the purposes of representation in Congress and whether Congress can ban the slave trade. On August 8, Gouverneur Morris spoke out strongly against slavery, calling it \"the curse of Heaven on the States where it prevailed.\" What will you do?",
+        scenario:"It is August 1787 in Philadelphia. The delegates are debating whether to count slaves toward representation in Congress and whether Congress can ban the slave trade. On August 8, Gouverneur Morris calls slavery \"the curse of Heaven on the States where it prevailed.\" What will you do?",
         advisors:{
-          morris:{ key:"curse", gloss:"Slavery should be ended at the soonest opportunity because the representation of slaves in the Congress will give the Southern states an additional advantage over the Northern ones." },
-          madison:{ key:"property", gloss:"I share your view, but I believe we need to ensure the Union at all costs, and forcing the slave states to abolish slavery immediately may be too risky." }
+          morris:{ key:"curse", gloss:"Slavery should be ended as soon as possible, because the representation of slaves will give the Southern States an advantage due to its increase of voting population." },
+          madison:{ key:"property", gloss:"Abolishing slavery is a great thing, however the most important thing is keeping a union among ourselves." }
         },
         choices:[
-          { short:"Push to end slavery now", label:"Use the slave trade issue to urge the Union to abolish slavery immediately.", cost:"The Deep South states may refuse to participate in the Convention, which will dissolve it.", stability:12, flags:["abolition"], next:"n_const_abolition",
-            outcome:{ tag:"cf", text:"Deep South representatives openly stated that they would leave if slavery was not even mentioned in the new Constitution. On August 21, John Rutledge of South Carolina informed the Convention that the real issue was not slavery but the preservation of the Union. Rutledge believed that the southern states would oppose its adoption, threatening to withdraw from the Union. Thus, you may end up dissolving the Convention and abolishing slavery much later, in 1865.", why:"The 13th Amendment to the US Constitution, which abolished slavery, was adopted in 1865, so the Constitution needed to be adopted in 1787." } },
-          { short:"Accept the compromises", label:"Accept the compromise on counting slaves and the prohibition of the slave trade to ensure the adoption of the Constitution by all states.", cost:"The new Constitution will implicitly protect slavery, and this protection will last for a long time.", stability:-10, flags:["compromise"], next:"n_14th",
-            outcome:{ tag:"real", text:"The compromise implies that the number of slaves will be counted as three fifths of the population, which will entitle the slave states to a greater share of seats in the House of Representatives and electoral votes. In addition, the ban on the slave trade was lifted until 1808, which allowed the domestic slave trade to continue. Thus, the wording of the Constitution did not mention slavery, but several clauses implicitly protected it.", why:"Slave states gained a substantial advantage over northern states through the three-fifths clause, which affected not only the balance of power in Congress but also presidential elections. Historians note that if this clause had not been included, Thomas Jefferson would not have become president." } },
-          { short:"Ban the trade, keep the rest", label:"Immediately ban the Atlantic slave trade but leave the rest of slavery intact.", cost:"You will stop the importation of slaves, but those already in the country will continue to be enslaved.", stability:-4, flags:["tradeban"], next:"n_14th",
-            outcome:{ tag:"cf", text:"The passage banning the Atlantic slave trade was adopted on January 1, 1808, but it did not affect the domestic trade. Thus, this decision will have little effect on the South, where slavery became entrenched for another century. It would stop new captives from being imported across the Atlantic, but it would not touch the domestic slave trade or free anyone already enslaved.", why:"This decision will have a minimal effect on the slaves, as it will only stop the importation of slaves." } }
+          { short:"Push to end slavery now", label:"Use the slave trade issue to urge the Union to abolish slavery immediately.", cost:"The Deep South states may refuse to participate in the Convention.", stability:12, flags:["abolition"], next:"n_const_abolition",
+            outcome:{ tag:"cf", text:"Deep South representatives openly stated they would leave if slavery was not even mentioned in the new Constitution. On August 21, John Rutledge of South Carolina told the Convention the real issue was not slavery but the preservation of the Union. Forcing abolition may dissolve the Convention, so slavery would not end until 1865.", why:"The 13th Amendment, which abolished slavery, was adopted in 1865, so the Constitution needed to be adopted in 1787." } },
+          { short:"Accept the compromises", label:"Accept the compromise on counting slaves and the slave trade to ensure the Constitution is adopted by all states.", cost:"The new Constitution will protect slavery for a long time.", stability:-10, flags:["compromise"], next:"n_14th",
+            outcome:{ tag:"real", text:"Slaves are counted as three fifths of the population, giving slave states more seats. The ban on the slave trade only occurs in 1808. The Constitution never says \"slavery,\" but several clauses protect it.", why:"Through the three-fifths clause, slave states gained an advantage in both Congress and presidential elections. Thomas Jefferson used this as an advantage during his campaign." } },
+          { short:"Ban the trade, keep the rest", label:"Immediately ban the Atlantic slave trade but leave the rest of slavery intact.", cost:"You stop the trade of slaves, but those already enslaved stay enslaved.", stability:-4, flags:["tradeban"], next:"n_14th",
+            outcome:{ tag:"cf", text:"The Atlantic slave trade was banned on January 1, 1808, but the domestic trade was not changed. This has little effect on the South, where slavery stayed for another century. However, it stops new slaves from being imported, but frees no one already enslaved.", why:"This has a minimal effect on the slaves, as it only stops the importation of slaves." } }
         ]
       },
 
       "n_const_abolition": {
         era:"founding", year:"1787", chapter:"The Union in the Balance",
         subtitle:"The Deep South delegates are packing up.",
-        scenario:"You have pushed for an immediate ban on slavery, and the Convention is on the verge of collapse. The delegates from Georgia and South Carolina are leaving, and those from the Middle colonies are pressuring you to propose something that the Deep South can accept. What will you do?",
+        scenario:"You pushed for an immediate ban on slavery, and the Convention is collapsing. The Georgia and South Carolina delegates are leaving, and the Middle colonies are pressuring you to propose something the Deep South can accept. What will you do?",
         advisors:{
-          morris:{ key:"curse", gloss:"A Union without slavery still sounds better to me than a big Union based on slavery, but I would understand if the Deep South left." },
-          madison:{ key:"majority", gloss:"You can win the argument by \"the superior force of an interested and overbearing majority\" but will still fail to create the Union needed to stop slavery." }
+          morris:{ key:"curse", gloss:"To disregard the South if they leave, he believes that a union without slavery is better than one which is complete." },
+          madison:{ key:"majority", gloss:"You can win the argument by \"the superior force of an interested and overbearing majority\" but still fail to create the Union needed to stop slavery." }
         },
         choices:[
-          { short:"Hold firm, no Union with slavery", label:"Do not yield to the Deep South and allow them to leave.", cost:"You may end up with two countries on one continent, one slave and one free.", stability:-6, flags:["rupture"], next:"n_14th",
-            outcome:{ tag:"cf", text:"Most historians believe that South Carolina and Georgia would not have joined an anti-slavery Union, but a pro-slavery Union was impossible without them. Thus, you may end up with the dissolution of the Convention and the creation of two separate countries. However, the one in the Deep South would be even more conducive to slavery, as it would allow it to spread westward.", why:"In some ways, you behaved justly by not yielding to the Deep South, but in practice, your actions may lead to more suffering for the slaves, as the new country will be even more pro-slavery." } },
-          { short:"Win a gradual abolition clause", label:"Win a clause that will gradually abolish slavery over time.", cost:"Gradual abolition can take a very long time for the people who are still enslaved.", stability:8, flags:["gradual"], next:"n_14th",
-            outcome:{ tag:"cf", text:"Winning a gradual abolition clause will do little to stop slavery. Even though Pennsylvania passed a similar law in 1780, it did not free slaves immediately but allowed them to stay enslaved until they reached the age of twenty-eight. Moreover, for many years after the law was passed, they still appeared as enslaved people in official documents such as the census. Thus, this decision would benefit the masters much more than the slaves.", why:"When writing such a law, it is essential to indicate the date when it comes into force, which may be much later for the oppressed." } },
-          { short:"Cave entirely", label:"Give way to the Deep South and agree to their demands to adopt the Constitution.", cost:"You will get a Constitution that protects slavery even more.", stability:-16, flags:["cave"], next:"n_14th",
-            outcome:{ tag:"cf", text:"Giving way to the Deep South means getting a Constitution with even more anti-slavery provisions, including a lifetime ban on the slave trade. Although the real problem was not the slave trade but the domestic one, the situation for the slaves would be much worse in the short term. Thus, you will get a more pro-slavery Constitution, which will be even more challenging to amend in the future.", why:"Every clause adopted in favor of the slave owners in 1787 will have to be repealed in 1865." } }
+          { short:"Hold firm, no Union with slavery", label:"Do not accept South's demands.", cost:"You may end up with two countries on one continent, one slave and one free.", stability:-6, flags:["rupture"], next:"n_14th",
+            outcome:{ tag:"cf", text:"Most historians believe South Carolina and Georgia would not have joined an anti-slavery Union. The Convention would lead to two separate countries, and the South would be even open to slavery.", why:"Even though your choices were based on ethical means, slaves in the South would now face a harsher reality." } },
+          { short:"Win a gradual abolition clause", label:"Enact a policy that abolishes slavery over time.", cost:"Gradual abolition can take a very long time.", stability:8, flags:["gradual"], next:"n_14th",
+            outcome:{ tag:"cf", text:"A gradual abolition clause does little to stop slavery. For example, Pennsylvania passed a similar law in 1780, but it did not free slaves immediately. Overall, this would benefit the masters much more than the slaves.", why:"When writing such a law, it is important to set the date to it." } },
+          { short:"Cave entirely", label:"Agree to Deep South demands and adopt them in the Constitution.", cost:"You get a Constitution that protects slavery even more.", stability:-16, flags:["cave"], next:"n_14th",
+            outcome:{ tag:"cf", text:"Giving way means a Constitution that supports slavery even more. Overall, the Constitution would be harder to amend later.", why:"Every clause adopted in favor of the slave owners in 1787 will have to be repealed in 1865." } }
         ]
       },
 
@@ -630,36 +635,36 @@ const CONTENT = {
       "n_14th": {
         era:"watergate", year:"1868", chapter:"Equal Protection",
         subtitle:"Slavery is over, but what about freedom?",
-        scenario:"Slavery has been abolished, but what about the rights of the newly liberated slaves? The 14th Amendment ensures them \"the equal protection of the laws.\" This phrase seems simple enough, but enforcing it in Mississippi or Louisiana will require federal troops, federal judges, and years of Northern patience. What will you do?",
+        scenario:"Slavery is abolished, but what about the rights of the newly freed slaves? The 14th Amendment promises them \"the equal protection of the laws.\" Enforcing that in Mississippi or Louisiana will take federal troops, federal judges, and years of Northern patience. What will you do?",
         advisors:{
-          morris:{ key:"justice", gloss:"The preamble to the Constitution says it was adopted in order to \"establish Justice,\" but how can this be done while Black citizens are being harassed for trying to exercise their rights?" },
-          madison:{ key:"endofgov", gloss:"If the government does not protect the citizens it was created to protect, then what use is this government?" }
+          morris:{ key:"justice", gloss:"The Constitution's preamble says it was adopted to \"establish Justice,\" however as of now, many minority groups in the South are faced with oppression." },
+          madison:{ key:"endofgov", gloss:"He expresses the government's important role in order to ensure equality among citizens." }
         },
         choices:[
-          { short:"Ratify and enforce it", label:"Ratify the 14th Amendment and ensure its enforcement by guaranteeing Black citizenship and voting rights.", cost:"You will have to keep federal troops in the South and suffer their harassment and violence.", stability:14, flags:["reconstruction"], next:"n_brown",
-            outcome:{ tag:"cf", text:"The lives of the newly liberated slaves will be significantly better because they will have citizenship and voting rights. For example, the number of Black senators increased from one to six during this time, and hundreds of Black officials held office in the South. If federal troops continue to be stationed in the South after 1877, it is entirely possible that Black Southerners would have gained more representation in government.", why:"Following the resignation of Blanche Bruce as senator from Mississippi in 1881, no other Black Americans from the South were able to serve in the Senate until 2013." } },
-          { short:"Ratify, but leave it to the states", label:"Ratify the Amendment but leave its enforcement to the states by removing federal troops.", cost:"Without federal oversight, the states will ignore the rights guaranteed by the Amendment.", stability:-6, flags:["jimcrow"], next:"n_reconstruction_fails",
-            outcome:{ tag:"real", text:"This is the option that best reflects the actual events that followed. The 14th Amendment was ratified in July 1868, but the Compromise of 1877 led to the removal of federal troops from the South. Thus, the states were free to adopt discriminatory laws, which they did with great zeal. Several decades later, Mississippi amended its state constitution, imposing a poll tax and literacy tests on would-be voters, who were primarily Black.", why:"Other Southern states quickly followed Mississippi's lead, imposing similar restrictions on elections." } },
-          { short:"Restore the old order", label:"Revoke the 14th Amendment and allow the old slave owners to take over the South again.", cost:"You will sacrifice the freedom of Black Americans to achieve \"peace\" between the white Southerners and Northerners.", stability:-20, flags:["redemption"], next:"end_collapse",
-            outcome:{ tag:"cf", text:"The restoration of the old order means that white Southerners can take control of the state again, which they did with great enthusiasm. They called this process \"Redemption,\" and it involved a lot of violence directed at Black Americans. Thus, Black Americans were deprived of their rights with minimal resistance from whites.", why:"Having failed to ensure equality, you allowed Southerners to regain control of the government, which led to decades of repression. It was not until the passage of the Voting Rights Act of 1965 that Black Americans regained their right to vote." } }
+          { short:"Ratify and enforce it", label:"Ratify the 14th Amendment and enforce Black citizenship and voting rights.", cost:"You will have to keep federal troops in the South.", stability:14, flags:["reconstruction"], next:"n_brown",
+            outcome:{ tag:"cf", text:"The newly freed slaves are far better off with citizenship and voting rights. Now oppressed individuals are able to grow to power.", why:"After Blanche Bruce resigned as senator from Mississippi in 1881, no other Black American from the South served in the Senate until 2013." } },
+          { short:"Ratify, but leave it to the states", label:"Ratify the Amendment but leave enforcement to the states.", cost:"Without federal oversight, the states will ignore the rights the Amendment guarantees.", stability:-6, flags:["jimcrow"], next:"n_reconstruction_fails",
+            outcome:{ tag:"real", text:"This is closest to what actually happened. The 14th Amendment was ratified in July 1868, but the Compromise of 1877 removed federal troops from the South. The states adopted discriminatory laws.", why:"Other Southern states quickly followed Mississippi's lead, imposing similar restrictions." } },
+          { short:"Restore the old order", label:"Revoke the 14th Amendment and allow the old slave owners to take over the South again.", cost:"You sacrifice the freedom of Black Americans for \"peace\" between white Southerners and Northerners.", stability:-20, flags:["redemption"], next:"end_collapse",
+            outcome:{ tag:"cf", text:"White Southerners take control of the states again. They called this \"Redemption,\" and it involved a lot of violence directed at Black Americans.", why:"By failing to ensure equality, you let Southerners regain control of the government, leading to decades of repression." } }
         ]
       },
 
       "n_reconstruction_fails": {
         era:"watergate", year:"1896", chapter:"Separate but Equal",
         subtitle:"Homer Plessy was ordered to leave the \"whites only\" railroad car.",
-        scenario:"On June 7, 1892, Homer Plessy, an inhabitant of New Orleans and one-eighth Black, bought a first-class ticket and went to the first-class train car, which was prohibited for Black passengers according to Louisiana law. He was arrested as expected, because this was a deliberate action on his part, as well as on the part of the local New Orleans civil rights organization. The Supreme Court now has to decide whether to repeal the Louisiana law or not. What will you do?",
+        scenario:"On June 7, 1892, Homer Plessy, a New Orleans resident who was one-eighth Black, bought a first-class ticket and sat in the first-class car, prohibited for Black passengers under Louisiana law. He was arrested on purpose, a deliberate test case set up with a local New Orleans civil rights group. Now the Supreme Court must decide whether to repeal the Louisiana law. What will you do?",
         advisors:{
-          morris:{ key:"justice", gloss:"The \"equal protection of the laws\" clause does not allow for separate facilities, and the Court should repeal this law right away." },
-          madison:{ key:"dueprocess", gloss:"The fact that Plessy was arrested simply for sitting in the \"wrong\" car violates his right to freedom of movement, and this should be recognized as a repeal of his right to liberty as defined in the Constitution." }
+          morris:{ key:"justice", gloss:"The \"equal protection of the laws\" clause does not allow separate facilities, and the Court should repeal this law right away." },
+          madison:{ key:"dueprocess", gloss:"Arresting Plessy simply for sitting in the \"wrong\" car violates his freedom which was guaranteed to him in the Constitution." }
         },
         choices:[
-          { short:"Reject \"separate but equal\"", label:"Strike down separate but equal as a direct violation of the 14th Amendment.", cost:"You will have to face the racism of the entire state.", stability:12, flags:["earlybrown"], next:"n_brown",
-            outcome:{ tag:"cf", text:"One of the judges, John Harlan, argued exactly this in his dissenting opinion. He wrote that \"our constitution is color-blind, and neither knows nor tolerates classes among citizens.\" If only four more judges had agreed with him, Jim Crow laws would have been repealed much earlier.", why:"Harlan lost the fight for equal rights for Black Americans in 1896, and it took the Court fifty-eight years to revisit the issue." } },
+          { short:"Reject \"separate but equal\"", label:"Highlights the difference of separate but equal as a direct violation of the 14th Amendment.", cost:"You will have to face the racism of the entire state.", stability:12, flags:["earlybrown"], next:"n_brown",
+            outcome:{ tag:"cf", text:"One justice, John Harlan, argued exactly this in his dissent, writing that \"our constitution is color-blind, and neither knows nor tolerates classes among citizens.\"", why:"It took the Court fifty-eight years to revisit the issue." } },
           { short:"Uphold \"separate but equal\"", label:"Declare \"separate but equal\" constitutional and leave the fate of Black Americans to the states.", cost:"Black Americans will suffer for the next fifty-eight years.", stability:-14, flags:["plessy"], next:"n_brown",
-            outcome:{ tag:"real", text:"The Supreme Court ruled against Homer Plessy in a 7-1 decision in May 1896. Justice Henry Billings Brown wrote that the Louisiana law did not violate the 14th Amendment since Black citizens saw themselves as inferior and therefore were satisfied with separate facilities. Southern states took this as a signal to introduce Jim Crow laws, which governed almost all aspects of life in the South for nearly a century.", why:"Plessy's law was the law for the next fifty-eight years, during which Black Americans continued to suffer from Jim Crow rules, and for that whole time every segregation law could have had the Supreme Court as its shield." } },
-          { short:"Dodge the question", label:"Rule narrowly and avoid deciding whether segregation itself is legal.", cost:"Segregation spreads while the Court's back is turned.", stability:-6, flags:["dodge"], next:"n_brown",
-            outcome:{ tag:"cf", text:"A narrow opinion sends Plessy's case back to the states without answering the question of legality. While the Court waits, the states pass segregation laws until they return to the Court, and the question is answered.", why:"Not deciding leaves the Louisiana law in place, so for the people on that train it would be as if they had lost." } }
+            outcome:{ tag:"real", text:"The Court ruled 7-1 against Plessy in May 1896. Justice Henry Billings Brown wrote that the Louisiana law did not violate the 14th Amendment, since Black citizens were satisfied with separate facilities. Southern states took this as a signal to introduce Jim Crow laws, which governed almost every part of life in the South for nearly a century.", why:"Plessy was the law for fifty-eight years of Jim Crow, and for that whole time every segregation law could have had the Supreme Court as its shield." } },
+          { short:"Dodge the question", label:"Avoid deciding whether segregation itself is legal.", cost:"Segregation spreads while the Court's back is turned.", stability:-6, flags:["dodge"], next:"n_brown",
+            outcome:{ tag:"cf", text:"Plessy's case is sent back to the states without answering the question of legality. While the Court waits, the states pass segregation laws until they return to the Court.", why:"Not deciding leaves the Louisiana law in place." } }
         ]
       },
 
@@ -667,30 +672,30 @@ const CONTENT = {
       "n_brown": {
         era:"watergate", year:"1954", chapter:"Brown v. Board",
         subtitle:"A third grade girl's walk to school has reached the Supreme Court.",
-        scenario:"In Topeka, Kansas, Linda Brown had to walk across an entire rail yard to catch the bus to the all-Black school when there was a much closer white school; her father sued and her case was combined with several from South Carolina, Virginia, and Delaware. Thurgood Marshall of the NAACP is arguing that separate schools can never be equal. What should the Court rule?",
+        scenario:"In Topeka, Kansas, Linda Brown had to walk across an entire rail yard to catch the bus to the all-Black school when there was a much closer white school; her father sued and her case was combined with several from South Carolina, Virginia, and Delaware. Thurgood Marshall of the NAACP argues that separate schools can never be equal. What should the Court rule?",
         advisors:{
-          morris:{ key:"justice", gloss:"School is where most children first find themselves at the mercy of a government that may not treat them the same as everybody else, so \"establish Justice\" must be made there." },
-          madison:{ key:"dueprocess", gloss:"Telling a child which school she must attend based on her race is the government restricting her liberty, and I don't see where the due process is." }
+          morris:{ key:"justice", gloss:"He expresses that school is where children often experience the government for the first time, and it is important to represent equality there." },
+          madison:{ key:"dueprocess", gloss:"He expresses that telling a child where they can go to school takes away a right provided to them by the Bill of Rights." }
         },
         choices:[
-          { short:"Strike down segregation", label:"Rule that \"separate but equal\" is unconstitutional in public schools.", cost:"There will be furious \"massive resistance,\" and some states will outright defy the Court for years.", stability:16, flags:["brown"], next:"end_arc",
-            outcome:{ tag:"real", text:"On May 17, 1954, Chief Justice Earl Warren read a unanimous opinion that \"separate educational facilities are inherently unequal\" into record. Warren had worked hard to get all nine justices on board so the South couldn't say the Court was divided, but it actually took much longer to integrate the schools and in 1957 President Eisenhower had to send in the 101st Airborne to escort nine Black students into Central High School in Little Rock.", why:"Since Brown, no more segregation laws could use the Supreme Court as their shield, and that paved the way for the next ten years of the civil rights movement." } },
-          { short:"Uphold Plessy", label:"Leave \"separate but equal\" in place and let the states and Congress handle it.", cost:"Segregation will continue unabated with the Court's blessing.", stability:-18, flags:["upholdseg"], next:"end_arc",
-            outcome:{ tag:"cf", text:"If the Court had upheld Plessy, seventeen states' school segregation laws would be in force. The Montgomery bus boycott, the lunch counter sit-ins, and the Civil Rights Act of 1964 would all have fought the Supreme Court as well as the states. The words \"Equal Justice Under Law\" would have continued to be carved into the front entrance of the Court.", why:"Much of what the movement won in the 1960s was built on Brown, so losing it here probably sets back almost everything." } },
+          { short:"Strike down segregation", label:"Rule that \"separate but equal\" is unconstitutional in public schools.", cost:"There will be furious \"massive resistance.\"", stability:16, flags:["brown"], next:"end_arc",
+            outcome:{ tag:"real", text:"On May 17, 1954, Chief Justice Earl Warren read a unanimous opinion that \"separate educational facilities are inherently unequal\" into record. Warren had worked hard to get all nine justices on board so the South couldn't say the Court was divided. In 1957, President Eisenhower sent the 101st Airborne to escort nine Black students into Central High School in Little Rock.", why:"Since Brown, no more segregation laws could use the Supreme Court as their shield." } },
+          { short:"Uphold Plessy", label:"Leave \"separate but equal\" in place and let the states and Congress handle it.", cost:"Segregation will continue.", stability:-18, flags:["upholdseg"], next:"end_arc",
+            outcome:{ tag:"cf", text:"If the Court had upheld Plessy, seventeen states' school segregation laws would stay in force. The Montgomery bus boycott, the lunch counter sit-ins, and the Civil Rights Act of 1964 would all have fought the Supreme Court, while \"Equal Justice Under Law\" stayed carved over the Court's entrance.", why:"Much of what the movement won in the 1960s was built on Brown, so losing it here probably sets back almost everything." } },
           { short:"Order it \"gradually\"", label:"Say segregation is wrong but let it end whenever the states say it does.", cost:"\"Someday\" becomes \"never\" in the eyes of the most stubborn.", stability:-4, flags:["deliberatespeed"], next:"end_arc",
-            outcome:{ tag:"cf", text:"Real courts did something similar in 1955, telling schools to desegregate \"with all deliberate speed.\" A lot of school districts took that as a sign to wait. Prince Edward County, Virginia, took it to the point of closing its public schools from 1959 to 1964 so they wouldn't have to integrate them.", why:"Ten years after Brown, only about 2 percent of Black students in the South went to school with white students." } }
+            outcome:{ tag:"cf", text:"Real courts did something similar in 1955, telling schools to desegregate \"with all deliberate speed.\" A lot of school districts took that as a sign to wait.", why:"Ten years after Brown, only about 2 percent of Black students in the South went to school with white students." } }
         ]
       },
 
       /* ---------- ENDINGS ---------- */
       "end_endures": { ending:true, kind:"tier", title:"A More Perfect Union",
-        text:"You continued to push and it mostly worked, but your version of the country still had to fight the status quo at every turn. At every turning point somebody held the government to the words it had written down, which is as good as this story gets since nobody in it has ever been handed equality without asking for it first." },
+        text:"You continued to push and it mostly worked, but your country still had to fight the status quo at every turn. Each time, somebody held the government to the words it had written down — as good as this story gets, since nobody in it was ever handed equality without asking first." },
       "end_fragile": { ending:true, kind:"tier", title:"A Half-Kept Promise",
-        text:"Some of your choices pushed the country forward and some held it back, which is pretty much what happened in real life. The promise grew larger in 1868, smaller in 1896, and larger again in 1954, and none of the changes were permanent. Whatever comes after you inherits a country that's partly there." },
+        text:"Some of your choices pushed the country forward and some held it back, pretty much what happened in real life. The promise grew in 1868, shrank in 1896, and grew again in 1954, and none of it was permanent. Whatever comes after you inherits a country that's partly there." },
       "end_falters": { ending:true, kind:"tier", title:"The Promise Deferred",
-        text:"Your version of the country continued to hold to the words \"all men are created equal\" and found excuses not to apply them. Each time it looked the other way, the next generation had a harder fight with more laws to overturn and more people who had grown up thinking the unequal way was normal. The promise is still written down, but very few people in your version get to live under it." },
+        text:"Your country kept holding to the words \"all men are created equal\" and finding excuses not to apply them. Each time it looked away, the next generation had a harder fight: more laws to overturn, more people who had grown up thinking the unequal way was normal. The promise is still written down, but very few people in your version get to live under it." },
       "end_collapse": { ending:true, kind:"collapse", title:"The Promise Betrayed",
-        text:"It didn't fall apart at a single moment but a set of choices where order, or money, or maintaining the peace won out over equal rights until \"all men are created equal\" was something people recited without believing it. The list below shows where it happened, and each of these choices had a real cost on real people." }
+        text:"It didn't fall apart at a single moment, but through a set of choices where order, money, or maintaining the peace won out over equal rights, until \"all men are created equal\" was something people recited without believing it. The list below shows where it happened, and each of these choices had a real cost on real people." }
     }
   },
 
@@ -705,8 +710,8 @@ const CONTENT = {
       {
         scenario:"A club at your school has rules about who can join that keep out students who would almost certainly qualify. Fee-based or a teacher recommendation some students never get asked for, maybe. Most people haven't noticed, but you have. What will you do?",
         advisors:{
-          morris:{ key:"justice", gloss:"Nobody in 1787 was thinking about school clubs, but a rule that keeps some people out for no good reason is exactly what \"establish Justice\" was aimed at." },
-          madison:{ key:"dueprocess", gloss:"If the same rule doesn't apply to everybody, it's not much of a rule, so ask who wrote it and why." }
+          morris:{ key:"justice", gloss:"A rule that keeps some people out for no good reason is exactly what \"establish Justice\" was aimed at." },
+          madison:{ key:"dueprocess", gloss:"If the same rule doesn't apply to everybody, it does not go accordingly to the Bill of Rights guaranteed." }
         },
         choices:[
           { short:"Raise it with the school", label:"Bring it up to the sponsor or administrator and ask for the rule to be changed.", cost:"It takes nerve, and adults do not always listen the first time." },
@@ -714,15 +719,15 @@ const CONTENT = {
           { short:"Document and report it", label:"Write down what's happening and report it through the school's process.", cost:"It is slower and less dramatic, but it leaves a record that is hard to ignore." }
         ],
         reflection:{
-          text:"There's no real history to compare this one to, so you don't get a \"what actually happened\" screen. All three options support equal treatment in some way, and all three cost you something. The option that fails is the one that wasn't on the list, which is noticing and saying nothing.",
-          why:"Unfair rules at a school probably last as long as they do because the people they don't affect never think to ask about them."
+          text:"The option that fails is the one that wasn't on the list, noticing and saying nothing.",
+          why:"Unfair rules at a school last because the people they don't affect never think to ask about them."
         }
       },
       {
         scenario:"A teacher or a group of students keeps holding one classmate to a stricter standard than the other, and it's starting to get obvious. There's probably a social cost to speaking up. What will you do?",
         advisors:{
-          morris:{ key:"justice", gloss:"The promise means nothing if it stops at the classroom door, because equal treatment is for the room you're actually in." },
-          madison:{ key:"majority", gloss:"An \"overbearing majority\" can be a mob, a clique, or a group chat, and equal treatment means protecting the person it turns on." }
+          morris:{ key:"justice", gloss:"No matter the environment every student should be treated the same for that is what is written in the Preamble." },
+          madison:{ key:"majority", gloss:"An \"overbearing majority\" can be a mob and equal treatment means protecting the person it turns on." }
         },
         choices:[
           { short:"Say something in the moment", label:"Speak up right then and name the double standard.", cost:"It is uncomfortable, and the crowd may turn on you too." },
@@ -730,7 +735,7 @@ const CONTENT = {
           { short:"Stay out of it", label:"Decide it's not your problem and keep your head down.", cost:"The unfair treatment stands, and your silence tells everyone that it is allowed." }
         ],
         reflection:{
-          text:"This one is also yours to decide. Courts and amendments get most of the attention in history class, but a lot of the time equal treatment comes down to whether the people notice it in the room they're in and are willing to say so. Staying out of it leaves the double standard exactly where it was.",
+          text:"Expressing yourself in class gets the point across quickly however it could be met with the most repercussion, a quieter approach takes more time but has less repercussion.",
           why:"Most of the cases in this game started with one person who wouldn't accept unequal treatment, like Homer Plessy on that train or the Brown family in Topeka."
         }
       }
@@ -839,7 +844,7 @@ const state = {
 
 /* ---- ordered framing steps; the whole branching arc lives in one 'arc' step ---- */
 const STEPS = [
-  {type:'title'}, {type:'prequiz'}, {type:'intro'},
+  {type:'title'}, {type:'howto'}, {type:'prequiz'}, {type:'intro'},
   {type:'arc'},
   {type:'ending'},
   {type:'today', dec:0, phase:'decide'}, {type:'today', dec:0, phase:'reveal'},
@@ -944,6 +949,24 @@ function scrTitle(){
   </div>`;
 }
 
+function scrHowTo(){
+  return `<div class="screen center" style="padding-top:5vh;">
+    <div class="eyebrow">Before you start</div>
+    <h1 class="title" style="font-size:clamp(1.5rem,5vw,2.3rem);">How to play</h1>
+    <div class="card" style="max-width:560px;margin:16px auto;text-align:left;">
+      <p style="margin:.5em 0;"><strong>1.</strong> At each turning point from 1776 to 1954, you make the call. Morris and Madison give their take first.</p>
+      <p style="margin:.5em 0;"><strong>2.</strong> Pick an option. Every choice moves the <strong>Promise of Equality</strong> meter.</p>
+      <p style="margin:.5em 0;"><strong>3.</strong> Match history and it is marked <span class="tag real">Real history</span>; go another way and you get a <span class="tag cf">Counterfactual</span>.</p>
+      <p style="margin:.5em 0;"><strong>4.</strong> Enough choices against equal justice and the promise can be betrayed.</p>
+      <p class="muted" style="margin:.6em 0 0;">Use <span class="kbd">&larr;</span> <span class="kbd">&rarr;</span> or the buttons to move, <span class="kbd">1</span>&ndash;<span class="kbd">3</span> to pick. Press <span class="kbd">P</span> for a class vote.</p>
+    </div>
+    <div class="btnrow" style="justify-content:center;">
+      <button class="btn secondary" data-action="back">Back</button>
+      <button class="btn" data-action="next">Got it &rarr;</button>
+    </div>
+  </div>`;
+}
+
 function quizScreen(phase){
   const isPost = phase==='post';
   const heading = isPost ? "Post-Quiz" : "Pre-Quiz";
@@ -1019,7 +1042,7 @@ function scrIntro(){
     <div class="eyebrow">The Virtue</div>
     <h2>Justice as a habit</h2>
     <p class="lede">${CONTENT.intro.what}</p>
-    <p class="hint"><strong>Your choices change the story.</strong> When your choice matches what really happened it is marked <span class="tag real">Real history</span>, and when you go a different way you will see an evidence-based <span class="tag cf">Counterfactual</span> instead. Keep an eye on <strong>The Promise of Equality</strong> meter, because if you make enough choices against equal justice the promise can be betrayed.</p>
+    <p class="hint"><strong>Your choices change the story</strong> and move the Promise of Equality meter.</p>
     <h3 style="margin-top:18px;">Two advisors will be with you for the whole game.</h3>
     <div class="advisors">${setup}</div>
     <div class="panel">
@@ -1052,7 +1075,7 @@ function scrArcDecide(nodeId){
     <h3>Your move:</h3>`;
   if(state.presenter){
     const v = getVotesNode(nodeId, n.choices.length);
-    body += `<p class="presenter-only muted" style="font-size:.9rem;">Take the class vote, tap in the counts, and then continue.</p><div class="choices">`;
+    body += `<p class="presenter-only muted" style="font-size:.9rem;">Give each group about 60 seconds to decide, then tap in one vote per group. The majority drives the branch.</p><div class="choices">`;
     n.choices.forEach((c,oi)=>{
       body += `<div class="voterow">
         <span class="num" style="flex:none;">${oi+1}</span>
@@ -1221,10 +1244,6 @@ function scrReport(){
       </table>
       <p class="muted" style="font-size:.82rem;margin-top:8px;"><span class="tag real">Real</span> means the choice matches what actually happened, and <span class="tag cf">Alt</span> means it is an evidence-based estimate of a path that was not taken (see Sources).</p>
     </div>
-    <div class="card" style="background:var(--parchment-2);">
-      <h3>The thesis</h3>
-      <p class="lede" style="color:var(--ink);">${esc(CONTENT.reportThesis)}</p>
-    </div>
     ${CONTENT.presentDay?`<div class="card">
       <h3>${esc(CONTENT.presentDay.title)}</h3>
       <p>${esc(CONTENT.presentDay.text)}</p>
@@ -1367,13 +1386,8 @@ function restart(){ state.i=0; state.arcHist=[]; state.arcPos=0; state.ended=nul
 /* Maps the current step to a period-accurate visual era. Only re-points
    the <body data-era> attribute; the CSS above does the rest. */
 function eraForStep(step){
-  if(step.type==='arc'){ const f=state.arcHist[state.arcPos]; return (f && nodeById(f.node).era) || 'founding'; }
-  if(step.type==='ending'){ return (state.ended && nodeById(state.ended).era) || 'today'; }
-  if(step.type==='today') return 'today';
-  switch(step.type){
-    case 'title': case 'prequiz': case 'intro': return 'founding';
-    default: return 'today';
-  }
+  // One consistent look from beginning to end (no per-era background switch).
+  return 'founding';
 }
 
 /* ---------------------- ROUTER ---------------------- */
@@ -1383,6 +1397,7 @@ function render(){
   let html='';
   switch(step.type){
     case 'title': html=scrTitle(); break;
+    case 'howto': html=scrHowTo(); break;
     case 'prequiz': html=quizScreen('pre'); break;
     case 'intro': html=scrIntro(); break;
     case 'arc': html=scrArc(); break;
@@ -1394,6 +1409,7 @@ function render(){
     case 'sources': html=scrSources(); break;
   }
   app.innerHTML = html;
+  updateTimerVisibility(step);
   window.scrollTo({top:0,behavior:'auto'});
 }
 
@@ -1426,6 +1442,8 @@ document.addEventListener('click', e=>{
     case 'back': back(); break;
     case 'restart': restart(); break;
     case 'toggle-presenter': setPresenter(!state.presenter); break;
+    case 'timer-toggle': ptimerToggle(); break;
+    case 'timer-reset': ptimerReset(); break;
     case 'choose':
       state.choices[node]=+opt;
       if(STEPS[state.i].type==='arc'){ state.arcHist = state.arcHist.slice(0, state.arcPos+1); }
@@ -1541,7 +1559,46 @@ function exportCSV(){
   download(`hold-the-line-results-${stamp()}.csv`, rows.join('\n'), 'text/csv');
 }
 
+/* ---------------------- PRESENTER TIMER (60s per decision) ---------------------- */
+let ptimerEl=null, ptimerInterval=null, ptimerRemaining=60, ptimerRunning=false, ptimerLastKey=null;
+function ptimerFmt(s){ return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
+function ptimerCreate(){
+  if(ptimerEl || !document.createElement) return;
+  const el = document.createElement('div');
+  el.id='ptimer'; el.className='ptimer'; el.hidden=true;
+  el.innerHTML = '<span id="ptimerDisplay">1:00</span>'
+    + '<button id="ptimerToggle" class="btn ghost" data-action="timer-toggle">Start</button>'
+    + '<button class="btn ghost" data-action="timer-reset">Reset</button>';
+  if(document.body && document.body.appendChild) document.body.appendChild(el);
+  ptimerEl = el;
+}
+function ptimerRender(){
+  const d=document.getElementById('ptimerDisplay'); if(d) d.textContent=ptimerFmt(ptimerRemaining);
+  const b=document.getElementById('ptimerToggle'); if(b) b.textContent=ptimerRunning?'Pause':'Start';
+}
+function ptimerClass(add){
+  const p=document.getElementById('ptimer');
+  if(p && p.classList && p.classList[add?'add':'remove']) p.classList[add?'add':'remove']('done');
+}
+function ptimerStop(){ ptimerRunning=false; if(ptimerInterval){ clearInterval(ptimerInterval); ptimerInterval=null; } ptimerRender(); }
+function ptimerReset(){ ptimerStop(); ptimerRemaining=60; ptimerClass(false); ptimerRender(); }
+function ptimerTick(){ if(ptimerRemaining>0){ ptimerRemaining--; ptimerRender(); if(ptimerRemaining===0){ ptimerStop(); ptimerClass(true); } } }
+function ptimerStart(){ if(ptimerRunning) return; if(ptimerRemaining===0) ptimerReset(); ptimerRunning=true; ptimerInterval=setInterval(ptimerTick,1000); ptimerRender(); }
+function ptimerToggle(){ ptimerRunning ? ptimerStop() : ptimerStart(); }
+function updateTimerVisibility(step){
+  const p=document.getElementById('ptimer'); if(!p) return;
+  let key=null, isDecide=false;
+  if(state.presenter && step){
+    if(step.type==='arc'){ const f=state.arcHist[state.arcPos]; if(f && f.phase==='decide'){ isDecide=true; key='arc:'+f.node; } }
+    else if(step.type==='today' && step.phase==='decide'){ isDecide=true; key='today:'+step.dec; }
+  }
+  p.hidden = !isDecide;
+  if(isDecide){ if(key!==ptimerLastKey){ ptimerLastKey=key; ptimerReset(); } }
+  else if(ptimerLastKey!==null){ ptimerLastKey=null; ptimerStop(); }
+}
+
 /* ---------------------- BOOT ---------------------- */
+ptimerCreate();
 load();
 document.body.classList.toggle('presenter', state.presenter);
 presenterBtn.textContent = 'Presenter mode: '+(state.presenter?'On':'Off');
