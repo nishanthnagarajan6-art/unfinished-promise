@@ -1,52 +1,44 @@
 # The Unfinished Promise — Written Portions
 
-This file lists **every passage that was written for the project** — the prose you'd be
-graded on. It leaves out the two things you should *not* rewrite:
+Every passage written *for* the project, matching the current live game. This is the file to edit.
 
-- **Verbatim quotes** from a founding document or a person (Declaration, Constitution,
-  Federalist Papers, the Convention records, court rulings, Frederick Douglass, etc.).
-- **The Sources page citations** (the bibliography of quotes and facts).
-
-**How to read it:** anything inside `"quotation marks"` is a real quote or a specific
-historical fact — **leave those exactly as they are.** Everything else is the writing for
-the project, so it's yours to rewrite in your own voice. The headings tell you where each
-passage shows up in the game, so you can map your edits back to `index.html`.
+**Rules for editing:**
+- Anything in `"quotation marks"` (shown in `code style`) is a **real quote or hard fact** — leave it exactly as it is.
+- Everything else is yours to rewrite.
+- **Not included** (don't edit these — they're real quotes/references): the advisor *verbatim quote bank* (Morris and Madison's exact words), and the full Sources citation list.
 
 ---
 
 ## 1. Opening screen
 
-**Hook (first thing you see):**
-> It is 1776 and you are in the room. Every choice you make from here to 1954 will change what happens next, and the meter at the top of the screen will track how close the country gets to the thing it said it believed.
+**Hook:**
+> It is 1776 and you are in the room. Every choice that leads us to 1954 will have its impact on the meter above, reflecting the country's commitment to the founding idea.
 
 **Subtitle:**
-> The game stops at real turning points between 1776 and 1954, and everything in it comes back to two documents, the Declaration of Independence and the Constitution.
+> The game takes place at various crossroads from 1776 to 1954, and it interprets all of them through the Declaration of Independence and the US Constitution.
 
 ---
 
-## 2. Introduction — "What this is about"
+## 2. Introduction — "Justice as a habit"
 
-**What justice means here:**
-> For this project, justice is something you do over and over, and it is to push laws and institutions towards treating people as equals. The Declaration said `"all men are created equal"` in 1776, at a time when about one in five people in the colonies were enslaved. So the promise was already broken on the same day it was made, and each decision in this game asks whether you will hold the country to it, anyway.
+**What justice means:**
+> In the context of the game, justice is making laws and institutions that pursue equality between people. The Declaration stated that `"all men are created equal"` in 1776, but about one in five colonists were enslaved. The game's scenarios will lead you to come back to this civic virtue.
 
-### Your two advisors
+**Advisor — Gouverneur Morris** *(a Pennsylvania delegate who wrote the final wording of the Constitution):*
+> He delivered the most radical speech about slavery at the Convention, saying he would rather pay a tax to free all the slaves in the country than for it to continue in future generations. Overall, he will advise you to achieve justice by any means necessary.
 
-**Gouverneur Morris** *(role line: "a Pennsylvania delegate who wrote the final wording of the Constitution")*
-> Morris gave the harshest speech against slavery at the Convention, where he said he would rather pay a tax to buy freedom for every enslaved person in the country than saddle the next generation with a Constitution that protected it. He will usually tell you to deal with the injustice now, even if it costs you the deal.
+**Advisor — James Madison** *(a Virginia delegate who wrote Federalist 10 and 51 and drafted the Bill of Rights):*
+> Madison has a more complex relationship with slavery. For example, he owned more than a hundred slaves at Montpelier until his death, but he also fought to exclude slavery from the Constitution. He will advise you to fight for the rights of minorities, however it might not be by any means necessary.
 
-**James Madison** *(role line: "a Virginia delegate who wrote Federalist 10 and 51 and drafted the Bill of Rights")*
-> Madison is the complicated one. He enslaved more than a hundred people at Montpelier over his life and never freed them, and he is also the delegate who said it was wrong to put the idea of property in men into the Constitution. He will usually tell you to protect the minority through the system and keep the Union together, but still wait.
-
-### V / D / S / CV
-
-- **V (Value):** The value is equality, which is to have everyone have their standing and be protected by the law the same.
-- **D (Danger):** The danger is that the powerful, or just a big enough majority, decides that some people don't count, which is how you get slavery, segregation, and people turned away from the polls.
-- **S (Solution):** The founders started with the words `"all men are created equal,"` and every generation after them used the Constitution, the courts, and amendments to make those words apply to more people.
-- **CV (Civic Virtue):** The civic virtue is justice, which is the habit of noticing when the promise leaves someone out and pushing until it doesn't.
+**V / D / S / CV frame:**
+- **V (Value):** Equality: the equal intrinsic worth of every person and every group, and their equal claim to rights and to legal and social protection, regardless of their position or status and even if they represent a minority within a larger majority.
+- **D (Danger):** The tyranny of the majority: when the ruling or simply more powerful groups use the law to deny equality to other groups, as in slavery, Jim Crow, and voter suppression.
+- **S (Solution):** The enshrinement in the Declaration and Constitution and subsequent amendments, legislation, and judicial rulings (such as the Fourteenth Amendment and Brown v. Board) of the ideal of equality as a moral imperative and legal requirement.
+- **CV (Civic Virtue):** Justice: the virtue of demanding and achieving equality as a matter of course, and above all extending it to those groups who might be overlooked by the majority.
 
 ---
 
-## 3. Quiz (used for both the pre-game and post-game quiz)
+## 3. Quiz (same questions for pre-quiz and post-quiz)
 
 **Q1. What does the Declaration of Independence say about people?**
 - That only landowners have rights.
@@ -70,184 +62,151 @@ passage shows up in the game, so you can map your edits back to `index.html`.
 
 ## 4. The story, chapter by chapter
 
-> Note on the advisors inside each chapter: Morris's and Madison's lines here are written
-> *in their voice* for the game — they are **not** verbatim quotes (those are marked with
-> `"quotation marks"` where they appear), so this advice is yours to rewrite.
+> Morris's and Madison's **advice** lines below are yours to edit. Their *verbatim quotes* (shown in the game above each advice line) are real and not included here.
 
-### Chapter 1 · 1776 · The Promise
-
-**Subtitle:** Jefferson's draft has a paragraph the South will not sign.
+### 1776 · The Promise
+**Subtitle:** Jefferson's draft has a paragraph the South will oppose.
 
 **Scenario:**
-> Jefferson's draft of the Declaration blames King George for the slave trade, and calls it `"cruel war against human nature itself."` South Carolina and Georgia want this paragraph gone, and some northern delegates are not arguing for it very ardently, since ships from their own colonies had been delivering enslaved people for years. What will you push for?
+> Jefferson's draft blames the King for the slave trade and calls it `"cruel war against human nature itself."` South Carolina and Georgia demand its removal, and some northern delegates seem ready to agree, since colonial ships have long been transporting slaves. What will you do?
 
-**Morris's advice:** If the first document this country signs calls slavery a war on human nature, every law that comes after it has to answer to that line.
+**Morris's advice:** If the first official document calls slavery a `"war against human nature,"` all laws which follow must also follow this policy.
+**Madison's advice:** The British are landing on Staten Island this week, and losing two colonies would undermine everything we are doing.
 
-**Madison's advice:** The British are landing on Staten Island this same week, and losing two colonies in current events could end the whole thing before it starts.
+**Move A — Keep the anti-slavery passage:** Keep Jefferson's wording about the slave trade, despite the South's opposition.
+- *Cost:* South Carolina and Georgia may withhold their approval while the British army marches towards New York.
+- *Result (Counterfactual):* The risk was real. South Carolina voted against independence on July 1 and changed its decision the next day, so it could turn against the Declaration again. You would end up with a document only eleven colonies signed, decreasing the unity between the colonies in the nation.
+- *Why it matters:* The Declaration would have been stronger with Jefferson's wording, but it is necessary to ensure the document's adoption.
 
-**Choice A — Keep the anti-slavery passage**
-- *Label:* Keep Jefferson's attack on the slave trade in the Declaration, even if the South walks away.
-- *Cost:* South Carolina and Georgia may not sign, in the same summer as the British army is landing in New York.
-- *Outcome:* Nobody can know exactly how it goes, but the risk was real. South Carolina voted against independence on July 1 and only switched to yes on July 2, so the colony was already very nearly on board. Keeping the paragraph probably costs you that vote, and a Declaration from eleven colonies would have looked a lot weaker to France, whose help the war depended on.
-- *Why it matters:* The line would have been braver than what we got, but it only matters if there is a country around to be held to it.
+**Move B — Cut the passage to keep the union:** Remove Jefferson's paragraph on the slave trade to gain all thirteen colonies, but keep that `"all men are created equal."`
+- *Cost:* You deliver a document that excludes half a million people from the protected `"all men."`
+- *Result (Real history):* Congress cut this paragraph. Jefferson later admitted it was deleted `"in complaisance to South Carolina and Georgia,"` and that the northern delegates did not object, since they profited from the slave trade too. The Declaration made no mention of slavery, though it continued in all colonies.
+- *Why it matters:* This is where `"all men are created equal"` becomes a problem for the slaves, and it will take almost a century to change. In 1852, Frederick Douglass asked the residents of Rochester, `"What, to the American slave, is your 4th of July?"`
 
-**Choice B — Cut the passage to keep the union**
-- *Label:* Cut the attack on the slave trade so all thirteen colonies sign, but keep `"all men are created equal."`
-- *Cost:* The country gets founded on a promise it breaks for about half a million people on the same day.
-- *Outcome:* Congress cut the paragraph. Jefferson wrote years later that it was struck out `"in complaisance to South Carolina and Georgia,"` and he admitted the northern delegates `"felt a little tender"` about it too, because their ships had been `"pretty considerable carriers"` of enslaved people. The Declaration went out with `"all men are created equal"` still in it, and slavery went on in all thirteen colonies.
-- *Why it matters:* In 1852 Frederick Douglass asked a crowd in Rochester, `"What, to the American slave, is your 4th of July?"` and this cut is a big part of why he had to ask.
+**Move C — Water it down:** Keep a vague statement about equality but remove anything about slavery.
+- *Cost:* You weaken the Declaration's wording before it is even adopted.
+- *Result (Counterfactual):* A more careful wording that does not mention the slavery present makes it easier for it to be adopted, but it also makes the lives of minority groups harder. Movements kept returning to the Declaration's promise and argued that equality should be provided. In 1848, the Seneca Falls Convention's Declaration of Sentiments declared that `"all men and women are created equal."`
+- *Why it matters:* Without this wording present the abolitionists will have nothing to refer to in their protest for equal rights.
 
-**Choice C — Water it down**
-- *Label:* Keep a vague line about equality but drop any direct attack on slavery, so that nobody is offended.
-- *Cost:* You weaken the promise before anyone has even signed it.
-- *Outcome:* A vaguer Declaration avoids the fight in 1776 and loses it later. Abolitionists quoted `"all men are created equal"` for almost ninety years, and in 1848 the women at Seneca Falls rewrote it as `"all men and women are created equal."` A softer line gives every one of those people less to stand on.
-- *Why it matters:* The blunt wording is the part later movements could actually use, so watering it down hurts people who weren't even born yet.
-
-### Chapter 2 · 1787 · The Compromise
-
-**Subtitle:** The Convention has to decide how slavery fits into the new government.
+### 1787 · The Compromise
+**Subtitle:** The Convention must decide what to do about slavery.
 
 **Scenario:**
-> It is August 1787 in Philadelphia. The delegates are still fighting over whether to count enslaved people for seats in Congress and whether Congress will ever be allowed to ban the slave trade. On August 8, Gouverneur Morris stands up and calls slavery `"the curse of Heaven on the States where it prevailed."` What will you back?
+> It is August 1787 in Philadelphia. The delegates are debating whether to count slaves toward representation in Congress and whether Congress can ban the slave trade. On August 8, Gouverneur Morris calls slavery `"the curse of Heaven on the States where it prevailed."` What will you do?
 
-**Morris's advice:** Counting enslaved people for representation rewards the states that hold them, because the more people a state enslaves, the more power it gets in Congress.
+**Morris's advice:** Slavery should be ended as soon as possible, because the representation of slaves will give the Southern States an advantage due to its increase of voting population.
+**Madison's advice:** Abolishing slavery is a great thing, however the most important thing is keeping a union among ourselves.
 
-**Madison's advice:** I still believe that, but I would rather have a flawed Union than no Union at all, and I am not sure we get one if we force this now.
+**Move A — Push to end slavery now:** Use the slave trade issue to urge the Union to abolish slavery immediately.
+- *Cost:* The Deep South states may refuse to participate in the Convention.
+- *Result (Counterfactual):* Deep South representatives openly stated they would leave if slavery was not even mentioned in the new Constitution. On August 21, John Rutledge of South Carolina told the Convention the real issue was not slavery but the preservation of the Union. Forcing abolition may dissolve the Convention, so slavery would not end until 1865.
+- *Why it matters:* The 13th Amendment, which abolished slavery, was adopted in 1865, so the Constitution needed to be adopted in 1787.
 
-**Choice A — Push to end slavery now**
-- *Label:* Use the Constitution to start ending slavery, no matter what it does to the deal.
-- *Cost:* Georgia and the Carolinas may walk out, and there might not be a Union to ratify.
-- *Outcome:* The Deep South delegates said it outright. On August 21, John Rutledge of South Carolina told the Convention the real question was whether the southern states would be `"parties to the Union"` at all. Forcing abolition most likely ends the Convention, which means the Constitution that was later amended to end slavery never gets written.
-- *Why it matters:* The 13th Amendment ended slavery in 1865 by changing the Constitution, so the Constitution had to exist first.
+**Move B — Accept the compromises:** Accept the compromise on counting slaves and the slave trade to ensure the Constitution is adopted by all states.
+- *Cost:* The new Constitution will protect slavery for a long time.
+- *Result (Real history):* Slaves are counted as three fifths of the population, giving slave states more seats. The ban on the slave trade only occurs in 1808. The Constitution never says `"slavery,"` but several clauses protect it.
+- *Why it matters:* Through the three-fifths clause, slave states gained an advantage in both Congress and presidential elections. Thomas Jefferson used this as an advantage during his campaign.
 
-**Choice B — Accept the compromises**
-- *Label:* Accept the three-fifths clause and the slave trade protections so that every state ratifies.
-- *Cost:* The Constitution ends up protecting slavery without ever using the word, and it locks that protection in for decades.
-- *Outcome:* The Convention took both deals. Enslaved people were counted as three-fifths of a person when seats in the House were handed out, and Article I, Section 9 blocked Congress from banning the slave trade until 1808. The word `"slavery"` does not appear anywhere in the text, but the protections were written in anyway.
-- *Why it matters:* The three-fifths clause gave slave states extra seats in the House and extra electoral votes, and historians point out that Jefferson might have lost the election of 1800 without them.
+**Move C — Ban the trade, keep the rest:** Immediately ban the Atlantic slave trade but leave the rest of slavery intact.
+- *Cost:* You stop the trade of slaves, but those already enslaved stay enslaved.
+- *Result (Counterfactual):* The Atlantic slave trade was banned on January 1, 1808, but the domestic trade was not changed. This has little effect on the South, where slavery stayed for another century. However, it stops new slaves from being imported, but frees no one already enslaved.
+- *Why it matters:* This has a minimal effect on the slaves, as it only stops the importation of slaves.
 
-**Choice C — Ban the trade, keep the rest**
-- *Label:* Ban the Atlantic slave trade right away, but leave slavery itself to the states.
-- *Cost:* You stop the ships, but everyone already enslaved stays enslaved.
-- *Outcome:* Congress did ban the Atlantic trade eventually, on January 1, 1808, which was the first day the Constitution allowed it. Doing it in 1787 would have kept out tens of thousands of people who were brought over in those twenty years. Slavery inside the country would still have kept growing, though, because banning imports did nothing for the people already here or their children.
-- *Why it matters:* Stopping the ships does not free anybody who is already enslaved, so this choice only moves the meter slightly.
-
-### Chapter 2 (alternate) · 1787 · The Union in the Balance
-*(You reach this only if you pushed to end slavery now.)*
-
+### 1787 (alternate) · The Union in the Balance
+*(Reached only if you pushed to end slavery now.)*
 **Subtitle:** The Deep South delegates are packing up.
 
 **Scenario:**
-> You pushed for abolition and the Convention is coming apart. The Georgia and South Carolina delegates are talking about going home, and the delegates from the middle states keep asking you to find something the South will accept. What now?
+> You pushed for an immediate ban on slavery, and the Convention is collapsing. The Georgia and South Carolina delegates are leaving, and the Middle colonies are pressuring you to propose something the Deep South can accept. What will you do?
 
-**Morris's advice:** A smaller Union without slavery still would be a free country, and I would take that over a big one built on `"the curse of Heaven."`
+**Morris's advice:** To disregard the South if they leave, he believes that a union without slavery is better than one which is complete.
+**Madison's advice:** You can win the argument by `"the superior force of an interested and overbearing majority"` but still fail to create the Union needed to stop slavery.
 
-**Madison's advice:** You can win the argument by `"the superior force of an interested and overbearing majority"` and still lose the Union you need to enforce it later.
+**Move A — Hold firm, no Union with slavery:** Do not accept South's demands.
+- *Cost:* You may end up with two countries on one continent, one slave and one free.
+- *Result (Counterfactual):* Most historians believe South Carolina and Georgia would not have joined an anti-slavery Union. The Convention would lead to two separate countries, and the South would be even open to slavery.
+- *Why it matters:* Even though your choices were based on ethical means, slaves in the South would now face a harsher reality.
 
-**Choice A — Hold firm, no Union with slavery**
-- *Label:* Refuse to give in, and if the South leaves, let it leave.
-- *Cost:* You might end up with two countries on one coast, one slave and one free.
-- *Outcome:* Most historians doubt Georgia and the Carolinas would have joined an antislavery Union in 1787. The likelier result is a separate southern country that could push slavery west with no federal government to stop it. Your stand is honest. It could also leave enslaved people in the South with nobody outside their own state able to help them.
-- *Why it matters:* The right position and the position that helps the most people weren't the same here, and that happens more often than anyone wants.
+**Move B — Win a gradual abolition clause:** Enact a policy that abolishes slavery over time.
+- *Cost:* Gradual abolition can take a very long time.
+- *Result (Counterfactual):* A gradual abolition clause does little to stop slavery. For example, Pennsylvania passed a similar law in 1780, but it did not free slaves immediately. Overall, this would benefit the masters much more than the slaves.
+- *Why it matters:* When writing such a law, it is important to set the date to it.
 
-**Choice B — Win a gradual abolition clause**
-- *Label:* Trade for a deal that at least commits the country to ending slavery over time.
-- *Cost:* `"Gradual"` can take a whole lifetime for the person who is waiting.
-- *Outcome:* This wasn't an imaginary idea, since Pennsylvania had already passed a gradual abolition law in 1780. Under that law, though, children born to enslaved mothers could still be held until they turned 28, and people in Pennsylvania were still listed as enslaved in the census decades later. A national version would probably have worked the same slow way.
-- *Why it matters:* The date written into a law like this matters as much as the promise, because every year of delay is a year someone spends enslaved.
+**Move C — Cave entirely:** Agree to Deep South demands and adopt them in the Constitution.
+- *Cost:* You get a Constitution that protects slavery even more.
+- *Result (Counterfactual):* Giving way means a Constitution that supports slavery even more. Overall, the Constitution would be harder to amend later.
+- *Why it matters:* Every clause adopted in favor of the slave owners in 1787 will have to be repealed in 1865.
 
-**Choice C — Cave entirely**
-- *Label:* Give up and accept whatever the South demands so that the Convention survives.
-- *Cost:* You end up worse off than the real compromise, with slavery protected even more.
-- *Outcome:* Giving the South everything gets you a Constitution with even stronger protections than the real one, maybe with the slave trade protected forever instead of until 1808. The real deal in 1787 was already bad for enslaved people. This one's worse, and it would have been harder to undo later.
-- *Why it matters:* Every protection added in 1787 was another thing somebody in 1865 had to tear out.
-
-### Chapter 3 · 1868 · Equal Protection
-
-**Subtitle:** Slavery is over, and the question now is what freedom actually means.
+### 1868 · Equal Protection
+**Subtitle:** Slavery is over, but what about freedom?
 
 **Scenario:**
-> The Civil War ended in 1865, and the 13th Amendment abolished slavery that same year. Now the 14th Amendment would promise every citizen `"the equal protection of the laws."` Writing that down is the easy part. Making it true in Mississippi or Louisiana will take federal troops, federal courts, and years of the North paying attention. What will you commit to?
+> Slavery is abolished, but what about the rights of the newly freed slaves? The 14th Amendment promises them `"the equal protection of the laws."` Enforcing that in Mississippi or Louisiana will take federal troops, federal judges, and years of Northern patience. What will you do?
 
-**Morris's advice:** The Preamble says this government exists to `"establish Justice,"` and that job is not finished so long as freed people can be beaten for trying to vote.
+**Morris's advice:** The Constitution's preamble says it was adopted to `"establish Justice,"` however as of now, many minority groups in the South are faced with oppression.
+**Madison's advice:** He expresses the government's important role in order to ensure equality among citizens.
 
-**Madison's advice:** If a government will not protect the rights of the people it just freed, I am not sure what it thinks it is for.
+**Move A — Ratify and enforce it:** Ratify the 14th Amendment and enforce Black citizenship and voting rights.
+- *Cost:* You will have to keep federal troops in the South.
+- *Result (Counterfactual):* The newly freed slaves are far better off with citizenship and voting rights. Now oppressed individuals are able to grow to power.
+- *Why it matters:* After Blanche Bruce resigned as senator from Mississippi in 1881, no other Black American from the South served in the Senate until 2013.
 
-**Choice A — Ratify and enforce it**
-- *Label:* Ratify the 14th Amendment and back it up with federal enforcement of Black citizenship and voting rights.
-- *Cost:* It means a long and expensive federal presence in the South, along with fierce and sometimes violent pushback.
-- *Outcome:* Where the troops stayed, it worked for a while. Black men voted in large numbers, Mississippi sent Hiram Revels to the U.S. Senate in 1870, and hundreds of Black officials served in Southern state governments. Keeping that enforcement going past 1877 could have kept Black Southerners voting through the 1890s and after, instead of watching it get taken away.
-- *Why it matters:* After Blanche Bruce of Mississippi left the Senate in 1881, no Black senator represented a Southern state again until 2013.
+**Move B — Ratify, but leave it to the states:** Ratify the Amendment but leave enforcement to the states.
+- *Cost:* Without federal oversight, the states will ignore the rights the Amendment guarantees.
+- *Result (Real history):* This is closest to what actually happened. The 14th Amendment was ratified in July 1868, but the Compromise of 1877 removed federal troops from the South. The states adopted discriminatory laws.
+- *Why it matters:* Other Southern states quickly followed Mississippi's lead, imposing similar restrictions.
 
-**Choice B — Ratify, but leave it to the states**
-- *Label:* Pass the Amendment, pull the federal troops out, and trust the states to honor it.
-- *Cost:* With nobody enforcing it, the promise gets gutted anywhere the majority pushes back.
-- *Outcome:* This is close to what actually happened. The 14th Amendment was ratified in July 1868, but after the disputed election of 1876, the Compromise of 1877 pulled the last federal troops out of the South. Within about twenty years Southern states had poll taxes, literacy tests, and segregation laws, all while the amendment sat in the Constitution unchanged.
-- *Why it matters:* Mississippi rewrote its state constitution in 1890 with a poll tax and a literacy test aimed at Black voters, and other Southern states copied it within a few years.
+**Move C — Restore the old order:** Revoke the 14th Amendment and allow the old slave owners to take over the South again.
+- *Cost:* You sacrifice the freedom of Black Americans for `"peace"` between white Southerners and Northerners.
+- *Result (Counterfactual):* White Southerners take control of the states again. They called this `"Redemption,"` and it involved a lot of violence directed at Black Americans.
+- *Why it matters:* By failing to ensure equality, you let Southerners regain control of the government, leading to decades of repression.
 
-**Choice C — Restore the old order**
-- *Label:* Give up on Reconstruction and let the pre-war leaders run the South again so the fighting ends.
-- *Cost:* You trade equality for `"peace"` and hand power back to the people who denied it.
-- *Outcome:* Southern white Democrats called taking back power `"Redemption,"` and they did it with violence as much as with votes. Choosing to do this on purpose, instead of letting it happen slowly, tells them the federal government has no plans to stop them. At that point `"equal protection"` is a phrase in a document and not much else.
-- *Why it matters:* Once the country decided quiet mattered more than equal rights, it took until the Voting Rights Act of 1965 to get the vote back for most Black Southerners.
-
-### Chapter 3 (alternate) · 1896 · Separate but Equal
-*(You reach this if you left the 14th Amendment to the states.)*
-
-**Subtitle:** Homer Plessy sat in the whites-only car on purpose.
+### 1896 · Separate but Equal (Plessy)
+**Subtitle:** Homer Plessy was ordered to leave the `"whites only"` railroad car.
 
 **Scenario:**
-> In June 1892, Homer Plessy, who was one-eighth Black, bought a first-class train ticket in New Orleans and sat in the car that Louisiana law reserved for white passengers. He was arrested, which was the plan, since a New Orleans civil rights group had set it up as a test case. Now the Supreme Court has to decide whether `"separate but equal"` is constitutional. How should it rule?
+> On June 7, 1892, Homer Plessy, a New Orleans resident who was one-eighth Black, bought a first-class ticket and sat in the first-class car, prohibited for Black passengers under Louisiana law. He was arrested on purpose, a deliberate test case set up with a local New Orleans civil rights group. Now the Supreme Court must decide whether to repeal the Louisiana law. What will you do?
 
-**Morris's advice:** `"The equal protection of the laws"` does not come with an exception for train cars, and the Court should read those words the way they were ratified.
+**Morris's advice:** The `"equal protection of the laws"` clause does not allow separate facilities, and the Court should repeal this law right away.
+**Madison's advice:** Arresting Plessy simply for sitting in the `"wrong"` car violates his freedom which was guaranteed to him in the Constitution.
 
-**Madison's advice:** Arresting a man for sitting in the wrong seat takes away his liberty for no reason except his race, and I do not see how that counts as due process of law.
+**Move A — Reject "separate but equal":** Highlights the difference of separate but equal as a direct violation of the 14th Amendment.
+- *Cost:* You will have to face the racism of the entire state.
+- *Result (Counterfactual):* One justice, John Harlan, argued exactly this in his dissent, writing that `"our constitution is color-blind, and neither knows nor tolerates classes among citizens."`
+- *Why it matters:* It took the Court fifty-eight years to revisit the issue.
 
-**Choice A — Reject "separate but equal"**
-- *Label:* Strike segregation down now as a violation of the 14th Amendment.
-- *Cost:* It means a head-on fight with powerful state governments and with the public opinion of the time.
-- *Outcome:* One justice actually voted this way. John Marshall Harlan, who had once been a slaveholder in Kentucky, wrote in his dissent that `"our constitution is color-blind, and neither knows nor tolerates classes among citizens."` If four more justices had joined him, Jim Crow would have lost its legal cover before much of it was even written.
-- *Why it matters:* Harlan lost 7 to 1 in 1896, and it took the Court until 1954 to think back to what he was arguing.
+**Move B — Uphold "separate but equal":** Declare `"separate but equal"` constitutional and leave the fate of Black Americans to the states.
+- *Cost:* Black Americans will suffer for the next fifty-eight years.
+- *Result (Real history):* The Court ruled 7-1 against Plessy in May 1896. Justice Henry Billings Brown wrote that the Louisiana law did not violate the 14th Amendment, since Black citizens were satisfied with separate facilities. Southern states took this as a signal to introduce Jim Crow laws, which governed almost every part of life in the South for nearly a century.
+- *Why it matters:* Plessy was the law for fifty-eight years of Jim Crow, and for that whole time every segregation law could have had the Supreme Court as its shield.
 
-**Choice B — Uphold "separate but equal"**
-- *Label:* Uphold segregation as long as the facilities are `"equal."`
-- *Cost:* You give Jim Crow the Constitution's approval for the next 58 years.
-- *Outcome:* The Court ruled 7 to 1 against Plessy in May 1896. Justice Henry Billings Brown wrote for the majority that if Black citizens saw segregation as a mark of inferiority, it was only because the colored race `"chooses to put that construction upon it."` Southern states took the ruling as permission, and segregated schools, hospitals, water fountains, and cemeteries followed.
-- *Why it matters:* Plessy stayed the law for fifty-eight years, and for that whole time every segregation law could have the Supreme Court as its shield.
-
-**Choice C — Dodge the question**
-- *Label:* Rule narrowly and avoid deciding whether segregation itself is legal.
+**Move C — Dodge the question:** Avoid deciding whether segregation itself is legal.
 - *Cost:* Segregation spreads while the Court's back is turned.
-- *Outcome:* A narrow opinion sends Plessy's case back to the states without answering the question of legality. While the Court waits, the states pass segregation laws until they return to the Court, and the question is answered.
-- *Why it matters:* Not deciding leaves the Louisiana law in place, so for the people on that train it would be as if they had lost.
+- *Result (Counterfactual):* Plessy's case is sent back to the states without answering the question of legality. While the Court waits, the states pass segregation laws until they return to the Court.
+- *Why it matters:* Not deciding leaves the Louisiana law in place.
 
-### Chapter 4 · 1954 · Brown v. Board
-
+### 1954 · Brown v. Board
 **Subtitle:** A third grade girl's walk to school has reached the Supreme Court.
 
 **Scenario:**
-> In Topeka, Kansas, Linda Brown had to walk across an entire rail yard to catch the bus to the all-Black school when there was a much closer white school; her father sued and her case was combined with several from South Carolina, Virginia, and Delaware. Thurgood Marshall of the NAACP is arguing that separate schools can never be equal. What should the Court rule?
+> In Topeka, Kansas, Linda Brown had to walk across an entire rail yard to catch the bus to the all-Black school when there was a much closer white school; her father sued and her case was combined with several from South Carolina, Virginia, and Delaware. Thurgood Marshall of the NAACP argues that separate schools can never be equal. What should the Court rule?
 
-**Morris's advice:** School is where most children first find themselves at the mercy of a government that may not treat them the same as everybody else, so `"establish Justice"` must be made there.
+**Morris's advice:** He expresses that school is where children often experience the government for the first time, and it is important to represent equality there.
+**Madison's advice:** He expresses that telling a child where they can go to school takes away a right provided to them by the Bill of Rights.
 
-**Madison's advice:** Telling a child which school she must attend based on her race is the government restricting her liberty, and I don't see where the due process is.
+**Move A — Strike down segregation:** Rule that `"separate but equal"` is unconstitutional in public schools.
+- *Cost:* There will be furious `"massive resistance."`
+- *Result (Real history):* On May 17, 1954, Chief Justice Earl Warren read a unanimous opinion that `"separate educational facilities are inherently unequal"` into record. Warren had worked hard to get all nine justices on board so the South couldn't say the Court was divided. In 1957, President Eisenhower sent the 101st Airborne to escort nine Black students into Central High School in Little Rock.
+- *Why it matters:* Since Brown, no more segregation laws could use the Supreme Court as their shield.
 
-**Choice A — Strike down segregation**
-- *Label:* Rule that `"separate but equal"` is unconstitutional in public schools.
-- *Cost:* There will be furious `"massive resistance,"` and some states will outright defy the Court for years.
-- *Outcome:* On May 17, 1954, Chief Justice Earl Warren read a unanimous opinion that `"separate educational facilities are inherently unequal"` into record. Warren had worked hard to get all nine justices on board so the South couldn't say the Court was divided, but it actually took much longer to integrate the schools and in 1957 President Eisenhower had to send in the 101st Airborne to escort nine Black students into Central High School in Little Rock.
-- *Why it matters:* Since Brown, no more segregation laws could use the Supreme Court as their shield, and that paved the way for the next ten years of the civil rights movement.
-
-**Choice B — Uphold Plessy**
-- *Label:* Leave `"separate but equal"` in place and let the states and Congress handle it.
-- *Cost:* Segregation will continue unabated with the Court's blessing.
-- *Outcome:* If the Court had upheld Plessy, seventeen states' school segregation laws would be in force. The Montgomery bus boycott, the lunch counter sit-ins, and the Civil Rights Act of 1964 would all have fought the Supreme Court as well as the states. The words `"Equal Justice Under Law"` would have continued to be carved into the front entrance of the Court.
+**Move B — Uphold Plessy:** Leave `"separate but equal"` in place and let the states and Congress handle it.
+- *Cost:* Segregation will continue.
+- *Result (Counterfactual):* If the Court had upheld Plessy, seventeen states' school segregation laws would stay in force. The Montgomery bus boycott, the lunch counter sit-ins, and the Civil Rights Act of 1964 would all have fought the Supreme Court, while `"Equal Justice Under Law"` stayed carved over the Court's entrance.
 - *Why it matters:* Much of what the movement won in the 1960s was built on Brown, so losing it here probably sets back almost everything.
 
-**Choice C — Order it "gradually"**
-- *Label:* Say segregation is wrong but let it end whenever the states say it does.
+**Move C — Order it "gradually":** Say segregation is wrong but let it end whenever the states say it does.
 - *Cost:* `"Someday"` becomes `"never"` in the eyes of the most stubborn.
-- *Outcome:* Real courts did something similar in 1955, telling schools to desegregate `"with all deliberate speed."` A lot of school districts took that as a sign to wait. Prince Edward County, Virginia, took it to the point of closing its public schools from 1959 to 1964 so they wouldn't have to integrate them.
+- *Result (Counterfactual):* Real courts did something similar in 1955, telling schools to desegregate `"with all deliberate speed."` A lot of school districts took that as a sign to wait.
 - *Why it matters:* Ten years after Brown, only about 2 percent of Black students in the South went to school with white students.
 
 ---
@@ -255,16 +214,16 @@ passage shows up in the game, so you can map your edits back to `index.html`.
 ## 5. Endings
 
 **A More Perfect Union**
-> You continued to push and it mostly worked, but your version of the country still had to fight the status quo at every turn. At every turning point somebody held the government to the words it had written down, which is as good as this story gets since nobody in it has ever been handed equality without asking for it first.
+> You continued to push and it mostly worked, but your country still had to fight the status quo at every turn. Each time, somebody held the government to the words it had written down — as good as this story gets, since nobody in it was ever handed equality without asking first.
 
 **A Half-Kept Promise**
-> Some of your choices pushed the country forward and some held it back, which is pretty much what happened in real life. The promise grew larger in 1868, smaller in 1896, and larger again in 1954, and none of the changes were permanent. Whatever comes after you inherits a country that's partly there.
+> Some of your choices pushed the country forward and some held it back, pretty much what happened in real life. The promise grew in 1868, shrank in 1896, and grew again in 1954, and none of it was permanent. Whatever comes after you inherits a country that's partly there.
 
 **The Promise Deferred**
-> Your version of the country continued to hold to the words `"all men are created equal"` and found excuses not to apply them. Each time it looked the other way, the next generation had a harder fight with more laws to overturn and more people who had grown up thinking the unequal way was normal. The promise is still written down, but very few people in your version get to live under it.
+> Your country kept holding to the words `"all men are created equal"` and finding excuses not to apply them. Each time it looked away, the next generation had a harder fight: more laws to overturn, more people who had grown up thinking the unequal way was normal. The promise is still written down, but very few people in your version get to live under it.
 
 **The Promise Betrayed** *(the losing "collapse" ending)*
-> It didn't fall apart at a single moment but a set of choices where order, or money, or maintaining the peace won out over equal rights until `"all men are created equal"` was something people recited without believing it. The list below shows where it happened, and each of these choices had a real cost on real people.
+> It didn't fall apart at a single moment, but through a set of choices where order, money, or maintaining the peace won out over equal rights, until `"all men are created equal"` was something people recited without believing it. The list below shows where it happened, and each of these choices had a real cost on real people.
 
 ---
 
@@ -272,47 +231,41 @@ passage shows up in the game, so you can map your edits back to `index.html`.
 
 **Subtitle:** This section has no history book, only your own school.
 
-### Decision 1
+### Decision 1 — the club
 **Scenario:**
 > A club at your school has rules about who can join that keep out students who would almost certainly qualify. Fee-based or a teacher recommendation some students never get asked for, maybe. Most people haven't noticed, but you have. What will you do?
 
-**Morris's advice:** Nobody in 1787 was thinking about school clubs, but a rule that keeps some people out for no good reason is exactly what `"establish Justice"` was aimed at.
+**Morris's advice:** A rule that keeps some people out for no good reason is exactly what `"establish Justice"` was aimed at.
+**Madison's advice:** If the same rule doesn't apply to everybody, it does not go accordingly to the Bill of Rights guaranteed.
 
-**Madison's advice:** If the same rule doesn't apply to everybody, it's not much of a rule, so ask who wrote it and why.
-
-**Choices:**
+**Moves:**
 - *Raise it with the school:* Bring it up to the sponsor or administrator and ask for the rule to be changed. — *Cost:* It takes nerve, and adults do not always listen the first time.
 - *Organize other students:* Get your classmates together to push for a fair and open policy. — *Cost:* Organizing is real work, and not everyone will care as much as you do.
 - *Document and report it:* Write down what's happening and report it through the school's process. — *Cost:* It is slower and less dramatic, but it leaves a record that is hard to ignore.
 
-**Reflection:**
-> There's no real history to compare this one to, so you don't get a `"what actually happened"` screen. All three options support equal treatment in some way, and all three cost you something. The option that fails is the one that wasn't on the list, which is noticing and saying nothing.
+**Reflection (after you pick):** The option that fails is the one that wasn't on the list, noticing and saying nothing.
+**Why it matters:** Unfair rules at a school last because the people they don't affect never think to ask about them.
 
-**Why it matters:** Unfair rules at a school probably last as long as they do because the people they don't affect never think to ask about them.
-
-### Decision 2
+### Decision 2 — the classmate
 **Scenario:**
 > A teacher or a group of students keeps holding one classmate to a stricter standard than the other, and it's starting to get obvious. There's probably a social cost to speaking up. What will you do?
 
-**Morris's advice:** The promise means nothing if it stops at the classroom door, because equal treatment is for the room you're actually in.
+**Morris's advice:** No matter the environment every student should be treated the same for that is what is written in the Preamble.
+**Madison's advice:** An `"overbearing majority"` can be a mob and equal treatment means protecting the person it turns on.
 
-**Madison's advice:** An `"overbearing majority"` can be a mob, a clique, or a group chat, and equal treatment means protecting the person it turns on.
-
-**Choices:**
+**Moves:**
 - *Say something in the moment:* Speak up right then and name the double standard. — *Cost:* It is uncomfortable, and the crowd may turn on you too.
 - *Support them and report it:* Back your classmate privately and report it to someone who can act. — *Cost:* It is quieter, and it depends on an adult actually following through.
 - *Stay out of it:* Decide it's not your problem and keep your head down. — *Cost:* The unfair treatment stands, and your silence tells everyone that it is allowed.
 
-**Reflection:**
-> This one is also yours to decide. Courts and amendments get most of the attention in history class, but a lot of the time equal treatment comes down to whether the people notice it in the room they're in and are willing to say so. Staying out of it leaves the double standard exactly where it was.
-
+**Reflection (after you pick):** Expressing yourself in class gets the point across quickly however it could be met with the most repercussion, a quieter approach takes more time but has less repercussion.
 **Why it matters:** Most of the cases in this game started with one person who wouldn't accept unequal treatment, like Homer Plessy on that train or the Brown family in Topeka.
 
 ---
 
-## 7. Report card — thesis
+## 7. Report card — The verdict
 
-> America has never fully lived up to `"all men are created equal,"` and the founders knew that when they wrote it. The country got closer when people forced the issue, through the abolitionists, the 14th Amendment, Harlan's dissent, and Brown, and slid back whenever a majority was allowed to decide that some people counted for less. The founders wrote the promise down, and every generation since has had to decide whether to keep it.
+> The honest verdict is `"partly."` America has never fully lived up to `"all men are created equal"` — the founding fathers wrote it over a country that held about a fifth of its people in slavery. The promise only grew when people forced the issue, through the abolitionists, the 14th Amendment, Harlan's lone dissent, and Brown, and it shrank every time a majority was allowed to decide that some people counted for less. Which way it moves next has always depended on whoever is in the room.
 
 ---
 
@@ -346,9 +299,3 @@ passage shows up in the game, so you can map your edits back to `index.html`.
 ## 10. Sources page — author's note
 
 > Some paths in this game show what actually happened, and those are labeled `"Real history."` The others are our best guess of a path that was not taken, labeled `"Counterfactual,"` and each one is reasoned from the sources above, like Harlan's real dissent in Plessy or Pennsylvania's real gradual abolition law. When a counterfactual guesses at something nobody can know for sure, the text says so.
-
----
-
-*Not included on purpose:* the verbatim quote bank (Morris and Madison's exact words from
-the Constitution, the Federalist Papers, the Bill of Rights, and the Convention records) and
-the full Sources citation list — those are real quotes and references, not writing to change.
