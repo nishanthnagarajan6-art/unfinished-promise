@@ -239,9 +239,9 @@ Every passage written *for* the project, matching the current live game. This is
 **Madison's advice:** If the same rule doesn't apply to everybody, it does not go accordingly to the Bill of Rights guaranteed.
 
 **Moves:**
-- *Raise it with the school:* Bring it up to the sponsor or administrator and ask for the rule to be changed. — *Cost:* It takes nerve, and adults do not always listen the first time.
-- *Organize other students:* Get your classmates together to push for a fair and open policy. — *Cost:* Organizing is real work, and not everyone will care as much as you do.
-- *Document and report it:* Write down what's happening and report it through the school's process. — *Cost:* It is slower and less dramatic, but it leaves a record that is hard to ignore.
+- *Raise it with the school:* Bring it up to the sponsor or administrator and ask for the rule to be changed.  *Cost:* It takes nerve, and adults do not always listen the first time.
+- *Organize other students:* Get your classmates together to push for a fair and open policy.  *Cost:* Organizing is real work, and not everyone will care as much as you do.
+- *Document and report it:* Write down what's happening and report it through the school's process.  *Cost:* It is slower and less dramatic, but it leaves a record that is hard to ignore.
 
 **Reflection (after you pick):** The option that fails is the one that wasn't on the list, noticing and saying nothing.
 **Why it matters:** Unfair rules at a school last because the people they don't affect never think to ask about them.
@@ -254,9 +254,9 @@ Every passage written *for* the project, matching the current live game. This is
 **Madison's advice:** An `"overbearing majority"` can be a mob and equal treatment means protecting the person it turns on.
 
 **Moves:**
-- *Say something in the moment:* Speak up right then and name the double standard. — *Cost:* It is uncomfortable, and the crowd may turn on you too.
-- *Support them and report it:* Back your classmate privately and report it to someone who can act. — *Cost:* It is quieter, and it depends on an adult actually following through.
-- *Stay out of it:* Decide it's not your problem and keep your head down. — *Cost:* The unfair treatment stands, and your silence tells everyone that it is allowed.
+- *Say something in the moment:* Speak up right then and name the double standard. *Cost:* It is uncomfortable, and the crowd may turn on you too.
+- *Support them and report it:* Back your classmate privately and report it to someone who can act. *Cost:* It is quieter, and it depends on an adult actually following through.
+- *Stay out of it:* Decide it's not your problem and keep your head down. *Cost:* The unfair treatment stands, and your silence tells everyone that it is allowed.
 
 **Reflection (after you pick):** Expressing yourself in class gets the point across quickly however it could be met with the most repercussion, a quieter approach takes more time but has less repercussion.
 **Why it matters:** Most of the cases in this game started with one person who wouldn't accept unequal treatment, like Homer Plessy on that train or the Brown family in Topeka.
@@ -265,7 +265,7 @@ Every passage written *for* the project, matching the current live game. This is
 
 ## 7. Report card — The verdict
 
-> The honest verdict is `"partly."` America has never fully lived up to `"all men are created equal"` — the founding fathers wrote it over a country that held about a fifth of its people in slavery. The promise only grew when people forced the issue, through the abolitionists, the 14th Amendment, Harlan's lone dissent, and Brown, and it shrank every time a majority was allowed to decide that some people counted for less. Which way it moves next has always depended on whoever is in the room.
+> The honest verdict is `"partly."` America has never fully lived up to `"all men are created equal"`, the founding fathers wrote it over a country that held about a fifth of its people in slavery. The promise only grew when people forced the issue, through the abolitionists, the 14th Amendment, Harlan's lone dissent, and Brown, and it shrank every time a majority was allowed to decide that some people counted for less. Which way it moves next has always depended on whoever is in the room.
 
 ---
 
