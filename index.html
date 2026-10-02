@@ -314,11 +314,14 @@
   .pathlist{list-style:none;padding:0;margin:6px 0 0;}
   .pathlist li{padding:8px 0;border-bottom:1px solid var(--border);}
   .pathlist li:last-child{border-bottom:none;}
-  .ptimer{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:60;display:flex;align-items:center;gap:8px;background:var(--panel,#fff);border:2px solid var(--ink,#222);border-radius:12px;padding:6px 12px;box-shadow:0 6px 18px rgba(0,0,0,.22);}
+  .ptimer{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:60;display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:8px;max-width:94vw;background:var(--panel,#fff);border:2px solid var(--ink,#222);border-radius:12px;padding:6px 12px;box-shadow:0 6px 18px rgba(0,0,0,.22);}
   .ptimer[hidden]{display:none;}
   .ptimer #ptimerDisplay{font-size:1.7rem;font-weight:800;min-width:3.4ch;text-align:center;font-variant-numeric:tabular-nums;}
   .ptimer.done #ptimerDisplay{color:var(--bad,#c0392b);}
   .ptimer .btn{padding:4px 10px;font-size:.85rem;}
+  .ptpresets{display:flex;gap:4px;border-left:1px solid var(--border,#cdbf9f);padding-left:8px;}
+  .ptimer .ptset{padding:3px 8px;font-size:.72rem;}
+  .ptimer .ptset.active{background:var(--accent);color:#fff;border-color:var(--accent);}
 </style>
 </head>
 <body data-era="founding">
@@ -1323,6 +1326,7 @@ document.addEventListener('click', e=>{
     case 'toggle-presenter': setPresenter(!state.presenter); break;
     case 'timer-toggle': ptimerToggle(); break;
     case 'timer-reset': ptimerReset(); break;
+    case 'timer-set': { ptimerDuration=+el.dataset.sec; ptimerReset(); break; }
     case 'choose':
       state.choices[node]=+opt;
       if(STEPS[state.i].type==='arc'){ state.arcHist = state.arcHist.slice(0, state.arcPos+1); }
@@ -1438,7 +1442,7 @@ function exportCSV(){
 }
 
 /* ---------------------- PRESENTER TIMER (60s per decision) ---------------------- */
-let ptimerEl=null, ptimerInterval=null, ptimerRemaining=60, ptimerRunning=false, ptimerLastKey=null;
+let ptimerEl=null, ptimerInterval=null, ptimerDuration=60, ptimerRemaining=60, ptimerRunning=false, ptimerLastKey=null;
 function ptimerFmt(s){ return Math.floor(s/60)+':'+String(s%60).padStart(2,'0'); }
 function ptimerCreate(){
   if(ptimerEl || !document.createElement) return;
@@ -1446,20 +1450,26 @@ function ptimerCreate(){
   el.id='ptimer'; el.className='ptimer'; el.hidden=true;
   el.innerHTML = '<span id="ptimerDisplay">1:00</span>'
     + '<button id="ptimerToggle" class="btn ghost" data-action="timer-toggle">Start</button>'
-    + '<button class="btn ghost" data-action="timer-reset">Reset</button>';
+    + '<button class="btn ghost" data-action="timer-reset">Reset</button>'
+    + '<span class="ptpresets">'
+    + '<button id="ptset30" class="btn ghost ptset" data-action="timer-set" data-sec="30">30s</button>'
+    + '<button id="ptset60" class="btn ghost ptset" data-action="timer-set" data-sec="60">60s</button>'
+    + '<button id="ptset90" class="btn ghost ptset" data-action="timer-set" data-sec="90">90s</button>'
+    + '</span>';
   if(document.body && document.body.appendChild) document.body.appendChild(el);
   ptimerEl = el;
 }
 function ptimerRender(){
   const d=document.getElementById('ptimerDisplay'); if(d) d.textContent=ptimerFmt(ptimerRemaining);
   const b=document.getElementById('ptimerToggle'); if(b) b.textContent=ptimerRunning?'Pause':'Start';
+  [30,60,90].forEach(s=>{ const el=document.getElementById('ptset'+s); if(el && el.classList && el.classList.toggle) el.classList.toggle('active', s===ptimerDuration); });
 }
 function ptimerClass(add){
   const p=document.getElementById('ptimer');
   if(p && p.classList && p.classList[add?'add':'remove']) p.classList[add?'add':'remove']('done');
 }
 function ptimerStop(){ ptimerRunning=false; if(ptimerInterval){ clearInterval(ptimerInterval); ptimerInterval=null; } ptimerRender(); }
-function ptimerReset(){ ptimerStop(); ptimerRemaining=60; ptimerClass(false); ptimerRender(); }
+function ptimerReset(){ ptimerStop(); ptimerRemaining=ptimerDuration; ptimerClass(false); ptimerRender(); }
 function ptimerTick(){ if(ptimerRemaining>0){ ptimerRemaining--; ptimerRender(); if(ptimerRemaining===0){ ptimerStop(); ptimerClass(true); } } }
 function ptimerStart(){ if(ptimerRunning) return; if(ptimerRemaining===0) ptimerReset(); ptimerRunning=true; ptimerInterval=setInterval(ptimerTick,1000); ptimerRender(); }
 function ptimerToggle(){ ptimerRunning ? ptimerStop() : ptimerStart(); }
