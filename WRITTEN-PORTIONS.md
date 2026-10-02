@@ -214,7 +214,7 @@ Every passage written *for* the project, matching the current live game. This is
 ## 5. Endings
 
 **A More Perfect Union**
-> You continued to push and it mostly worked, but your country still had to fight the status quo at every turn. Each time, somebody held the government to the words it had written down — as good as this story gets, since nobody in it was ever handed equality without asking first.
+> You continued to push and it mostly worked, but your country still had to fight the status quo at every turn. Each time, somebody held the government to the words it had written down, which is as good as this story gets, since nobody in it was ever handed equality without asking first.
 
 **A Half-Kept Promise**
 > Some of your choices pushed the country forward and some held it back, pretty much what happened in real life. The promise grew in 1868, shrank in 1896, and grew again in 1954, and none of it was permanent. Whatever comes after you inherits a country that's partly there.
