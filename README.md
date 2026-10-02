@@ -9,7 +9,11 @@ You make the decisions at real turning points in America's fight over "all men a
 - **Offline:** download `index.html` and open it in any browser, since it really does not need an install or an internet connection.
 
 ## Presenter mode for class votes
-Press `P` or use the toolbar button to switch to classroom mode, which gives you larger text, keyboard navigation, vote tallies for each option, hand counts for the quizzes, and a CSV or JSON export of the results.
+Press `P` or use the toolbar button to switch to classroom mode, which gives you larger text, keyboard navigation, vote tallies for each option, hand counts for the quizzes, a 60-second decision timer, a Reveal-answers toggle for the quizzes, and a CSV or JSON export of the results.
+
+## Two versions
+- **`index.html`** — the main game: single-player or whole-class presenter voting. Fully offline, no setup. This is the stable version (git tag `v1-classic`).
+- **`live.html`** — an experimental **Kahoot-style multiplayer** build: students join on their own phones with a game code, answer each round, and a live leaderboard names a winner. It needs a free **Firebase** project to sync devices (setup steps are shown on the page and in the file's config comment), so it is online-only and not as battle-tested as `index.html`.
 
 ## Sources
 The Morris and Madison quotes are copied word for word from the Constitution, the Federalist Papers, the Bill of Rights, and the records of the Convention, and every historical claim is cited on the Sources page inside the game.
