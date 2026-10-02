@@ -168,6 +168,7 @@
   .opt{display:flex;gap:10px;align-items:center;padding:9px 12px;border:1px solid var(--border-dark);border-radius:9px;margin:6px 0;cursor:pointer;background:var(--card);}
   .opt:hover{border-color:var(--accent);}
   .opt.picked{border-color:var(--madison);background:#eef3f8;box-shadow:inset 0 0 0 1px var(--madison);}
+  button.opt{font:inherit;text-align:left;width:100%;-webkit-appearance:none;appearance:none;}
   .opt .letter{flex:none;width:24px;height:24px;border-radius:6px;background:var(--parchment-2);display:grid;place-items:center;font-weight:700;font-size:.8rem;}
   .opt.correct{border-color:var(--good);background:var(--good-bg);}
   .opt.wrong{border-color:var(--bad);background:var(--bad-bg);}
@@ -286,152 +287,10 @@
     border:1px solid #45170f; box-shadow:0 2px 0 #45170f;
   }
 
-  /* ============ 1942 · HOME FRONT — WWII propaganda poster ============ */
-  body[data-era="homefront"]{
-    --parchment:#E4DCC8; --parchment-2:#D8CDB0; --card:#F4EEDF;
-    --ink:#161616; --ink-soft:#454545;
-    --accent:#C1272D; --accent-2:#1C3F71;
-    --border:#161616; --border-dark:#161616;
-    --serif:"Arial Narrow",Impact,"Haettenschweiler","Segoe UI Condensed","Segoe UI",sans-serif;
-    --sans:Georgia,"Times New Roman",serif;
-    background:#b3231f;
-    background-image:repeating-linear-gradient(45deg, rgba(0,0,0,.07) 0 20px, transparent 20px 40px);
-  }
-  body[data-era="homefront"] .wrap{
-    background:#f4eedf;
-    background-image:radial-gradient(rgba(20,20,20,.09) .7px, transparent 1.1px);
-    background-size:4px 4px;
-    border:7px solid #1C3F71; box-shadow:0 16px 44px rgba(0,0,0,.5);
-    padding:26px 26px 60px; margin:20px auto 44px; border-radius:0;
-  }
-  body[data-era="homefront"] .wrap::before{
-    content:""; display:block; height:12px; margin:-26px -26px 20px;
-    background:#C1272D;
-  }
-  body[data-era="homefront"] .toolbar{background:#1C3F71;border-bottom:5px solid #C1272D;}
-  body[data-era="homefront"] .toolbar .brand{color:#fff;}
-  body[data-era="homefront"] .toolbar .brand small{color:#cfdaea;}
-  body[data-era="homefront"] .tbtn{background:#14305a;color:#fff;border-color:#0e2340;}
-  body[data-era="homefront"] .tbtn.on{background:#C1272D;border-color:#C1272D;}
-  body[data-era="homefront"] h1.title{font-size:clamp(2.6rem,9vw,4.6rem);line-height:.9;color:#161616;}
-  body[data-era="homefront"] h1.title,
-  body[data-era="homefront"] h2,
-  body[data-era="homefront"] h3{text-transform:uppercase;letter-spacing:.02em;font-weight:700;}
-  body[data-era="homefront"] h2{
-    font-size:clamp(1.6rem,5vw,2.5rem);line-height:1.02;color:#161616;
-    border-bottom:6px solid var(--accent);padding-bottom:.06em;display:inline-block;
-  }
-  body[data-era="homefront"] .eyebrow{
-    display:inline-block;background:var(--accent);color:#fff;
-    padding:5px 14px;letter-spacing:.16em;box-shadow:0 4px 0 #1C3F71;
-  }
-  body[data-era="homefront"] .card{border-radius:0;border:2px solid var(--border);}
-  body[data-era="homefront"] .advisor{border-radius:0;border:2px solid #161616;}
-  body[data-era="homefront"] .choice{border-radius:0;border:2px solid #161616;}
-  body[data-era="homefront"] .choice .num{border-radius:0;background:var(--accent-2);}
-  body[data-era="homefront"] .btn{border-radius:0;text-transform:uppercase;letter-spacing:.06em;}
-  body[data-era="homefront"] .btn:not(.secondary):not(.ghost){
-    background:var(--accent);color:#fff;border:3px solid #161616;box-shadow:5px 5px 0 #161616;
-  }
-
-  /* ============ 1974 · WATERGATE — newspaper front page ============ */
-  body[data-era="watergate"]{
-    --parchment:#DAD4C3; --parchment-2:#CFC7B0; --card:#EFE9DA;
-    --ink:#201C16; --ink-soft:#5a5140;
-    --accent:#B0400F; --accent-2:#8a6608;
-    --border:#7C6F52; --border-dark:#5f5540;
-    --serif:"Times New Roman",Georgia,serif;
-    --sans:Georgia,"Times New Roman",serif;
-    background:#8f886f;
-    background-image:radial-gradient(120% 80% at 50% 0%, #a49b80, #7d765f);
-  }
-  body[data-era="watergate"] .wrap{
-    background:#f4efe0;
-    background-image:
-      radial-gradient(circle at 85% 90%, rgba(60,50,30,.06), transparent 50%),
-      linear-gradient(rgba(90,80,55,.035), rgba(90,80,55,.035));
-    border:1px solid #201C16; box-shadow:0 14px 44px rgba(0,0,0,.45);
-    padding:0 26px 60px; margin:20px auto 44px; border-radius:0;
-  }
-  /* masthead nameplate (fictional paper) */
-  body[data-era="watergate"] .wrap::before{
-    content:"The Civic Record"; display:block; text-align:center;
-    font-family:"Times New Roman",Georgia,serif; font-weight:700;
-    font-size:clamp(2rem,7vw,3.4rem); letter-spacing:.01em;
-    padding:16px 8px 8px; margin:0 -26px 6px;
-    border-bottom:4px double #201C16;
-  }
-  body[data-era="watergate"] .toolbar{background:#201C16;border-bottom:1px solid #000;}
-  body[data-era="watergate"] .toolbar .brand{color:#e6d9bd;}
-  body[data-era="watergate"] .toolbar .brand small{color:#b7ab8d;}
-  body[data-era="watergate"] .tbtn{background:#342d22;color:#efe6d5;border-color:#5f5540;}
-  body[data-era="watergate"] .tbtn.on{background:var(--accent);border-color:var(--accent);}
-  body[data-era="watergate"] h2{
-    font-size:clamp(1.7rem,5vw,2.7rem); text-align:center; font-weight:700;
-    border-top:3px solid var(--ink); border-bottom:3px double var(--ink);
-    padding:.12em 0; text-transform:uppercase; letter-spacing:.01em;
-  }
-  body[data-era="watergate"] .eyebrow{
-    display:block;text-align:center;text-transform:uppercase;color:var(--accent);
-    font-weight:700;letter-spacing:.18em;
-  }
-  body[data-era="watergate"] .card p{text-align:justify;}
-  body[data-era="watergate"] .card{border-radius:2px;}
-  /* leaked-memo typewriter scenario */
-  body[data-era="watergate"] .card .lede{
-    font-family:"Courier New",Courier,monospace; text-align:left;
-    border-left:4px solid var(--accent); padding-left:.8em;
-  }
-  body[data-era="watergate"] .btn{border-radius:0;text-transform:uppercase;letter-spacing:.05em;}
-  body[data-era="watergate"] .btn:not(.secondary):not(.ghost){background:var(--ink);color:#f4efe0;}
-
-  /* ============ TODAY — sleek modern civic app ============ */
-  body[data-era="today"]{
-    --parchment:#EEF1F4; --parchment-2:#E4E9EF; --card:#FFFFFF;
-    --ink:#1B1B1B; --ink-soft:#54606d;
-    --accent:#005EA2; --accent-2:#D83933;
-    --border:#E3E7EC; --border-dark:#c7ced6;
-    --serif:"Segoe UI",system-ui,"Trebuchet MS",sans-serif;
-    --sans:system-ui,"Segoe UI",Arial,sans-serif;
-    background:#e9edf2;
-    background-image:
-      radial-gradient(circle at 100% 0%, rgba(0,94,162,.07), transparent 42%),
-      radial-gradient(circle at 0% 100%, rgba(216,57,51,.05), transparent 40%);
-  }
-  body[data-era="today"] .wrap{
-    background:#fff; border:1px solid #e3e7ec; border-top:6px solid var(--accent);
-    border-radius:16px; box-shadow:0 12px 44px rgba(20,40,80,.12);
-    padding:28px 26px 60px; margin:22px auto 44px;
-  }
-  body[data-era="today"] .toolbar{background:rgba(255,255,255,.95);border-bottom:1px solid #e3e7ec;}
-  body[data-era="today"] .toolbar .brand{color:var(--accent);}
-  body[data-era="today"] h1.title,
-  body[data-era="today"] h2,
-  body[data-era="today"] h3{letter-spacing:-.01em;font-weight:700;}
-  body[data-era="today"] .eyebrow{
-    display:inline-block;background:rgba(0,94,162,.1);color:var(--accent);
-    padding:4px 12px;border-radius:999px;letter-spacing:.08em;
-  }
-  body[data-era="today"] .card{
-    border-radius:12px; border:1px solid var(--border); border-top:4px solid var(--accent);
-    box-shadow:0 1px 2px rgba(27,27,27,.06), 0 6px 18px rgba(20,40,80,.06);
-  }
-  body[data-era="today"] .advisor{border-radius:12px;}
-  body[data-era="today"] .choice{border-radius:12px;}
-  body[data-era="today"] .btn{border-radius:999px;}
-  body[data-era="today"] .btn:not(.secondary):not(.ghost){box-shadow:0 3px 10px rgba(0,94,162,.32);}
-  body[data-era="today"] a:focus-visible,
-  body[data-era="today"] button:focus-visible{outline:3px solid #FFBE2E;outline-offset:2px;}
-
-  /* keep the dramatic frames comfortable on phones */
+  /* keep the parchment frame comfortable on phones */
   @media (max-width:640px){
     body[data-era="founding"] .wrap{padding:24px 18px 54px;}
     body[data-era="founding"] .wrap::before{inset:9px;}
-    body[data-era="homefront"] .wrap{border-width:4px;padding:20px 18px 54px;}
-    body[data-era="homefront"] .wrap::before{margin:-20px -18px 16px;}
-    body[data-era="watergate"] .wrap{padding:0 16px 54px;}
-    body[data-era="watergate"] .wrap::before{margin:0 -16px 6px;}
-    body[data-era="today"] .wrap{padding:22px 16px 54px;}
   }
 
   /* honor reduced-motion for the era transitions too */
@@ -455,7 +314,7 @@
   .pathlist{list-style:none;padding:0;margin:6px 0 0;}
   .pathlist li{padding:8px 0;border-bottom:1px solid var(--border);}
   .pathlist li:last-child{border-bottom:none;}
-  .ptimer{position:fixed;right:16px;bottom:16px;z-index:60;display:flex;align-items:center;gap:8px;background:var(--panel,#fff);border:2px solid var(--ink,#222);border-radius:12px;padding:8px 12px;box-shadow:0 6px 18px rgba(0,0,0,.22);}
+  .ptimer{position:fixed;left:50%;transform:translateX(-50%);bottom:14px;z-index:60;display:flex;align-items:center;gap:8px;background:var(--panel,#fff);border:2px solid var(--ink,#222);border-radius:12px;padding:6px 12px;box-shadow:0 6px 18px rgba(0,0,0,.22);}
   .ptimer[hidden]{display:none;}
   .ptimer #ptimerDisplay{font-size:1.7rem;font-weight:800;min-width:3.4ch;text-align:center;font-variant-numeric:tabular-nums;}
   .ptimer.done #ptimerDisplay{color:var(--bad,#c0392b);}
@@ -516,10 +375,10 @@ const CONTENT = {
       ["James Madison, a Virginia delegate who wrote Federalist 10 and 51 and drafted the Bill of Rights", "madison", "Madison has a more complex relationship with slavery. For example, he owned more than a hundred slaves at Montpelier until his death, but he also fought to exclude slavery from the Constitution. He will advise you to fight for the rights of minorities, however it might not be by any means necessary."]
     ],
     vdscv: [
-      ["V (Value)", "Equality: the worth of all individuals and groups, and respect for individual rights."],
-      ["D (Danger)", "The tyranny of the majority."],
-      ["S (Solution)", "The founding document and the Constitution provided that all people are created equal, and later laws, court decisions, and amendments expanded that principle to include all groups."],
-      ["CV (Civic Virtue)", "Justice: the habit that drives people to act with equality."]
+      ["V (Value)", "Equality: the equal intrinsic worth of every person and every group, and their equal claim to rights and to legal and social protection, regardless of their position or status and even if they represent a minority within a larger majority."],
+      ["D (Danger)", "The tyranny of the majority: when the ruling or simply more powerful groups use the law to deny equality to other groups, as in slavery, Jim Crow, and voter suppression."],
+      ["S (Solution)", "The enshrinement in the Declaration and Constitution and subsequent amendments, legislation, and judicial rulings (such as the Fourteenth Amendment and Brown v. Board) of the ideal of equality as a moral imperative and legal requirement."],
+      ["CV (Civic Virtue)", "Justice: the virtue of demanding and achieving equality as a matter of course, and above all extending it to those groups who might be overlooked by the majority."]
     ]
   },
 
@@ -742,7 +601,7 @@ const CONTENT = {
     ]
   },
 
-  reportThesis:"America has never fully lived up to \"all men are created equal,\" and the founders knew that when they wrote it. The country got closer when people forced the issue, through the abolitionists, the 14th Amendment, Harlan's dissent, and Brown, and slid back whenever a majority was allowed to decide that some people counted for less. The founders wrote the promise down, and every generation since has had to decide whether to keep it.",
+  reportThesis:"The honest verdict is \"partly.\" America has never fully lived up to \"all men are created equal\" — the founding fathers wrote it over a country that held about a fifth of its people in slavery. The promise only grew when people forced the issue, through the abolitionists, the 14th Amendment, Harlan's lone dissent, and Brown, and it shrank every time a majority was allowed to decide that some people counted for less. Which way it moves next has always depended on whoever is in the room.",
 
   /* a specific, real, recent example so the report card's judgment is grounded in the present, not just history */
   presentDay:{
@@ -826,7 +685,7 @@ const CONTENT = {
    (You shouldn't need to edit below this line.)
    ================================================================ */
 
-const LS_KEY = "holdtheline_v2";   // schema changed for branching
+const LS_KEY = "unfinished-promise_v3";   // schema: persists arc progress
 const app = document.getElementById('app');
 const presenterBtn = document.getElementById('presenterBtn');
 const STORY = CONTENT.story;
@@ -858,7 +717,8 @@ function save(){
   try{
     localStorage.setItem(LS_KEY, JSON.stringify({
       presenter:state.presenter, choices:state.choices, votes:state.votes,
-      preSolo:state.preSolo, postSolo:state.postSolo, preHands:state.preHands, postHands:state.postHands
+      preSolo:state.preSolo, postSolo:state.postSolo, preHands:state.preHands, postHands:state.postHands,
+      i:state.i, arcHist:state.arcHist, arcPos:state.arcPos, ended:state.ended
     }));
   }catch(e){/* private mode / disabled storage — fine */}
 }
@@ -869,7 +729,9 @@ function load(){
     const d = JSON.parse(raw);
     Object.assign(state, {
       presenter:!!d.presenter, choices:d.choices||{}, votes:d.votes||{},
-      preSolo:d.preSolo||{}, postSolo:d.postSolo||{}, preHands:d.preHands||{}, postHands:d.postHands||{}
+      preSolo:d.preSolo||{}, postSolo:d.postSolo||{}, preHands:d.preHands||{}, postHands:d.postHands||{},
+      arcHist:Array.isArray(d.arcHist)?d.arcHist:[], arcPos:d.arcPos||0, ended:d.ended||null,
+      i:(typeof d.i==='number' && d.i>=0 && d.i<STEPS.length)?d.i:0
     });
   }catch(e){/* ignore */}
 }
@@ -901,7 +763,8 @@ function topVoteNode(nodeId){
   const v=state.votes[nodeId]; if(!v) return null;
   const total=v.reduce((a,b)=>a+b,0); if(total===0) return null;
   let mi=0; v.forEach((n,i)=>{ if(n>v[mi]) mi=i; });
-  return {idx:mi, count:v[mi], total};
+  const tie = v.filter(n=>n===v[mi]).length>1;
+  return {idx:mi, count:v[mi], total, tie};
 }
 function committedRevealFrames(){ return state.arcHist.filter(f=>f.phase==='reveal'); }
 function stabilityRaw(upto){
@@ -913,7 +776,7 @@ function stabilityRaw(upto){
   }
   return s;
 }
-function stabilityClamped(upto){ return Math.max(0, Math.min(100, stabilityRaw(upto))); }
+function stabilityClamped(upto){ if(upto===undefined && state.ended==='end_collapse') return 0; return Math.max(0, Math.min(100, stabilityRaw(upto))); }
 function stabilityInfo(){
   const v=stabilityClamped();
   let label, color;
@@ -995,8 +858,8 @@ function quizScreen(phase){
       const picked = (isPost?state.postSolo:state.preSolo)[q.id];
       q.options.forEach((opt,oi)=>{
         const cls = picked===oi ? 'opt picked' : 'opt';
-        body += `<div class="${cls}" data-action="quiz-pick" data-phase="${phase}" data-q="${q.id}" data-opt="${oi}">
-          <span class="letter">${String.fromCharCode(65+oi)}</span><span>${esc(opt)}</span></div>`;
+        body += `<button type="button" class="${cls}" data-action="quiz-pick" data-phase="${phase}" data-q="${q.id}" data-opt="${oi}">
+          <span class="letter">${String.fromCharCode(65+oi)}</span><span>${esc(opt)}</span></button>`;
       });
     }
     body += `</div>`;
@@ -1088,8 +951,8 @@ function scrArcDecide(nodeId){
     });
     body += `</div><div class="btnrow">
       <button class="btn secondary" data-action="back">Back</button><span class="spacer"></span>
-      <button class="btn" data-action="next">See what happens &rarr;</button></div>
-      <p class="hint">Number keys <span class="kbd">1</span>&ndash;<span class="kbd">${n.choices.length}</span> add a vote.</p>`;
+      <button class="btn" data-action="next" ${v.reduce((a,b)=>a+b,0)===0?'disabled':''}>See what happens &rarr;</button></div>
+      <p class="hint">${v.reduce((a,b)=>a+b,0)===0?"Tally at least one group's vote to continue. ":''}Number keys <span class="kbd">1</span>&ndash;<span class="kbd">${n.choices.length}</span> add a vote.</p>`;
   } else {
     const picked = state.choices[nodeId];
     body += `<div class="choices">`;
@@ -1110,7 +973,8 @@ function scrArcDecide(nodeId){
 function scrArcReveal(nodeId){
   const n = nodeById(nodeId);
   const oi = chosenOpt(nodeId);
-  const c = n.choices[oi];
+  const c = oi!=null ? n.choices[oi] : null;
+  if(!c) return scrArcDecide(nodeId);
   const o = c.outcome;
   const real = o.tag==='real';
   const tag = real ? `<span class="tag real">Real history</span>` : `<span class="tag cf">Counterfactual · best estimate</span>`;
@@ -1118,7 +982,7 @@ function scrArcReveal(nodeId){
   const delta = c.stability||0;
   const dnote = delta===0 ? '' : `<p class="delta-note ${delta>0?'pos':'neg'}">Promise of Equality ${delta>0?'+':''}${delta}</p>`;
   let echo='';
-  if(state.presenter){ const t=topVoteNode(nodeId); if(t) echo=`<p class="muted">The class chose <strong>${esc(n.choices[t.idx].short)}</strong> (${t.count} of ${t.total} votes).</p>`; }
+  if(state.presenter){ const t=topVoteNode(nodeId); if(t) echo=`<p class="muted">The class chose <strong>${esc(n.choices[t.idx].short)}</strong> (${t.count} of ${t.total} votes${t.tie?', tie broken to the first option':''}).</p>`; }
   else echo=`<p class="muted">You chose: <strong>${esc(c.short)}</strong>.</p>`;
   const collapsing = stabilityRaw() <= (STORY.collapseAt||0);
   return `<div class="screen">${stabilityBar()}
@@ -1237,6 +1101,10 @@ function scrReport(){
     <div class="eyebrow">Report Card</div>
     <h2>To what extent has America lived up to this virtue?</h2>
     ${endLine}
+    <div class="card" style="background:var(--parchment-2);">
+      <h3>The verdict</h3>
+      <p class="lede" style="color:var(--ink);">${esc(CONTENT.reportThesis)}</p>
+    </div>
     <div class="card" style="overflow-x:auto;">
       <table class="rc">
         <thead><tr><th>Moment</th><th>${state.presenter?'Class chose':'You chose'}</th><th>Meter</th></tr></thead>
@@ -1380,7 +1248,7 @@ function arcAdvance(){
   state.arcHist.push({node:nextId, phase:'decide'});
   state.arcPos++; save(); render();
 }
-function restart(){ state.i=0; state.arcHist=[]; state.arcPos=0; state.ended=null; save(); render(); }
+function restart(){ state.i=0; state.arcHist=[]; state.arcPos=0; state.ended=null; state.choices={}; state.votes={}; state.preSolo={}; state.postSolo={}; state.preHands={}; state.postHands={}; lastScreenKey=null; save(); render(); }
 
 /* ---------------------- ERA THEMING ---------------------- */
 /* Maps the current step to a period-accurate visual era. Only re-points
@@ -1388,6 +1256,14 @@ function restart(){ state.i=0; state.arcHist=[]; state.arcPos=0; state.ended=nul
 function eraForStep(step){
   // One consistent look from beginning to end (no per-era background switch).
   return 'founding';
+}
+
+let lastScreenKey=null;
+function screenKey(step){
+  if(step.type==='arc'){ const f=state.arcHist[state.arcPos]; return 'arc:'+(f?f.node+':'+f.phase:''); }
+  if(step.type==='today') return 'today:'+step.dec+':'+step.phase;
+  if(step.type==='ending') return 'ending:'+state.ended;
+  return step.type;
 }
 
 /* ---------------------- ROUTER ---------------------- */
@@ -1408,9 +1284,10 @@ function render(){
     case 'postquiz': html=quizScreen('post'); break;
     case 'sources': html=scrSources(); break;
   }
+  const key = screenKey(step);
   app.innerHTML = html;
   updateTimerVisibility(step);
-  window.scrollTo({top:0,behavior:'auto'});
+  if(key!==lastScreenKey){ lastScreenKey=key; window.scrollTo({top:0,behavior:'auto'}); }
 }
 
 function next(){
@@ -1473,14 +1350,12 @@ function decideInfo(step){
 }
 document.addEventListener('keydown', e=>{
   if(e.target.matches('input,textarea')) return;
+  if((e.key==='Enter'||e.key===' ') && e.target.closest && e.target.closest('button')) return;
   const step = STEPS[state.i];
   if(e.key==='p'||e.key==='P'){ setPresenter(!state.presenter); return; }
   if(e.key==='ArrowRight'){ tryNext(); return; }
   if(e.key==='ArrowLeft'){ back(); return; }
-  if(e.key==='Enter'||e.key===' '){
-    if(!decideInfo(step) || state.presenter){ tryNext(); e.preventDefault(); }
-    return;
-  }
+  if(e.key==='Enter'||e.key===' '){ tryNext(); e.preventDefault(); return; }
   const info = decideInfo(step);
   if(info && /^[1-9]$/.test(e.key)){
     const oi = +e.key-1; if(oi>=info.count) return;
@@ -1533,7 +1408,7 @@ function download(filename, text, type){
 }
 function stamp(){ return new Date().toISOString().slice(0,16).replace(/[:T]/g,'-'); }
 function exportJSON(){
-  download(`hold-the-line-results-${stamp()}.json`, JSON.stringify(buildSummary(),null,2), 'application/json');
+  download(`unfinished-promise-results-${stamp()}.json`, JSON.stringify(buildSummary(),null,2), 'application/json');
 }
 function csvCell(s){ return '"'+String(s).replace(/"/g,'""')+'"'; }
 function exportCSV(){
@@ -1556,7 +1431,7 @@ function exportCSV(){
   });
   if(state.presenter){ const pre=handsPct('pre'),post=handsPct('post'); rows.push(''); rows.push(['Summary','Class % correct','pre',pre.pct+'%','post',post.pct+'%'].map(csvCell).join(',')); }
   else { rows.push(''); rows.push(['Summary','Solo score','pre',soloScore('pre')+'/3','post',soloScore('post')+'/3'].map(csvCell).join(',')); }
-  download(`hold-the-line-results-${stamp()}.csv`, rows.join('\n'), 'text/csv');
+  download(`unfinished-promise-results-${stamp()}.csv`, rows.join('\n'), 'text/csv');
 }
 
 /* ---------------------- PRESENTER TIMER (60s per decision) ---------------------- */
