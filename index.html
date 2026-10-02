@@ -698,7 +698,8 @@ const state = {
   ended: null,          // ending node id, once reached
   choices: {},          // choices[nodeId] = optionIndex  (arc nodes + today keys 't0','t1')
   votes: {},            // votes[nodeId] = [count per option] (presenter)
-  preSolo: {}, postSolo: {}, preHands: {}, postHands: {}
+  preSolo: {}, postSolo: {}, preHands: {}, postHands: {},
+  reveal: {pre:false, post:false}
 };
 
 /* ---- ordered framing steps; the whole branching arc lives in one 'arc' step ---- */
@@ -841,12 +842,12 @@ function quizScreen(phase){
     if(state.presenter){
       // presenter: enter count of correct hands (or hands per option)
       const hands = (isPost?state.postHands:state.preHands)[q.id] || q.options.map(()=>0);
-      body += `<p class="muted" style="font-size:.85rem;">Enter a show of hands for each answer, then reveal.</p>`;
+      body += `<p class="muted" style="font-size:.85rem;">Tally a show of hands for each answer, then click <strong>Reveal answers</strong> to score.</p>`;
       q.options.forEach((opt,oi)=>{
         const correct = oi===q.answer;
         body += `<div class="voterow">
           <span class="letter" style="flex:none;">${String.fromCharCode(65+oi)}</span>
-          <span class="ctext">${esc(opt)} ${correct?'<span class="badge up" style="font-size:.65rem;">correct</span>':''}</span>
+          <span class="ctext">${esc(opt)} ${correct && state.reveal[phase]?'<span class="badge up" style="font-size:.65rem;">correct</span>':''}</span>
           <span class="stepper">
             <button data-action="quiz-dec" data-phase="${phase}" data-q="${q.id}" data-opt="${oi}">&minus;</button>
             <span class="count">${hands[oi]||0}</span>
@@ -865,8 +866,8 @@ function quizScreen(phase){
     body += `</div>`;
   });
 
-  // score preview on post-quiz
-  if(isPost){
+  // score preview on post-quiz (gated behind Reveal in presenter mode)
+  if(isPost && (!state.presenter || state.reveal.post)){
     body += scoreSummaryBlock();
   }
 
@@ -874,6 +875,7 @@ function quizScreen(phase){
   const nextLabel = isPost ? "See sources" : "Continue";
   body += `<div class="btnrow">
       <button class="btn secondary" data-action="back">Back</button>
+      ${state.presenter?`<button class="btn ghost" data-action="quiz-reveal" data-phase="${phase}">${state.reveal[phase]?'Hide answers':'Reveal answers'}</button>`:''}
       <span class="spacer"></span>
       <button class="btn" data-action="next" ${answered?'':'disabled'}>${nextLabel} &rarr;</button>
     </div>`;
@@ -1248,7 +1250,7 @@ function arcAdvance(){
   state.arcHist.push({node:nextId, phase:'decide'});
   state.arcPos++; save(); render();
 }
-function restart(){ state.i=0; state.arcHist=[]; state.arcPos=0; state.ended=null; state.choices={}; state.votes={}; state.preSolo={}; state.postSolo={}; state.preHands={}; state.postHands={}; lastScreenKey=null; save(); render(); }
+function restart(){ state.i=0; state.arcHist=[]; state.arcPos=0; state.ended=null; state.choices={}; state.votes={}; state.preSolo={}; state.postSolo={}; state.preHands={}; state.postHands={}; state.reveal={pre:false,post:false}; lastScreenKey=null; save(); render(); }
 
 /* ---------------------- ERA THEMING ---------------------- */
 /* Maps the current step to a period-accurate visual era. Only re-points
@@ -1328,6 +1330,7 @@ document.addEventListener('click', e=>{
     case 'vote-inc': { const v=getVotesNode(node, nodeCount(node)); v[+opt]++; if(STEPS[state.i].type==='arc'){ state.arcHist=state.arcHist.slice(0,state.arcPos+1); } save(); render(); break; }
     case 'vote-dec': { const v=getVotesNode(node, nodeCount(node)); v[+opt]=Math.max(0,v[+opt]-1); if(STEPS[state.i].type==='arc'){ state.arcHist=state.arcHist.slice(0,state.arcPos+1); } save(); render(); break; }
     case 'quiz-pick': { (phase==='post'?state.postSolo:state.preSolo)[q]=+opt; save(); render(); break; }
+    case 'quiz-reveal': { state.reveal[phase] = !state.reveal[phase]; render(); break; }
     case 'quiz-inc': { quizHand(phase,q,+opt,+1); save(); render(); break; }
     case 'quiz-dec': { quizHand(phase,q,+opt,-1); save(); render(); break; }
     case 'export-json': exportJSON(); break;
